@@ -15,7 +15,7 @@ this portal has more features
 * Roles for user (Super Admin , Admin , Sub Admin , Regular User )
 * deploy this project on IIS features on Windows Server 2016 With all steps running on default Ports on http or https on ports 80 and 443 )
 #to know about any feature on this project you can contact with me on this links
-Ahmed Shehta Ahmed
-https://ahmed-shehta.netlify.app
-ashehta700@gmail.com
-+201286047384
+#Ahmed Shehta Ahmed
+#https://ahmed-shehta.netlify.app
+#ashehta700@gmail.com
+#+201286047384
