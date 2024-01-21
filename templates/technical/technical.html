@@ -1,0 +1,120 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<div class="container text-center tech">
+    <!-- <img class="imgtechn" src="{% static 'media/technical.png'%}" alt=""> -->
+    <div class="iconTacHead ">
+    <i class="fa-solid fa-headset"></i>
+</div>
+<h1 class="eventI"> مرحبا بك في الدعم الفني</h1>
+</div>
+<section id="technical ">
+    <div class="container rr">
+        <div class="row">
+            <div class="col-md-4 tech1 tech11">
+                <div class="gov-content shadow-lg">
+                    <a class= "technA" href="/technical/faq-center/" >
+                    <div class="iconTac ">
+                     
+                        <i class="fa-solid fa-question"></i>
+                    </div>
+                    
+                    <h2 class="h2techn textManual">FAQ Center</h2>
+                    <p class="tex2tManual">الاسئلة الشائعة التى قد تواجهها فى بداية العمل</p>
+              <span>الذهاب إلى </span>  <i
+                            class="fa fa-angles-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4 tech1 tech11">
+                <div class="gov-content">
+                    <a class= "technA" href="/technical/community/">
+                    <div class="iconTac ">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                    <h2 class="textManual">SDI community</h2>
+                    <p class="text2Manual">انضم لى عائلة SDI وشارك برأيك فى طرح المشكله وايضا حلها </p>
+                    <span>الذهاب إلى </span> <i class="fa fa-angles-left"></i></a>
+                </div>
+            </div>
+            <div class="col-md-4  tech1 tech11">
+                <div class="gov-content">
+                    <a class= "technA" href="/technical/manual/">
+                    <div class="iconTac ">
+                    <i class="fa-solid fa-file-circle-check"></i>
+                </div>
+                    <h2 class="textManual">Manual Guide</h2>
+                    <p  class="text2Manual">يتوفر لدى منصة مصر الجغرافية بعض الملفات التى قد تحتاجها خلال دورة العمل</p>
+                    <span>الذهاب إلى </span> <i class="fa fa-angles-left"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- start contact Us -->
+<section id="contact">
+    <div class="container containerhelp  ">
+        <div class="row">
+            <h1 class="text-center h1phone">إتصــــــل بنا</h1>
+            <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                <iframe class="frameContact"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.334574982165!2d31.29118376379086!3d30.078196537907726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583f2d6810c031%3A0x109e923c594e2342!2z2KXYr9in2LHYqSDYp9mE2YXYs9in2K3YqSDYp9mE2LnYs9mD2LHZitip!5e1!3m2!1sar!2seg!4v1607929178030!5m2!1sar!2seg"
+                    width="600" height="450" frameborder="0" style="border:0;border: 0;margin-left: 70px;"
+                    allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+
+            <div class="col-md-6 wow fadeInUp direction" data-wow-delay="0.6s">
+                <div class="contact-form">
+                    <form action="{% url 'technical'%}" method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="إسم الجهه" value="{{request.user.Profiles}}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="الايميل" id="id_email" name="email">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="رقم الهاتف" value="{{request.user.Profiles.phone}}">
+                        </div>
+
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" placeholder="العنوان" value="{{request.user.Profiles.organization_address}}">
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="message" id="id_message" placeholder="الرسالة" rows="4" required></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="submit" class="form-control  addFormm submitBt" value="إرسال">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-12 wow fadeInUp direction" data-wow-delay="0.6s"> 
+                <!-- <p class="text-right">إدارة المساحة العسكرية </p> -->
+                <address>
+                    <p class="addre"><i class="fa fa-solid fa-location-dot "></i>شارع الخليفة المأمون المؤدي إلى ميدان العباسية، وتقع
+                        بين
+                        وزارة الدفاع وكلية الآداب جامعة عين شمس.</p>
+                    <p><i class="fa fa-phone"></i> 201272257366+</p>
+                    <p><i class="fa fa-envelope"></i> sdi@nsdi.com</p>
+                </address>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- end contact Us -->
+
+
+
+
+
+
+
+
+{% endblock content %}

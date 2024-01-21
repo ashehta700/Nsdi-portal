@@ -1,0 +1,90 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<section id="home2" class="homeapps">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12 wow fadeIn head  headm" data-wow-delay="0.3s">
+                    <h1 class="text-upper h1wezarat">
+                        <hr class="spectra1 hrapps">تطبيقات منصة مصر المكانية
+                    </h1>
+                    
+                    <p class="tm-white">
+                    </p>
+                </div>
+
+            </div>
+         
+        </div>
+    </div>
+</section>
+<div class="container d-flex ">
+<form class="ContSearch d-flex  align-items-center justify-content-center"  method="GET" action="{%  url 'apps' %}">
+      <div class="col-md-2">
+        <button type="submit" class="btn btnApp ">بحث</button>
+     </div>
+
+     <div class="col-md-10">
+        <label class="fs-1 fw-bolder" for="">يمكنك البحث من خلال اسم التطبيق : </label>
+        <input type="text" class=" form-control " name="search_name"  placeholder="بحث" >
+     </div>
+    </form>
+    {% if no_results %}
+    <h5>لا يوجد تطبيق بهذا الأسم</h5>
+        {% endif %}
+    </div>
+  
+</div>
+
+<div class="container-fluid shehta">
+
+    {% if request.user.Profiles.role_id.code == 3 %}
+    {% for each in apps %}
+    
+    {% if each.organization_name.id != 154 %}
+    <div class="item clean divapps divapps1">
+  
+        <div class="apph4">
+        <h4 class="text-center h4 h4apps">{{each.name}}</h4>
+    </div>
+    <div class="appitems">
+        <img src="{{each.image.url}}" class="img1 imgsZize" alt="image">
+        <p class="text-parag papps">{{each.description}}</p>
+    </div>
+        <div class="overlay" onclick="window.open('{{each.link}}')">
+            <span></span>
+            <span>الدخول الى التطبيق</span>
+            <span></span>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% for each in apps_cat %}
+
+    
+    <div class="item clean divapps">
+        <h4 class="text-center h4 h4apps">{{each.name}}</h4>
+        <img src="{{each.image.url}}" class="img1 imgsZize" alt="image">
+        <p class="text-parag papps">{{each.description}}</p>
+
+        <div class="overlay" onclick="window.open('{{each.link}}')">
+            <span></span>
+            <span>الدخول الى التطبيق</span>
+            <span></span>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+{% endblock content %}

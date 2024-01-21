@@ -1,0 +1,134 @@
+{% extends "base.html"%}
+  {% load static %}
+  {% block content %}
+<head>
+  <!-- meta -->
+  <meta name="keywords" content=" Nsdi nsdi sdi Sdi portal Egypt gov البنية المعلوماتية المكتنية مصر ">
+  <meta name="description" content="The institutional structure for Egypt National Spatial Data. ">
+
+  <link rel="stylesheet" href="{% static 'css/stylemylayer.css'%}">
+</head>
+
+<body>
+ 
+  
+
+
+
+
+  <!-- start header content -->
+  <div class="header2">
+    <div class="header2Item">
+      <div class="header2Content">
+        <i class="fa-solid fa-layer-group fa-fade"></i>
+        <h2 style="margin-right: 20px;">جميع الطبقات الخاصة بالجهات</h2>
+      </div>
+      <p>Last updated 2 years ago</p>
+
+    </div>
+  </div>
+
+  <!-- start section 2 (map view) -->
+  <section>
+    <div class="infoMap  infoMap2 ">
+      <iframe src="http://10.100.100.65:4433/leaflet-aya/" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="ifram">
+        <p>نظرة عامة</p>
+        <a href="{% url 'manual' %}">مساعدة <i class="fa-solid fa-circle-info fa-beat" style="--fa-animation-duration: 2s;"></i></a>
+
+      </div>
+
+    </div>
+
+
+  </section>
+
+  <h3 class="event">طبقات الجهات</h3>
+  <!-- start section 3 (map info) -->
+  <div class="info2">
+    <div class="container divlayer">
+      <div class="row panel panel-default text-center tablereq">
+
+          <div class="panel-body ">
+              <table class="table table-bordered ">
+                  <thead class="bordered2">
+                      <tr>
+                          <th class="thlayer" scope="col">إسم الطبقة</th>
+                          <th class="thlayer" scope="col">تاريخ نشر الطبقة</th>
+                          <th class="thlayer" scope="col">الجهه التابعة لها الطبقة</th>
+                          <th class="thlayer" scope="col">نوع الطبقة</th>
+                          <th class="thlayer" scope="col">حالة الطبقة</th>
+                          <th class="thlayer" scope="col">وصف الطبقة </th>
+                          <!-- <th class="thlayer" scope="col">الرد</th> -->
+                          <th class="thlayer" scope="col"><i class="fa fa-cogs setting"></i></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- showing all MergeRequests for admin user -->
+                      {% for each in page_obj %}
+                      <tr>
+                          <td>{{each.layer_name}}</td>
+                          <td>{{each.date|date:'Y/m/d -- h:i A '}}</td>
+                          <td>{{each.user_sender}}</td>
+                          <td>{{each.service_type}}</td>
+                          <td>{{each.publish_type}}</td>
+                          <td>{{each.layer_description}}</td>
+                          <td class="row">
+                              <a title="تفاصيل الطلب" href="{% url 'layerDetails' each.id%}"
+                                  class="btn itenFormm col" style="margin-right:4px ;">تفاصيل الطلب</a>
+
+                          </td>
+
+                      </tr>
+                      <!-- confirm delte  -->
+
+                      {% empty %}
+                      <tr>
+                          <td colspan="7">
+                              <div class="alert alert-danger" role="alert">
+                                  صندوق الطلبات فارغ
+                              </div>
+                          </td>
+                      </tr>
+
+                      {% endfor %}
+
+                  </tbody>
+              </table>
+               <!--Pagination-->
+               <div class="container p-4 text-center">
+                  <div class="pagination justify-content-center" style="direction: rtl;">
+                      {% if page_obj.has_previous %}
+                      <li><a href="?page={{ page_obj.previous_page_number }}">  السابق &raquo;</a></li>
+                      {% else %}
+                      <li class="disabled"><span>&raquo;</span></li>
+                      {% endif %}
+                      {% for i in page_obj.paginator.page_range %}
+                      {% if page_obj.number == i %}
+                      <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                      <li><a href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                      {% endfor %}
+                      {% if page_obj.has_next %}
+                      <li><a href="?page={{ page_obj.next_page_number }}">&laquo;  التالى</a></li>
+                      {% else %}
+                      <li class="disabled"><span>&laquo;</span></li>
+                      {% endif %}
+                 
+                  </div>
+              </div>
+              <!-- end pagination -->
+              
+          </div>
+      </div>
+  </div>
+
+  </div>
+
+
+
+
+</body>
+{% endblock %}

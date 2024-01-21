@@ -1,0 +1,205 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+<!-- <style>
+    small{
+        font-size:11px !important;
+    }
+    #request {
+        height: 200vh;
+    }
+    span.select2-dropdown.select2-dropdown--below{
+        direction: rtl !important;
+        /* height: 100% !important;  */
+    }
+    span#select2-id_country-container{
+        font-size: 13px !important;
+        text-align: right !important;
+    }
+    span#select2-id_state-container{
+        font-size: 13px !important;
+        text-align: right !important;
+    }
+    span#select2-id_city-container{
+        font-size: 13px !important;
+        text-align: right !important;
+    }
+    span#select2-id_user_reciver-container{
+        font-size: 13px !important;
+        text-align: right !important;
+        
+    }
+    .select2-results__option--highlighted {
+        background-color: #ddd;
+    }
+</style> -->
+
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> -->
+<section id="request" dir="rtl">
+    <div class="container divCreate ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1 class="h1Create">إنشاء طلب إستعلام جديد <i class="fa fa-plus"></i></h1>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <form class="container" dir="rtl" method="POST" id="profileForm" data-states-url="{% url 'ajax_load_states' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control col-md-4" id="showing"
+                                    aria-describedby="id_user_sender" value="{{request.user.Profiles}}" disabled
+                                    name="showing">
+                                <input type="hidden" name="user_sender" id="id_user_sender"
+                                    value="{{request.user.Profiles.id}}">
+                                <small id="user_sender" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">لايمكن تغيير إسم الجهه
+                                    الطالبه</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4 labelCreate geha">الجهه الطالبة لطلب الإستعلام</label>
+                        </div>
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                {% render_field form.user_reciver class="form-control" id="id_user_reciver" %}
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">برجاء اختيار الجهه المراد ارسال اليها طلب الستعلام</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4 labelCreate email">الجهة المطلوب منها اتاحة البيانات</label>
+                        </div>
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                {% render_field form.request_date class="form-control" disabled="true" %}
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">لايمكن تغيير تاريخ
+                                    الارسال</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4 labelCreate date"> تاريخ الارسال الطلب</label>
+                        </div>
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                {% render_field form.files class="form-control" %}
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">برجاء إرسال ملف السراج المحدد فيه المنطقه المراد الإستعلام عنها
+                                  </small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4 labelCreate Create file">تحميل ملف السراج</label>
+                        </div>
+        
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                {% render_field form.request_message class="form-control" placeholder="كتابة تفاصيل طلب الاستعلام" %}
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">برجاء كتابة تفاصيل طلب الاستعلام من حيث نوع البيانات على
+                                    سبيل المثال (بيانات وصفية - بيانات هندسية)</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4 labelCreate creatTetails ">تفاصيل طلب الاستعلام
+                            </label>
+                        </div>
+                        <!-- التنسيب الاداري -->
+                        <div class="col-md-12">
+                            <h3 class="ho">تحديد المنطقة المطلوبة</h3>
+                            <div class="form-group create panel-body fear">
+                                <h4 class="h4create">تحديد المنطقة من خلال التنسيب الادارى</h4>
+                                <div class="col-md-8">
+                                    {% render_field form.country class="form-control" %}
+                                    <small id="emailHelp" class="form-text text-danger pull-left"
+                                        style="font-size: 9px;">المحافظة</small>
+                                </div>
+                                <label for="exampleInputEmail1 " class="col-md-4 labelCreat2">برجاء اختيار المحافظة 
+                                </label>
+                                <div class="col-md-8">
+                                    {% render_field form.state class="form-control" %}
+                                    <small id="emailHelp" class="form-text text-danger pull-left"
+                                        style="font-size: 9px;">المركز</small>
+                                </div>
+                                <label for="exampleInputEmail1 " class="col-md-4 labelCreat2">برجاء اختيار المركز 
+                                </label>
+                                <div class="col-md-8">
+                                    {% render_field form.city class="form-control" %}
+                                    <small id="emailHelp" class="form-text text-danger pull-left"
+                                        style="font-size: 9px;">الشياخه</small>
+                                </div>
+                                <label for="exampleInputEmail1 " class="col-md-4 labelCreat2">برجاء اختيار الشياخه 
+                                </label>
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="col-md-12 " style="margin-top: 2%">
+                            <button  class="btn deletFormm pull-left  "style="margin-right: 4px"
+                            onclick="window.open('{% url 'inquiryRequest' %}','_self')">إلغاء <i
+                                class="fa fa-undo "></i></button>
+                            <button type="submit" class="btn addFormm pull-left" style="margin-right: 9px;">
+                                إنشاء <i class="fa fa-plus"></i></button>
+                           
+                        </div>
+                    </form>
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // State
+        $("#id_country").change(function () {
+            var url = $("#profileForm").attr("data-states-url");
+            var countryId = $(this).val();
+
+            $.ajax({
+                url: '{% url 'ajax_load_states' %}',
+                data: {
+                    'country': countryId
+                },
+                success: function (data) {
+                    $("#id_state").html(
+                        data);
+                        console.log(data)
+                }
+            });
+
+        });
+
+        // City
+        $("#id_state").change(function () {
+            var url = $("#profileForm").attr("data-states-url");
+            var stateId = $(this).val();
+
+            $.ajax({
+                url: '{% url 'ajax_load_cities' %}',
+                data: {
+                    'state': stateId
+                },
+                success: function (data) {
+                    $("#id_city").html(
+                        data);
+                        
+                }
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // $('#id_user_reciver').select2();
+            // $('#id_country').select2();
+            // $('#id_state').select2();
+            // $('#id_city').select2();
+        })
+    </script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    {% endblock %}

@@ -1,0 +1,550 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/govs.css'%}">
+<style>
+    .margin-top{
+        margin-top: 2%;
+    }
+    @keyframes down-btn {
+        0% {
+            bottom: 20px;
+        }
+
+        100% {
+            bottom: 0px;
+        }
+
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opaicty: 1;
+        }
+    }
+
+    @-webkit-keyframes down-btn {
+        0% {
+            bottom: 20px;
+        }
+
+        100% {
+            bottom: 0px;
+        }
+
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opaicty: 1;
+        }
+    }
+
+    @-moz-keyframes down-btn {
+        0% {
+            bottom: 20px;
+        }
+
+        100% {
+            bottom: 0px;
+        }
+
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opaicty: 1;
+        }
+    }
+
+    @-o-keyframes down-btn {
+        0% {
+            bottom: 20px;
+        }
+
+        100% {
+            bottom: 0px;
+        }
+
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opaicty: 1;
+        }
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .category-name {
+        font-family: sans-serif;
+        width: -webkit-fill-available;
+        text-align: right;
+        font-size: 40px;
+    }
+
+    .card-category-2 ul,
+    .card-category-3 ul,
+    .card-category-4 ul,
+    .card-category-5 ul .card-category-6 ul {
+        padding: 0;
+    }
+
+    .card-category-2 ul li,
+    .card-category-3 ul li,
+    .card-category-4 ul li,
+    .card-category-5 ul li,
+    .card-category-6 ul li {
+        list-style-type: none;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .card-category-2 ul li,
+    .card-category-3 ul li {
+        margin: 10px 5px;
+    }
+
+    .card-category-1,
+    .card-category-2,
+    .card-category-3,
+    .card-category-4,
+    .card-category-5,
+    .card-category-6 {
+        /* font-family: sans-serif; */
+        margin-bottom: 45px;
+        text-align: right;
+    }
+
+    .card-category-1 div,
+    .card-category-2 div {
+        display: inline-block;
+    }
+
+    .card-category-1>div,
+    .card-category-2>div:not(:last-child) {
+        margin: 10px 5px;
+        text-align: right;
+    }
+
+    /* Basic Card */
+    .basic-card {
+    /* background-image: url(/static/media/dashboard-background.png); */
+    background-repeat: no-repeat;
+    background-position-y: 96%;
+    background-size: 150px;
+    width: 350px;
+    position: relative;
+    direction: rtl;
+    background-image: linear-gradient(-45deg,#fff 83%,var(--gold-color) 83%);
+    -webkit-box-shadow: 0px 5px 5px 0px rgb(0 0 0 / 30%);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 5px 5px 2px rgb(0 0 0 / 30%);
+}
+
+    .basic-card .card-content {
+        padding: 30px;
+    }
+
+    .basic-card .card-title {
+        font-size: 18px;
+        color: #900303 !important;
+        /* font-family: 'Open Sans', sans-serif; */
+    }
+
+    .basic-card .card-text {
+        line-height: 1.6;
+    }
+
+    .basic-card .card-link {
+        padding: 7px;
+        width: -webkit-fill-available;
+    }
+
+    .basic-card .card-link a {
+        text-decoration: none;
+        position: relative;
+        padding: 10px 0px;
+    }
+
+    .basic-card .card-link a:after {
+        top: 30px;
+        content: "";
+        display: block;
+        height: 2px;
+        left: 50%;
+        position: absolute;
+        width: 0;
+
+        -webkit-transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        -moz-transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        -o-transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    }
+
+    .basic-card .card-link a:hover:after {
+        width: 100%;
+        left: 0;
+    }
+
+
+
+
+    .basic-card-light {
+        border: 1px solid #eee;
+        max-height: 350px;
+    }
+
+    .basic-card-light .card-title,
+    .basic-card-light .card-link a {
+        color: #771217;
+    }
+
+    .basic-card-light .card-text {
+        color: #000000;
+        margin-top: 15px;
+        font-size: 12px;
+    }
+
+    .basic-card-light .card-link {
+        border-top: 1px solid #eee;
+    }
+
+    .basic-card-light .card-link a:after {
+        background: #636363;
+    }
+
+    .basic-card .card-content {
+        padding: 30px;
+        height: 240px;
+    }
+
+    .basic-card.basic-card-light:hover {
+        
+        cursor: pointer;
+        transition: 0.7s;
+    }
+
+    .basic-card-light .card-link:hover {
+        border-top: 1px solid #0000 !important;
+    }
+
+    .basic-card-light .card-link a:hover {
+        color: green;
+    }
+    .card-category-1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card-content {
+    text-align: center;
+}
+span.card-title {
+    width: 100% !important;
+    display: block !important;
+    font-size: 17px;
+}
+    @media only screen and (max-width: 480px) {
+        .io-card-1 .card-content .card-text {
+            display: none;
+        }
+
+        .io-card-1 .card-link {
+            top: 85px;
+        }
+
+    }
+
+    @media only screen and (max-width: 360px) {
+        .ioverlay-card .card-content {
+            top: 10px;
+        }
+
+        .io-card-1 .card-link {
+            top: 70px;
+        }
+    }
+
+    h4.h4dash {
+  position: relative;
+  bottom: 43px;
+  font-size: 17px;
+  left: 13px;
+}
+h3.text-right.mr-5.col-10.h4dash {
+    right: 10px;
+}
+
+</style>
+<section id="home">
+    <div class="overlay">
+        <div class="container ">
+            <div class="row">
+
+                <div class="col-md-12 wow fadeIn head headd" data-wow-delay="0.3s">
+                    <h1 class="text-upper h1wezarat">
+                        <hr class="spectra hrwezarat">مؤشرات جمهورية مصر العربية
+                    </h1>
+                    <p class="tm-white">
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- filter Block -->
+
+<div class="container select ">
+
+    <!-- for admin user search with any wezara You find  -->
+    {% if request.user.Profiles.role_id.code == 3 %}
+    <section  dir="rtl" class="container-fluid">
+        <div class="container-fluid fluidvv ">
+            <div class="row panel panel-default  ss ">
+                <div class="panel-heading   searshdash" >
+                    <div class="row">
+                        <h3 class="text-right mr-5 col-10 h4dash"> قائمة البحث </h3>
+                        {% if mohafza_sel.count %}
+                        <h6 class="text-right mr-5 col-2" style="color:green ;">  عدد النتائج : {{mohafza_sel.count}}</h6>
+                        {% elif wezara_sel.count %}
+                        <h6 class="text-right mr-5 col-2" style="color:green ;">  عدد النتائج : {{wezara_sel.count}}</h6>
+                        {% elif wezara_sel.count %}
+                        <h6 class="text-right mr-5 col-2" style="color:green ;">  عدد النتائج : {{mohafza_sel.count}}</h6>
+                        {% elif questions.count %}
+                        <h6 class="text-right mr-5 col-2" style="color:green ;">  عدد النتائج : {{mohafza_sel.count}}</h6>
+                        {%endif%}
+                    </div>
+                    <form method="GET" name="search" action="" class="form_style">
+                        <div class="row">
+                            <div class="col-md-4 mm">
+                                <label for="usr">المحافظة : </label>
+                                <select class="form-control" name="mohafza">
+                                    <option value="">--- اختر المحافظة ---</option>
+                                    {% for i in mohafazat %}
+                                    <option value="{{ i.name }}">{{ i.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4 mm">
+                                <label for="usr">الوزارة : </label>
+                                <select class="form-control" name="wezara">
+                                    <option value="">--- اختر الوزارة ---</option>
+                                    {% for i in wezarat %}
+                                    <option value="{{ i.name }}">{{ i.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4  mm">
+                                <label for="usr">الهيئة : </label>
+                                <select class="form-control" name="he2a">
+                                    <option value="">--- اختر الهيئة ---</option>
+                                    {% for i in he2at %}
+                                    <option value="{{ i.name }}">{{ i.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-2 margin-top btndash ">
+                                <button class="btn addFormm btnnDash " type="submit"> بحث
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <a href="{% url 'allDash' %}" class="btn deletFormm btnnDash">إلغاء<i class="fa fa-times"></i></a>
+                            </div>
+                         
+                            <div class="col-md-10 divdash">
+                                <label for="usr">بحث عام</label>
+                                <input type="text" class="form-control" id="usr" name="search">
+                            </div>
+                            
+                      
+                         
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="container ">
+                <h4 class="h4dash">إجمالى مؤشرات الأداء العام <span class="badge badge-success mute">{{count}}</span></span>
+                    <span style="color: green;margin-right: 8px;"></span>
+                </h4>
+            </div>
+            
+        </div>
+
+        
+    </section>
+</div>
+<hr style="border-top: 3px solid #900303;">
+    <!-- show the name of wezara that he selected  -->
+    
+
+
+
+    <!-- show Data  -->
+<div class="container-fluid">
+
+
+
+
+
+
+
+    <!-- filter on mohafza  -->
+    {% if mohafza_sel != null %}
+    <div class="card-category-1">
+        {%for each in mohafza_sel %}
+        <div class="item clean divapps allDash">
+           
+            <h4 class="text-center h4   ">{{each.tap_name}}</h4>
+           
+           
+            <img src="../../static/media/aya7.png" class="img1" alt="image">
+            <h6 style="color: #b78530;">تابع لــ : {{each.gehat_id.name}}</h6>
+            <p class="text-parag papps pAllDash ">{{each.tap_description}}</p>
+        
+            <div class="overlay" onclick="window.open('{{each.tap_link}}')">
+                <span></span>
+                <span>الدخول الى التطبيق</span>
+                <span></span>
+            </div>
+        </div>
+        {% empty %}
+    </div>
+
+    <div class="row" style="text-align: center; height: 10vh;">
+        <h3><i class="fa fa-exclamation-square" style="color: red"></i></h3>
+        <h3>عفواً لايوجد نتائج</h3>
+    </div>
+    {% endfor %}
+
+    <!-- filter Section for wezar  -->
+    {% elif wezara_sel != null %}
+    <div class="card-category-1">
+        {%for each in wezara_sel %}
+        <div class="item clean divapps allDash">
+           
+            <h4 class="text-center h4   ">{{each.tap_name}}</h4>
+           
+           
+            <img src="../../static/media/aya7.png" class="img1" alt="image">
+            <h6 style="color: #b78530;">تابع لــ : {{each.gehat_id.name}}</h6>
+            <p class="text-parag papps pAllDash ">{{each.tap_description}}</p>
+        
+            <div class="overlay" onclick="window.open('{{each.tap_link}}')">
+                <span></span>
+                <span>الدخول الى التطبيق</span>
+                <span></span>
+            </div>
+        </div>
+            {% empty %}
+        </div>
+    </div>
+    <div class="row" style="text-align: center; height: 10vh;">
+        <h3><i class="fa fa-exclamation-square" style="color: red"></i></h3>
+        <h3>عفواً لايوجد نتائج</h3>
+    </div>
+    {% endfor %}
+
+
+<!-- FILTER FOR BA7S 3AM -->
+    {% elif questions != null %}
+    <div class="card-category-1">
+        {%for each in questions %}
+        <div class="item clean divapps allDash">
+           
+            <h4 class="text-center h4   ">{{each.tap_name}}</h4>
+           
+           
+            <img src="../../static/media/aya7.png" class="img1" alt="image">
+            <h6 style="color: #b78530;">تابع لــ : {{each.gehat_id.name}}</h6>
+            <p class="text-parag papps pAllDash ">{{each.tap_description}}</p>
+        
+            <div class="overlay" onclick="window.open('{{each.tap_link}}')">
+                <span></span>
+                <span>الدخول الى التطبيق</span>
+                <span></span>
+            </div>
+        </div>
+        {% empty %}
+    </div>
+    <div class="row" style="text-align: center; height: 10vh;">
+        <h3><i class="fa fa-exclamation-square" style="color: red"></i></h3>
+        <h3>عفواً لايوجد نتائج</h3>
+    </div>
+    {% endfor %}
+    {% else %}
+    <!-- show all Data in Here ....  -->
+    <div class="card-category-1">
+        {% for each in shehta %}
+        <div class="item clean divapps allDash">
+           
+            <h4 class="text-center h4   ">{{each.tap_name}}</h4>
+           
+           
+            <img src="../../static/media/aya7.png" class="img1" alt="image">
+            <h6 style="color: #b78530;">تابع لــ : {{each.gehat_id.name}}</h6>
+            <p class="text-parag papps pAllDash ">{{each.tap_description}}</p>
+        
+            <div class="overlay" onclick="window.open('{{each.tap_link}}')">
+                <span></span>
+                <span>الدخول الى التطبيق</span>
+                <span></span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="load-more__btn mt-3" id="btn1"><button type="button" class="btn">اظهار المزيد</button></div>
+    <div class="alert alert-danger mt-2 not-visible" role="alert" id="alert">لا يوجد المزيد </div>
+    {% endif %}
+    {% endif %}
+    {{total_obj|json_script:"json-total"}}
+</div>
+<!-- <script>
+
+    var loadBtn= document.getElementById('btn1');
+    function loadmore(){
+        var _current_item =$('.item').length 
+        $.ajax({
+            url:'{% url "load" %}',
+            type:'GET',
+            data:{
+                'total_item':_current_item
+            },
+            beforeSend:function(){
+
+            },
+            success:function(response){
+                console.log(response)
+            },
+            error:function(err){
+                console.log(err)
+            }
+
+        })
+    }
+    loadBtn.addEventListener('click',() =>{
+        loadmore()
+    });
+
+</script> -->
+    {% endblock %}

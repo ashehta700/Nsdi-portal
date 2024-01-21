@@ -1,0 +1,512 @@
+@font-face {
+    font-family: "Almarai";
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/almarai/v5/tssoApxBaigK_hnnS_qjtnqWow.woff2) format("woff2");
+    unicode-range: U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC, U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+    font-family: "Almarai", sans-serif !important;
+}
+
+ul.dropdown-menu.show {
+    width: 238px;
+    font-size: 14px;
+    text-align: right;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #2c2c3000;
+    box-shadow: none !important;
+}
+
+.dropup,
+.dropend,
+.dropdown,
+.dropstart {
+    /* position: relative; */
+    right: 23px;
+    direction: rtl;
+}
+
+.material-icons {
+    font-size: 28px;
+    color: white;
+}
+
+ul.dropdown-menu.show {
+    width: 131px;
+}
+
+.dropdown-item {
+    color: #000000;
+    direction: ltr;
+}
+
+.navbar-vertical.navbar-expand-xs .navbar-collapse {
+    height: calc(125vh - 353px);
+}
+
+span.nav-link-text.ms-1 {
+    font-size: 19px;
+}
+
+button#dropdownMenuButton1 {
+    font-size: 15px;
+    position: relative;
+    right: -22px;
+    direction: rtl;
+}
+
+.col-xl-3.col-sm-6 {
+    height: 107px;
+}
+
+.fixed-plugin .fixed-plugin-button {
+    background: #8b8b8b;
+}
+
+h6,
+.h6,
+.h6 {
+    font-size: 21px;
+    text-align: right;
+    color: #505054;
+}
+
+h6.font-weight-bolder.mb-0 {
+    text-align: revert;
+}
+
+p.text-sm.mb-0.text-capitalize {
+    font-size: 16px ;
+    color: #505054;
+    direction: ltr;
+}
+
+body.g-sidenav-show.bg-gray-200 {
+    background-image: url(../assets/img/aya.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.navbar-vertical.navbar-expand-xs.fixed-start {
+    right: 4px ;
+}
+
+.fixed-plugin.show .card {
+    left: 0 !important;
+}
+
+.sidenav.fixed-start+.main-content {
+    margin-left: 17.125rem;
+    left: -250px;
+}
+
+.text-end {
+    text-align: left!important;
+}
+
+.card-header.p-3.pt-2 {
+    direction: rtl;
+}
+
+a.nav-link.text-white {
+    direction: rtl;
+}
+
+span.nav-link-text.ms-1 {
+    font-size: 15px;
+}
+
+ul.dropdown-menu.show {
+    top: -11px;
+    right: -10px;
+    width: 191px;
+    text-align: center;
+}
+
+h4.mb-0 {
+    color: #810101;
+}
+.card.divCard {
+    margin-top: 20px;
+}
+
+span.ms-1.font-weight-bold.text-white {
+    font-size: 16px;
+}
+
+.row {
+    justify-content: center;
+}
+
+/* لوحة التحكم */
+
+@media screen and (min-width:1400px)and (max-width:1650px) {
+    p.text-sm.mb-0.text-capitalize {
+      font-size: 15px ;
+      color: #505054;
+      direction: ltr;
+    }
+
+    .icon.icon-lg.iconAdmin {
+        width: 61px;
+        height: 64px;
+        right: -8px ;
+      }
+      h6.mb-0.h6Admin {
+        font-size: 17px;
+    }
+    
+    }
+
+    @media screen and (min-width:1200px)and (max-width:1399px)  {
+        p.text-sm.mb-0.text-capitalize {
+          font-size: 15px ;
+          color: #505054;
+          direction: ltr;
+        }
+
+          h6.mb-0.h6Admin {
+            font-size: 13px;
+        }
+        .icon.icon-lg.iconAdmin {
+            width: 52px;
+            height: 52px;
+            right: -8px;
+            top: 20px;
+        }
+        }
+       
+
+
+
+@media screen and (min-width:992px) and (max-width:1199px) 
+{
+            p.text-sm.mb-0.text-capitalize {
+              font-size: 17px !important ;
+              color: #505054;
+              direction: ltr;
+            }
+    
+            h6.mb-0.h6Admin {
+                font-size: 14px;
+            }
+            .icon.icon-lg.iconAdmin {
+                width: 71px;
+                height: 71px;
+                right: 8px;
+                top: 13px;
+            }
+
+        .sidenav.fixed-start+.main-content {
+            margin-left: 17.125rem;
+            left: -83px;
+        }
+        .navbar-vertical.navbar-expand-xs.fixed-start {
+            right: -267px !important;
+        }
+        main.main-content.position-relative.max-height-vh-100.h-100.border-radius-lg.ps.ps--active-y {
+            width: 74%;
+            left: 1%;
+        }
+        .dropdown {
+            margin-top: 2%;
+        }
+        .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item {
+            margin-top: 1.125rem;
+        }
+
+
+        .mt-4 {
+            margin-top: 0.5rem !important;
+        }
+
+        .card.z-index-2.dashAdmin{
+            height: 337px;
+            margin-top: 20%;
+        }
+        h6.font-weight-bolder.mb-0.h6 {
+            font-size: 19px;
+        }
+    }
+
+
+    @media screen and (min-width:768px) and (max-width:991px) 
+    {
+        p.text-sm.mb-0.text-capitalize {
+            font-size: 17px !important;
+            color: #505054;
+            direction: ltr;
+            text-align: center;
+        }
+    
+            h6.mb-0.h6Admin {
+                font-size: 14px;
+            }
+            .icon.icon-lg.iconAdmin {
+                width: 71px;
+                height: 71px;
+                right: -10px;
+                top: 13px;
+            }
+
+        .sidenav.fixed-start+.main-content {
+            margin-left: 17.125rem;
+            left: -83px;
+        }
+        .navbar-vertical.navbar-expand-xs.fixed-start {
+            right: -267px !important;
+        }
+        main.main-content.position-relative.max-height-vh-100.h-100.border-radius-lg.ps.ps--active-y {
+            width: 74%;
+            left: 1%;
+        }
+        .dropdown {
+            margin-top: 2%;
+        }
+        .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item {
+            margin-top: 1.125rem;
+        }
+
+
+        .mt-4 {
+            margin-top: 0.5rem !important;
+        }
+
+        .card.z-index-2.dashAdmin{
+            height: 337px;
+            margin-top: 20%;
+        }
+        h6.font-weight-bolder.mb-0.h6 {
+            font-size: 19px;
+        }
+        .container-fluid.py-4.containerAdmin {
+            right: 5%;
+            position: relative;
+        }
+        h6.font-weight-bolder.mb-0.h6.hControl {
+            font-size: 15px;
+            right: 10%;
+            position: relative;
+        }
+        h4.mb-0.h4Namber {
+            text-align: center;
+        }
+        .dropdown:not(.dropdown-hover) .dropdown-menu {
+            margin-top: -1.1875rem !important;
+        }
+
+    }
+
+    @media screen and (min-width:500px) and (max-width:767px)
+    {
+        p.text-sm.mb-0.text-capitalize {
+            font-size: 17px !important;
+            color: #505054;
+            direction: ltr;
+            text-align: center;
+        }
+    
+            h6.mb-0.h6Admin {
+                font-size: 14px;
+            }
+            .icon.icon-lg.iconAdmin {
+                width: 71px;
+                height: 71px;
+                right: -10px;
+                top: 13px;
+            }
+
+        .sidenav.fixed-start+.main-content {
+            margin-left: 17.125rem;
+            left: -83px;
+        }
+        .navbar-vertical.navbar-expand-xs.fixed-start {
+            right: -267px !important;
+            width: 33%;
+        }
+        main.main-content.position-relative.max-height-vh-100.h-100.border-radius-lg.ps.ps--active-y {
+            width: 74%;
+            left: 1%;
+        }
+        .dropdown {
+            margin-top: 2%;
+        }
+        .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item {
+            margin-top: 1.125rem;
+        }
+
+
+        .mt-4 {
+            margin-top: 0.5rem !important;
+        }
+
+        .card.z-index-2.dashAdmin{
+            height: 337px;
+            margin-top: 20%;
+        }
+        h6.font-weight-bolder.mb-0.h6 {
+            font-size: 19px;
+        }
+        .container-fluid.py-4.containerAdmin {
+            right: 5%;
+            position: relative;
+        }
+        h6.font-weight-bolder.mb-0.h6.hControl {
+            font-size: 14px;
+            right: 10%;
+            position: relative;
+        }
+        h4.mb-0.h4Namber {
+            text-align: center;
+        }
+        .dropdown:not(.dropdown-hover) .dropdown-menu {
+            margin-top: -1.1875rem !important;
+        }
+
+
+        a.nav-link.text-white {
+            width: 90%;
+        }
+        span.nav-link-text.ms-1 {
+            font-size: 14px;
+        }
+      
+
+        .material-icons {
+            font-size: 19px;
+        }
+        button#dropdownMenuButton1 {
+            width: 90%;
+            font-size: 15px;
+            position: relative;
+            right: -22px;
+            direction: rtl;
+        }
+    }
+    @media screen and (min-width:350px)  and (max-width:499px){ 
+        p.text-sm.mb-0.text-capitalize {
+            font-size: 17px !important;
+            color: #505054;
+            direction: ltr;
+            text-align: center;
+        }
+    
+        h6.mb-0.h6Admin {
+            font-size: 13px;
+        }
+            .icon.icon-lg.iconAdmin {
+                width: 71px;
+                height: 71px;
+                right: -10px;
+                top: 13px;
+            }
+
+        .sidenav.fixed-start+.main-content {
+            margin-left: 17.125rem;
+            left: -83px;
+        }
+        .navbar-vertical.navbar-expand-xs.fixed-start {
+            right: -267px !important;
+            width: 41%;
+        }
+        main.main-content.position-relative.max-height-vh-100.h-100.border-radius-lg.ps.ps--active-y {
+            width: 74%;
+            left: 1%;
+        }
+        .dropdown {
+            margin-top: 2%;
+        }
+        .navbar-vertical.navbar-expand-xs .navbar-nav>.nav-item {
+            margin-top: 1.155rem;
+        }
+
+
+        .mt-4 {
+            margin-top: 0.5rem !important;
+        }
+
+        .card.z-index-2.dashAdmin {
+            height: 344px;
+            margin-top: 20%;
+            width: 86%;
+        }
+        h6.font-weight-bolder.mb-0.h6 {
+            font-size: 19px;
+        }
+        .container-fluid.py-4.containerAdmin {
+            right: 5%;
+            position: relative;
+        }
+        h6.font-weight-bolder.mb-0.h6.hControl {
+            font-size: 14px;
+            right: 10%;
+            position: relative;
+            width: 90%;
+        }
+        h4.mb-0.h4Namber {
+            text-align: center;
+        }
+        .dropdown:not(.dropdown-hover) .dropdown-menu {
+            margin-top: -1.1875rem !important;
+            position: relative;
+            right: -23px;
+            width: 50%;
+        }
+
+
+        a.nav-link.text-white {
+            width: 90%;
+        }
+        span.nav-link-text.ms-1 {
+            font-size: 11px;
+        }
+      
+
+        .material-icons {
+            font-size: 19px;
+        }
+        button#dropdownMenuButton1 {
+            width: 102%;
+            font-size: 11px;
+            position: relative;
+            right: -38px;
+        }
+        .card.divCard {
+            width: 80%;
+        }
+        p.text-sm.mb-0.text-capitalize {
+            font-size: 14px !important;
+
+        }
+        .icon.icon-lg.iconAdmin {
+            width: 48px;
+            height: 56px;
+            right: -9px;
+            top: 29px;
+        }
+        p.text-sm.mb-0.text-capitalize {
+            font-size: 12px !important;
+            width: 77%;
+            right: 17%;
+            position: relative;
+        }
+        a.navbar-brand.m-0 {
+            position: relative;
+            right: 20%;
+        }
+        span.ms-1.font-weight-bold.text-white {
+            font-size: 12px;
+        }
+        .dropdown-item {
+            display: block;
+            width: 89%;
+         
+            font-size: 10px;
+        }
+    }

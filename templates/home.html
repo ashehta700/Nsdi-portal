@@ -1,0 +1,466 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+<!-- end preloader -->
+<!-- start navigation -->
+<!-- style for map  -->
+<style>
+    .map {
+        height: 800px;
+        width: 100%;
+    }
+
+    #tooltip {
+        height: 141px;
+        background: #781414;
+        color: #ffff;
+        font-size: 16px;
+        padding: 19px 30px 11px 12px;
+        border-bottom: 4px solid #ffffff;
+    }
+
+    #ol-tooltip-close {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding: 3px;
+        background: #ffffff00;
+    }
+.vHomeLayer
+{
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: black;
+    opacity: 0.6;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+}
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 156%;
+    right: 29%;
+    position: relative;
+    bottom: 92px;
+}
+
+.titelHome
+{
+position: absolute;
+bottom:15%;
+color: white;
+font-size: 60px;
+left: 5%;
+
+}
+.titelHome::after
+{position: absolute;
+content: '';
+background-color: #781414;
+width: 300px;
+height: 10px;
+left: 25%;
+bottom: -13%;
+}
+</style>
+
+
+
+
+
+
+<!-- start  Slider -->
+<!-- <div class="slider-container" id="slide">
+    <div class="slider-control left inactive"></div>
+    <div class="slider-control right"></div>
+    <ul class="slider-pagi"></ul>
+    <div class="slider">
+        <div class="slide slide-0 active">
+            <div class="slide__bg"></div>
+            <div class="slide__content">
+                <div class="slide__text slide1-text">
+                    <p class="slide__text-heading  fpara slideP"> منصة مصر المكانية
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide-1 ">
+            <div class="slide__bg"></div>
+            <div class="slide__content">
+                <div class="slide__text slide2">
+                    <p class="slide__text-heading spara slideP2">إتاحة خرائط طبوغرافية
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slide slide-2">
+            <div class="slide__bg"></div>
+            <div class="slide__content ">
+                <div class="slide__text slide3">
+                    <p class="slide__text-heading tpara slideP3"> تطبيقات مكانية متنوعة
+                        <!-- <hr class="appLine"> -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+<div className="vh-50 w-100 overflow-hidden position-relative">
+    <video autoPlay muted loop className="w-100">
+      <source src="{% static 'media/portalV.mp4'%}"type="video/mp4" />
+    </video>
+    
+    <div class="vHomeLayer bg-black    ">
+
+        </div>
+
+        <h1 class=" text-white titelHome"> منصة مصر المكانية</p>
+    </div>
+</div>
+<!-- end slider -->
+
+<!-- start goals section -->
+
+
+
+
+<section id="goals">
+    <div class="container contGoals">
+
+        <h1 class="event"> أهداف المنصة </h1>
+        <div class="row">
+            <div class="col-md-8 wow fadeInLeft goals goal goall " data-wow-delay="0.5s">
+
+                <ol class="oll">
+                    <li>مشاركة و تبادل المعلومات و البيانات الجغرافية بغرض إتاحتها للجهات الحكومية ذات الصلة بنظم
+                        المعلومات الجغرافية</li>
+                    <li>ترشيد أوجه الإنفاق الحكومى و الجهد المتكرر فى إنشاء و رقمنة الخرائط </li>
+                    <li>دعم العمليات و الخدمات الحكومية لجعلها أكثر فاعلية</li>
+                    <li>توحيد المواصفات المستخدمة فى إنشاء و نشر الخرائط الرقمية على مستوى الدولة كنظام مرجعى أساسى
+                        لإتاحة و مشاركة و تبادل البيانات
+                    </li>
+                    <li>إتاحة البيانات الجغرافية المحدثة بالجهات المختلفة بالدولة</li>
+                    <li>إتاحة البيانات الجغرافية ذات الجودة العالية المحدثة باستمرار لخدمة الأنظمة الحكومية و العامة
+                        المستندة على البيانات المكانية بطريقة ملائمة</li>
+                </ol>
+            </div>
+            <div class="col-md-3 wow fadeInRight goals" data-wow-delay="0.5s">
+                <!-- <div class="goalImgs"></div> -->
+                <img src="{% static 'media/logo.jpg'%}" class="img-responsive" alt="feature img">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- start general news -->
+<section id="download">
+    <div class="container ">
+        <h1 class="event">أهم الأخبار و الأحداث</h1>
+
+
+        {% for each in news|slice:":3" %}
+        <div class="row titles titless">
+            <div class="col-md-8 wow fadeInLeft imgnews" data-wow-delay="0.6s">
+                <h1 class="text-uppercase h11" style="margin-bottom: 4px;">{{each.title}}
+                </h1>
+                <p style="color: #747373;"><i class="fa fa-clock"></i> {{each.get_date}} </p>
+                <p class="pp">{{each.description|slice:":400"}}</p>
+                <a class="addFormm py-5" href="links/news/index/details/{{each.id}}" id="myBtn btnRead">
+                    اقرأ المزيد <i class="fa-solid fa-angles-left pt-5"> </i></a>
+            </div>
+            <div class="col-md-4 wow fadeInRight" data-wow-delay="0.6s">
+                <img src="{{each.photo.url}}" class="img-responsive imgz" alt="feature img">
+            </div>
+
+        </div>
+        {% endfor %}
+
+        <div style="text-align: center;margin-top: 5%;">
+            <button class=" addFormm click" id="myBtn" onclick="window.open('{% url 'news-index' %}','_self')"> تصفح
+                جميع الأخبار<i class="fa-solid fa-angles-left iMarginIcon"></i> </button>
+        </div>
+
+
+    </div>
+</section>
+<!-- end general news -->
+
+
+
+
+
+<!-- End goals section -->
+
+<!-- start map view in openLayer -->
+<section id="pricing">
+    <div class="container-fluid">
+        <h1 class="event"> تصفح خريطة الأساس </h1>
+        <div class="row">
+            <div class="col-md-12 wow bounceIn">
+                <!-- <h2 class="text-uppercase">الخرائط</h2> -->
+            </div>
+            <div class="col-md-12 wow fadeIn" data-wow-delay="0.6s">
+
+                <div class="pricing text-uppercase mapp">
+
+                    <div id="map" class="map">
+
+                    </div>
+                    <div id="tooltip">
+                    </div>
+                    <div id="bookmark-container"></div>
+
+                    <!-- <button class="btn btn-primary text-uppercase">دخول </button> -->
+                </div>
+                <h3 class="text-danger"><a class="alink" href="http://192.168.17.49/apollo-portal/ApolloPro.aspx">يمكنك
+                        تصفح خريطة الأساس لجمهورية مصر العربية </a> </h3>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End map view in openLayer -->
+
+<!-- <div id="tooltip" style="height: 20vh;width: 20vh; background-color: red;font-size: 30px;position: relative;top: 30%;bottom: 30%;">13</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+<!-- -----------maps---------------- -->
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/build/ol.js"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<script>
+
+
+
+
+
+    // script for map view  with using openlayer
+    var map = new ol.Map({
+        layers: [
+
+            new ol.layer.Tile({
+                source: new ol.source.TileWMS({
+                    url: 'http://apollo-rsc:80/erdas-apollo/vector/country?service=WMS',
+                    params: {
+                        'LAYERS': 'country',
+                        'TILED': true
+                    },
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10  // set the maximum zoom level at which the layer will be visible
+            }),
+
+            new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://192.168.17.65:4433/2020/{z}/{x}/{y}.png',
+                    zIndex: 2,
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10
+
+            }),
+
+            new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://192.168.17.65:4433/L1/{z}/{x}/{y}.png'
+
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10
+            }),
+
+
+
+
+        ],
+
+        target: 'map',
+        view: new ol.View({
+            center: ol.proj.fromLonLat([31.2357, 31, 481111]),
+            zoom: 9
+        })
+    });
+
+
+    var layer = new ol.layer.Tile({
+        source: new ol.source.TileWMS({
+            url: 'http://192.168.17.49:80/erdas-apollo/vector/05_74K_BASEMAP?service=WMS',
+            params: {
+                'LAYERS': 'building,agri_area,roads_line,agri_point,utilities_point',
+                'TILED': true
+            },
+        }),
+        minZoom: 15, // set the minimum zoom level at which the layer will be visible
+        maxZoom: 25  // set the maximum zoom level at which the layer will be visible
+    });
+
+
+
+
+
+
+
+    var googleStreets = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            url: 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}',
+            // serverType: 'geoserver'
+        }),
+        minZoom: 10, // set the minimum zoom level at which the layer will be visible
+        maxZoom: 25  // set the maximum zoom level at which the layer will be visible
+    });
+
+
+
+
+    map.addLayer(googleStreets);
+    map.addLayer(layer);
+
+
+
+
+
+
+
+
+
+
+
+    // ----------------------------------------------//
+    //  new to add tool tip of get searg id 
+    // create an overlay to display the tooltip
+    var tooltip = new ol.Overlay({
+        element: document.getElementById('tooltip'),
+        offset: [10, 0],
+        positioning: 'bottom-left'
+    });
+
+
+    // add the overlay to the map
+    map.addOverlay(tooltip);
+
+    // create an event listener to handle mouse move events
+    async function a(x, y) {
+        try {
+            var searg = await fetch(`{% url 'zoomTo' %}/?x=${x}&y=${y}`)
+            var mySerag = await searg.json()
+        } catch (error) {
+            console.log('An error occurred:');
+        } 
+        return mySerag
+
+    }
+    map.on('click', async function (event) {
+        map.getTargetElement().style.cursor = 'pointer';
+        var coords = ol.proj.toLonLat(event.coordinate);
+        var x = coords[0];
+        var y = coords[1];
+        tooltip.getElement().style.display = 'block'
+
+        try {
+            var mySerag = await a(x, y)
+            tooltip.setPosition(event.coordinate);
+            tooltip.getElement().innerHTML = '<p>SeragID : ' + mySerag['seragid'].toLowerCase() + '<br> المحافظة :  ' + mySerag['gov'] + ' <br> المركز : ' + mySerag['sec'] + ' <br> الشياخة : ' + mySerag['ssec'] + ' </p> <button id="ol-tooltip-close">X</button>';
+            var closeButton = document.getElementById('ol-tooltip-close');
+            closeButton.addEventListener('click', () => {
+                // Hide or remove the tooltip element
+                tooltip.getElement().style.display = 'none'  // Or tooltip.remove() to completely remove the element from the DOM
+            });
+        }
+        catch (error) {
+            tooltip.setPosition(event.coordinate);
+            tooltip.getElement().innerHTML = '<p>لا يوجد بيانات لهذه الاحداثيات  </p> <button id="ol-tooltip-close">X</button>';
+            var closeButton = document.getElementById('ol-tooltip-close');
+            closeButton.addEventListener('click', () => {
+                // Hide or remove the tooltip element
+                tooltip.getElement().style.display = 'none'  // Or tooltip.remove() to completely remove the element from the DOM
+            });
+        }
+
+    });
+
+
+
+
+
+
+
+
+    // read more button in news
+
+
+    // buttons for nav in dropdown menu
+    jQuery(document).ready(function () {
+
+        $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).fadeIn("fast");
+            },
+            function () {
+                $('.dropdown-menu', this).fadeOut("fast");
+            });
+    });
+
+
+
+
+
+
+
+    $('.button').bind('click', function () {
+        $('.modal').addClass('hide');
+    });
+
+
+
+
+</script>
+
+
+<!-- end navigation -->
+{% endblock content %}

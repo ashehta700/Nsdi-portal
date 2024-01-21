@@ -1,0 +1,16 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+
+
+<h1>You are loggin </h1>
+your username is : {{ request.user.username }} <br>
+your password is : {{ request.user.password }}<br>
+your name is : {{ request.user.Profiles.name }}<br>
+
+
+
+
+{% endblock content %}

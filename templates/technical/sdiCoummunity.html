@@ -1,0 +1,183 @@
+{% extends "base.html"%}
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+    .mdl {
+        border: 1px solid #fff;
+        border-radius: 3%;
+        box-shadow: 0px 0px 65px black;
+    }
+</style>
+
+<div  class="container text-center tech ">
+    <div class="col-md-6 pull-right">
+        <p class="text-right pNsdi"><a class= "btn btn-success aTech" href="{% url 'technical' %}">العودة  إلي صفحة الدعم الفنى <i class="fa fa-angles-left"></i></a> </p>
+
+    </div>
+    <div class="col-md-6 search-button ">
+        <div class="pull-left">
+            <form method="GET" name="myform" action="{% url 'faq-center' %}">
+                <input class="search-txt" type="text" name="search" placeholder="بحث .......">
+
+                <button class="search-btn" href="" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a  class="searchFaq" href="{% url 'community' %}" ><i class="fa fa-times searchFaqIcon"></i>إلغاء</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container tech-content" style="height: auto;">
+    <h1 class="eventI">ابرز اسئلة الاعضاء(SDI community)</h1>
+    <!-- <h3 class="text-right h3Community" style="direction: ltr;">(NSDI) National Spatial Data Infrastructure </h3>
+    <h5 class="text-right ss">مرحبا بك فى مجتمعنا ...</h5> -->
+    <a href="{% url 'create-question' %}" class="btn btn-primary btnQuestion">إضافة
+        سؤال <i class="fa-solid fa-file-circle-question m-2"></i></a>
+
+    <!-- show all questions and answers -->
+    <div class="row all">
+        <div class="container">
+
+            {% for each in questions %}
+            
+            <div class="profile">
+        <div class="profikeRequest"></div>
+                <div class="image"><img style="height: 100%;" src="{{ each.profile_id.image.url }}" alt=""></div>
+
+                <h2>{{ each.profile_id.name }} <i class="fas fa-quote-right "></i></h2>
+
+                <h6 class="text-danger">{{ each.date }}</h6>
+
+
+                <!-- menu of dots -->
+                <button class=" dropdown-toggle dots" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v dots"></i>
+                </button>
+                <div class="dropdown-menu options" aria-labelledby="dropdownMenuButton">
+                    <a href="update/{{each.id}}" style="color: green;">تعديل<i class="fas fa-edit"></i></a>
+                    <a class="dropdown-item" href="delete/{{each.id}}">حــــذف<i class="far fa-trash-alt"></i></a>
+                </div>
+                <p><i class="far fa-question-circle question"></i>{{ each.name }}؟</p>
+
+
+
+                <!-- for add anew comment to all specifiy question -->
+
+
+                <!-- Button trigger modal -->
+                <button class="btn  pull-left show addComentButton" data-toggle="modal"
+                    data-target="#exampleModalCenter">إضافة تعليق <i class="fas fa-comments "></i></button>
+
+                <!-- Modal for add coment for each question  -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content mdl">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">إضافة تعليق</h5>
+                            </div>
+                            <div class="modal-body">
+                                <!-- comment div -->
+
+                                <div class="div-comment">
+                                    <form action="{% url 'community' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                       
+                                        <div class="row ">
+                                            <label for="name" class="col-4 ">*برجاء اضافة تعليقك.</label>
+                                            <div class="col-8">
+                                                {% render_field upload_form.name class="form-control" %}
+
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-10">
+                                                <input id="id_question_id" name="question_id" type="input"
+                                                    value="{{each.id}}" hidden>
+
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div style="float: left;">
+                                    <button type="submit" class="btn btn-success">إضافة</button>
+                                    <button class="btn btn-danger" data-dismiss="modal">الغاء</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+   
+                </div>
+
+
+                <!-- comments -->
+                <hr class="hrstyle">
+                <div class="comments">
+                    <h4 class="commentAll">التعليقات<i class="fas fa-comments " style="margin-right:10px ;"></i></h4>
+
+
+                </div>
+
+                {% for owner in each.answer_set.all %}
+
+                <!-- <hr> -->
+                <div class="replay">
+                    <img class="image1" src="{{ owner.profile_id.image.url }}" alt="">
+                    <h4>{{owner.profile_id.name}}</h4>
+                    <h6 class="h6DateQuestion">{{owner.date}}</h6>
+                    <!-- <i class="fas fa-ellipsis-v dots2"></i> -->
+                    <!-- menu of dots -->
+                    <!-- menu of dots -->
+                    <button class=" dropdown-toggle dots2" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v dots2"></i>
+                    </button>
+                    
+                    <div class="dropdown-menu options opt2" aria-labelledby="dropdownMenuButton">
+                        <!-- <a href="comment-update/{{owner.id}}" style="color: green;" >تعديل<i class="fas fa-edit"></i></a> -->
+                        <a class="dropdown-item" href="comment-delete/{{owner.id}}">حــــذف<i class="far fa-trash-alt"></i></a>
+                    </div>
+                    <p><i class="fa fa-comment-alt-dots" style="margin-left: 10px;"></i>{{owner.name}}</p>
+                </div>
+              
+                <div class="addQues ">
+            
+                </div>
+                {% endfor %}
+            </div>
+            
+            {% endfor %}
+
+
+
+        </div>
+
+  
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- <script>
+                    var shehta = document.getElementById('{{ each.id }}');
+                    //  shehta.style.display='none';
+                    var add_comment = document.getElementById('btn{{ each.id}}');
+                    shehta.addEventListener('click', evt => {
+                        add_comment.classList.toggle('show');
+
+
+                    })
+</script> -->

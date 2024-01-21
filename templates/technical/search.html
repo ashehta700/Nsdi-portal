@@ -1,0 +1,283 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+<div class="container text-center tech">
+    <div class="col-md-6 pull-right">
+        <p class="text-right"><a href="{% url 'technical' %}">الدعم الفنى</a> > الاسئلة الشائعة</p>
+        {% if request.user.username == 'admin'%}
+        <p class="text-right"><a href="{% url 'index' %}" target="_blank">التحكم بلأسئلة</a> </p>
+        {% endif %}
+    </div>
+    <div class="col-md-6 search-button ">
+        <div class="pull-left">
+            <form method="get" action="{% url 'faq-center' %}">
+                <input class="search-txt" type="text" name="q" placeholder="بحث .......">
+
+                <button class="search-btn" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="container tech-content">
+
+    <h3 class="text-center">National Spatial Data Infrastructure (NSDI)</h3>
+    <h5 class="text-center ss">الاسئلة الشائعة بالمركز الوطنى للبنية المعلوماتيه (FAQS Center)</h5>
+    <div class="row all">
+        <div class="row">
+            <div class="col-md-4 wow fadeInUp text-center" data-wow-delay="0.3s">
+                <a href="#conn"><img src="{% static '/media/conn-problem.jpg' %}" width="100" height="100"></a>
+                <h4 class="text-center">مشاكل الربط (Connection)</h4>
+
+            </div>
+            <div class="col-md-4 wow fadeInUp text-center" data-wow-delay="0.3s">
+                <a href="#jrm"><img src="{% static 'media/vm.png' %}" width="100" height="100"></a>
+                <h4 class="text-center"> عمليات الدمج والأستعلام</h4>
+
+            </div>
+            <div class="col-md-4 wow fadeInUp text-center" data-wow-delay="0.3s">
+                <a href="#portal"><img src="{% static 'media/web-error.png' %}" width="100" height="100"></a>
+                <h4 class="text-center">مشاكل المنصة الجغرافية (Portal)</h4>
+
+            </div>
+        </div>
+
+        <div class="row hello">
+            <div class="col-md-4 wow fadeInUp text-center" data-wow-delay="0.3s">
+                <a href="#geomedia"><img src="{% static 'media/geomedia.png' %}" width="100" height="100"></a>
+                <h4 class="text-center">مشاكل البرامج (Geomedia)</h4>
+
+            </div>
+            <div class="col-md-4 wow fadeInUp text-center" data-wow-delay="0.3s">
+                <a href="#dashboard"><img src="{% static 'media/dashboard.png' %}" width="100" height="100"></a>
+                <h4 class="text-center">مشاكل مؤشرات الأداء (Dashboard)</h4>
+            </div>
+            <div class="col-md-4 wow fadeInUp text-center" data-wow-delay="0.3s">
+                <a href="#erdas"><img src="{% static 'media/erdas.jpg' %}" width="100" height="100"></a>
+                <h4 class="text-center">مشاكل البرامج (Data Manager)</h4>
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="container">
+        <section class="faq-section">
+            <h3>1- مشاكل الربط</h3>
+            <div id="conn" class="container">
+                <div class="">
+                    <div class="col-md-12">
+                        <div class="faq" id="accordion">
+                            {% for each in shehta %}
+                            {% if each.category_name.id == 1 %}
+                            <div class="card">
+                                <div class="card-header" id="faqHeading-1">
+                                    <div class="mb-0">
+                                        <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                            data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                            <span class="badge"></span>{{ each.question }}
+                                            ؟
+                                        </h5>
+
+                                    </div>
+                                </div>
+                                <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <p>{{ each.answer }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>2- عمليات الدمج والأستعلام</h3>
+            <div id="jrm" class="container">
+                <div class="">
+                    <div class="col-md-12">
+                        <div class="faq" id="accordion">
+
+                            {% for each in shehta %}
+                            {% if each.category_name.id == 2 %}
+                            <div class="card">
+                                <div class="card-header" id="faqHeading-1">
+                                    <div class="mb-0">
+                                        <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                            data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                            <span class="badge"></span>{{ each.question }}
+                                            ؟
+                                        </h5>
+
+                                    </div>
+                                </div>
+                                <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <p>{{ each.answer }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>3- مشاكل المنصة الجغرافية (Portal)</h3>
+            <div id="portal" class="container">
+                <div class="">
+                    <div class="col-md-12">
+                        <div class="faq" id="accordion">
+                            {% for each in shehta %}
+                            {% if each.category_name.id == 3 %}
+                            <div class="card">
+                                <div class="card-header" id="faqHeading-1">
+                                    <div class="mb-0">
+                                        <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                            data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                            <span class="badge"></span>{{ each.question }}
+                                            ؟
+                                        </h5>
+
+                                    </div>
+                                </div>
+                                <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <p>{{ each.answer }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>4- مشاكل البرامج (Geomedia)</h3>
+            <div id="geomedia" class="container">
+                <div class="">
+                    <div class="col-md-12">
+                        <div class="faq" id="accordion">
+                            {% for each in shehta %}
+                            {% if each.category_name.id == 4 %}
+                            <div class="card">
+                                <div class="card-header" id="faqHeading-1">
+                                    <div class="mb-0">
+                                        <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                            data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                            <span class="badge"></span>{{ each.question }}
+                                            ؟
+                                        </h5>
+
+                                    </div>
+                                </div>
+                                <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <p>{{ each.answer }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>5- مشاكل مؤشرات الأداء (Dashboard)</h3>
+            <div id="dashboard" class="container">
+                <div class="">
+                    <div class="col-md-12">
+                        <div class="faq" id="accordion">
+                            {% for each in shehta %}
+                            {% if each.category_name.id == 5 %}
+                            <div class="card">
+                                <div class="card-header" id="faqHeading-1">
+                                    <div class="mb-0">
+                                        <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                            data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                            <span class="badge"></span>{{ each.question }}
+                                            ؟
+                                        </h5>
+
+                                    </div>
+                                </div>
+                                <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <p>{{ each.answer }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3>6- مشاكل البرامج (Data Manager)</h3>
+            <div id="erdas" class="container">
+                <div class="">
+                    <div class="col-md-12">
+                        <div class="faq" id="accordion">
+                            {% for each in shehta %}
+                            {% if each.category_name.id == 6 %}
+                            <div class="card">
+                                <div class="card-header" id="faqHeading-1">
+                                    <div class="mb-0">
+                                        <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                            data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                            <span class="badge"></span>{{ each.question }}
+                                            ؟
+                                        </h5>
+
+                                    </div>
+                                </div>
+                                <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+
+                                        <p>{{ each.answer }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+{% endblock content %}

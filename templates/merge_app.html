@@ -1,0 +1,624 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<style>
+    .map {
+        height: 100%;
+        width: 100%;
+        margin-top: 32px;
+    }
+
+    .d-none {
+        display: none;
+    }
+
+    .d-block {
+        display: block;
+    }
+
+    #tooltip {
+    height: 305px;
+    width: 316px;
+    background: #781414;
+    color: #ffff;
+    font-size: 16px;
+    padding: 9px 30px 11px 12px;
+    border-bottom: 4px solid #ffffff;
+    border-radius: 8px;
+}
+
+    .aya {
+        position: absolute;
+        top: 97px;
+        right: 10px;
+        z-index: 33;
+        display: flex;
+        flex-direction: column;
+        direction: rtl;
+    }
+
+
+    form#form {
+        position: absolute;
+        top: 145px;
+        right: 10px;
+        z-index: 33;
+        background-color: rgb(255, 255, 255);
+
+    }
+
+    .allInputs {
+        width: 368px;
+    }
+
+    button.addFormm.ads {
+        padding: 3px 54px;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 100%;
+        margin: 12px 0px 15px 0px;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        color: #781414;
+        font-weight: bolder;
+        padding-bottom: 4px;
+    }
+
+    .container.allInputs {
+        padding: 10px 13px 13px 10px;
+    }
+
+    button.btn.btn-outline-success {
+        color: #771217;
+        font-size: 17px;
+        padding: 9px 33px;
+        border: 3px solid #ffffff;
+        border-radius: 22px;
+        background-color: white;
+    }
+
+    i.fa-solid.fa-magnifying-glass {
+        margin-left: 10px;
+    }
+
+    i#close {
+        color: #771217;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+
+    button#save-button,
+    button#draw-button {
+        background-color: #ffffff;
+        border: none;
+        font-size: 24px;
+        padding: 1px 1px;
+        margin-top: 10px;
+        width: 52px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    button#save-button {
+        font-size: 25px;
+    }
+
+    i.fa-solid.fa-save {
+        color: #bd8932;
+    }
+
+    .ol-overlay-container.ol-selectable {
+        direction: rtl;
+    }
+
+    input#exampleFormControlInput1 {
+        margin-top: 10px;
+    }
+
+    button.btn.btn-outline-success.back {
+        font-size: 13px;
+        padding: 5px 22px;
+        border: 3px solid #d9c7c700;
+        background-color: #01792f;
+        position: absolute;
+        left: 40%;
+        margin-top: 20px;
+        color: #ffffff;
+        border-radius: 13px;
+    }
+
+
+    button.btn.btn-outline-success.okSave {
+        font-size: 13px;
+        padding: 5px 16px;
+        border: 3px solid #d9c7c700;
+        background-color: #c18d33;
+        position: absolute;
+        left: 2%;
+        margin-top: 7%;
+        color: #ffffff;
+        border-radius: 13px;
+    }
+
+    .fa-check-circle:before,
+    .fa-circle-check:before,
+    .worm {
+        content: "\f058";
+        font-size: 21px;
+        margin-left: 8px;
+    }
+
+    button.btn.btn-outline-success.saves {
+        font-size: 13px;
+        padding: 5px 26px;
+        border: 3px solid #d9c7c700;
+        background-color: #c18d33;
+        position: absolute;
+        left: 2%;
+        margin-top: 2px;
+        color: #ffffff;
+        border-radius: 13px;
+    }
+
+    #ol-tooltip-close {
+        position: absolute;
+        top: 1px;
+        right: 2px;
+        padding: 3px;
+        background: #ffffff00;
+        border: none;
+    }
+</style>
+
+<!--  button that use for open form that used for search x and y and serag ID  -->
+<div class="mb-3 aya d-flex ">
+    <button class="btn btn-outline-success" id="ayas"> <i class="fa-solid fa-magnifying-glass fa-fade"></i>بحث منصة مصر
+        المكانية</button>
+    <button title=" تحميل البيانات" class="btn btn-outline-success butt2" id="save-button"><i
+            class="fa-solid fa-download  "></i></button>
+</div>
+
+
+
+<!--  form for search for seragid and x and y  -->
+<form id="form" class="d-none">
+    <div class="container allInputs">
+        <div class="row">
+
+            <div class="col-md-12">
+                <i class="fa-solid fa-circle-xmark" id="close"></i>
+            </div>
+            <div class="col-md-12 ">
+                <label for="x">يمكنك البحث من خلال Y</label>
+
+                <input class="form-control" type="text" id="x" name="x" placeholder="--Y--">
+            </div>
+            <div class="col-md-12 ">
+                <label for="y">يمكنك البحث من خلال X</label>
+                <input class="form-control" type="text" id="y" name="y" placeholder="--X--">
+
+            </div>
+
+            <br>
+            <div class="col-md-12 text-left">
+                <button type="submit" class="addFormm ads">بحث</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+<!-- new form for code_geha -->
+
+<form id="myForm" action="{% url 'Send_Data' %}" method="post">
+    <!-- form fields go here -->
+    {% csrf_token %}
+</form>
+
+<div id="map" class="map"></div>
+<div id="tooltip"></div>
+<div id="bookmark-container"></div>
+<i class="fa-solid fa-floppy-disks"></i>
+</div>
+
+<script src="{% static 'js/aya.js' %}"></script>
+
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+<!-- -----------maps---------------- -->
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/build/ol.js"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+
+
+
+
+<script>
+
+
+    // style for form and submit button 
+    document.getElementById('form').classList.add("d-none");
+    document.getElementById('ayas').addEventListener("click", function () {
+        document.getElementById('form').classList.remove("d-none");
+        document.getElementById('form').classList.add("d-block");
+        document.getElementById("save-button").style.position = "absolute";
+        document.getElementById('save-button').style.top = "279px";
+
+    })
+    document.getElementById('close').addEventListener("click", function () {
+        document.getElementById('form').classList.remove("d-block");
+        document.getElementById('form').classList.add("d-none");
+        document.getElementById("save-button").style.position = "absolute";
+        document.getElementById('save-button').style.top = "50px";
+
+    })
+
+
+    // *************************************
+
+
+    // **************************************
+
+
+
+    // script for map view  with using openlayer
+    var map = new ol.Map({
+        layers: [
+
+            new ol.layer.Tile({
+                source: new ol.source.TileWMS({
+                    url: 'http://192.168.17.49:80/erdas-apollo/vector/country?service=WMS',
+                    params: {
+                        'LAYERS': 'country',
+                        'TILED': true
+                    },
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10  // set the maximum zoom level at which the layer will be visible
+            }),
+
+
+            new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://192.168.17.65:4433/2020/{z}/{x}/{y}.png',
+                    zIndex: 2,
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10
+
+            }),
+
+            new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://192.168.17.65:4433/L1/{z}/{x}/{y}.png'
+
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10
+            }),
+
+
+
+
+        ],
+
+        target: 'map',
+        view: new ol.View({
+            center: ol.proj.fromLonLat([31.2357, 31, 481111]),
+            zoom: 9
+        })
+    });
+    // 
+
+
+
+    var layer = new ol.layer.Tile({
+        source: new ol.source.TileWMS({
+            url: 'http://192.168.17.49:80/erdas-apollo/vector/05_74K_BASEMAP?service=WMS',
+            params: {
+                'LAYERS': 'building,agri_area,roads_line,agri_point,utilities_point',
+                'TILED': true
+            },
+            // serverType: 'geoserver'
+        }),
+        minZoom: 15, // set the minimum zoom level at which the layer will be visible
+        maxZoom: 25  // set the maximum zoom level at which the layer will be visible
+    });
+
+
+    var googleStreets = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            url: 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}',
+            // serverType: 'geoserver'
+        }),
+        minZoom: 10, // set the minimum zoom level at which the layer will be visible
+        maxZoom: 25  // set the maximum zoom level at which the layer will be visible
+    });
+
+    map.addLayer(googleStreets);
+    map.addLayer(layer);
+
+
+    // style for layer that is added to map as mark location
+    const styleFunction = function (feature) {
+        const iconStyle = new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                src: "{% static 'media/marker.png'%}"
+            }),
+            text: new ol.style.Text({
+                text: feature.get('name'),
+                offsetY: -20,
+                fill: new ol.style.Fill({
+                    color: 'red'
+                })
+            })
+        });
+
+        return [iconStyle];
+    };
+
+    // Zoom to x and Y filter 
+    // -*----------------------------
+    // function that zoom to coordinate 
+    function zoomToCoordinates(lat, lon) {
+        const coordinate = ol.proj.fromLonLat([lon, lat], 'EPSG:3857');
+        console.log(coordinate)
+        var view = map.getView();
+        view.animate({
+            center: coordinate,
+            zoom: 20,
+            duration: 2000
+        });
+
+        const extent = [-20037508.34, -20037508.34, 20037508.34, 20037508.34];
+
+        // add bookmark
+        // Add bookmark link with the current view parameters
+        var marker = new ol.Feature({
+            geometry: new ol.geom.Point(coordinate)
+        });
+        var markerLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [marker]
+            }),
+            // projection: 'EPSG:4326',
+            style: styleFunction
+        });
+        console.log(markerLayer)
+        map.addLayer(markerLayer);
+
+
+
+        if (!ol.extent.containsCoordinate(extent, coordinate)) {
+            alert('Coordinates are outside the bounds of the map.');
+            return;
+        }
+    }
+    const form = document.getElementById('form');
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const lat = Number(form.elements['x'].value);
+        const lon = Number(form.elements['y'].value);
+        zoomToCoordinates(lat, lon);
+
+    });
+
+
+
+
+    // create function to know csrf token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+
+
+
+
+
+
+
+    // ----------------------------------------------//
+    //  new to add tool tip of get searg id 
+    // create an overlay to display the tooltip
+    var tooltip = new ol.Overlay({
+        element: document.getElementById('tooltip'),
+        offset: [10, 0],
+        positioning: 'bottom-left'
+    });
+
+
+    // add the overlay to the map
+    map.addOverlay(tooltip);
+    // create an event listener to handle mouse move events
+    async function a(x, y) {
+        var searg = await fetch(`{% url 'zoomTo' %}/?x=${x}&y=${y}`)
+        var mySerag = await searg.json()
+        console.log(mySerag)
+        return mySerag
+
+    }
+    map.on('click', async function (event) {
+        // tooltip.getElement().style.cursor='pointer';
+        var coords = ol.proj.toLonLat(event.coordinate);
+        var x = coords[0];
+        var y = coords[1];
+        console.log(x, y)
+        tooltip.getElement().style.display = 'block'
+
+        var mySerag = await a(x, y)
+        tooltip.setPosition(event.coordinate);
+        var text = `<p> <br> المحافظة :  ${mySerag['gov']}   <br> المركز :  ${mySerag['sec']}   <br> الشياخة :   ${mySerag['ssec']} <br>
+            SeragID:<input id="serag" class="form-control" type="text" value="${mySerag['seragid']}"  aria-label="Disabled input example" disabled> <input type="hidden" id="id_basemap" value="${mySerag['id']}"> </p> <button id="ol-tooltip-close">X</button>
+         <p required>كود المبني الخاص بالجهة : <input type="number" class="form-control" id="codeGeha" placeholder="id" required> </p> <button type="button" class="btn btn-outline-success saves" onclick="saveForm()">حفظ</button> <br>  </p>  <p class="d-none">تم تسجيل بياناتك بنجاح <p id="alerts"></p>`  ;
+        tooltip.getElement().innerHTML = text
+        tooltip.getElement().style.backgroundColor = '#781414'
+        tooltip.getElement().style.height = "305px"
+        var closeButton = document.getElementById('ol-tooltip-close');
+        closeButton.addEventListener('click', () => {
+            // Hide or remove the tooltip element
+            tooltip.getElement().style.display = 'none'  // Or tooltip.remove() to completely remove the element from the DOM
+        });
+    });
+
+
+    // -----------aya-----------
+
+
+
+
+
+    async function saveForm() {
+        var code_geha = document.getElementById("codeGeha").value
+        if(code_geha !=0)
+        {
+            var id_basemap = document.getElementById("id_basemap").value
+        var user_id = Number("{{user_id}}");
+        const csrftoken = getCookie('csrftoken');
+        const data = { "id_geha": user_id, "id_basemap": Number(id_basemap), "id_code": Number(code_geha) };
+        var past_code = await check_code_geha(user_id, id_basemap)
+        if (past_code.length === 0) {
+            fetchData(data)
+            tooltip.getElement().innerHTML = "<i class='fa-solid fa-circle-check'></i>تم تسجيل بيانات الجهة بنجاح"
+            tooltip.getElement().style.backgroundColor = 'green'
+            tooltip.getElement().style.height = "60px"
+            setTimeout(function () {
+                tooltip.getElement().style.display = "none"
+                tooltip.getElement().style.backgroundColor = '#ffffff00'
+                tooltip.getElement().style.borderBottom = '4px solid #ffffff00'
+                tooltip.getElement().innerHTML = ''
+            }, 1200);
+        }
+        else {
+            for (let i = 0; i < past_code.length; i++) {
+                if (code_geha == past_code[i]) {
+                    tooltip.getElement().innerHTML = `تم تسجيل الكود ( ${code_geha}  ) سابقا لنفس المبني هل تريد  إدخال  نفس الكود مرة اخرى ؟<button type="button" class="btn btn-outline-success  okSave"  id="okSave" >تاكيد الأدخال</button>  <button id="ol-tooltip-close">X</button>`
+                    tooltip.getElement().style.backgroundColor = '#2E4052'
+                    tooltip.getElement().style.height = "110px"
+                    var closeButton = document.getElementById('ol-tooltip-close');
+                    closeButton.addEventListener('click', () => {
+
+                        tooltip.getElement().style.display = 'none'
+                        tooltip.getElement().style.backgroundColor = '#ffffff00'
+                        tooltip.getElement().style.borderBottom = '4px solid #ffffff00'
+                        tooltip.getElement().innerHTML = ''
+                    });
+                    document.getElementById("okSave").addEventListener("click", function () {
+                        fetchData(data)
+
+                        tooltip.getElement().innerHTML = " <i class='fa-solid fa-circle-check'></i>تم تسجيل كود الجهة مرة اخري بنجاح  "
+                        tooltip.getElement().style.backgroundColor = 'green'
+                        tooltip.getElement().style.height = "60px"
+                        setTimeout(function () {
+                            tooltip.getElement().style.display = "none"
+                            tooltip.getElement().style.backgroundColor = '#ffffff00'
+                            tooltip.getElement().style.borderBottom = '4px solid #ffffff00'
+                            tooltip.getElement().innerHTML = ''
+                        }, 1200);
+                    })
+
+                }
+                else {
+                    fetchData(data)
+                    tooltip.getElement().innerHTML = "<i class='fa-solid fa-circle-check'></i>تم تسجيل بيانات الجهة بنجاح"
+                    tooltip.getElement().style.backgroundColor = 'green'
+                    tooltip.getElement().style.height = "60px"
+                    // setTimeout(function () {
+                    //     tooltip.getElement().style.display = "none"
+
+                    // }, 1300);
+                }
+            }
+        }
+        
+
+        }
+        else
+        {
+            document.getElementById("alerts").innerHTML="يجب ادخال كود الجهة"
+            
+        }
+       
+    }
+
+
+
+    async function fetchData(data) {
+        let api = await fetch("{% url 'Send_Data' %}",
+            {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+            });
+        let content = await JSON.stringify(api);
+    }
+
+    //  add function download csv
+    // function save data as csv 
+    function downloadCSV(data) {
+
+        const csvContent = "data:text/csv;charset=utf-8," + data.map(row => row.join(",")).join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "mydata.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+
+    // call API to get all data from user_id
+    async function get_user_data(user_id) {
+        var data = await fetch(`{% url 'export_csv' %}/?user_id=${user_id}`)
+        var result = await data.json()
+        return result
+
+    }
+
+
+
+    // call API to Check the code_geha that is exist or not >!
+    async function check_code_geha(user_id, id_basemap) {
+        var data = await fetch(`{% url 'check_serag' %}/?user_id=${user_id}&id_basemap=${id_basemap}`)
+        var result = await data.json()
+        return result
+    }
+    // add save button 
+    var saveButton = document.getElementById('save-button');
+    saveButton.addEventListener('click', async function () {
+        var data = [['seragid', 'code_geha', 'x', 'y', 'datetime']]
+        const rr = await get_user_data(Number("{{user_id}}"));
+        const all = [...data, ...rr];
+        downloadCSV(all)
+    });
+
+</script>
+
+
+{% endblock%}

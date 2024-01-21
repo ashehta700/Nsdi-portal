@@ -1,0 +1,82 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+
+
+<style>
+    .panel {
+        margin-top: 15%;
+    }
+    .card-body{
+        height: 100%;
+    }
+</style>
+<div class="container">
+    <div class="row panel panel-default text-center">
+        <div class="panel-heading">
+            <h1></h1>
+
+            <hr>
+                <div class="dem">
+                    <div class="image_outer_container">
+                        <div class="green_icon"></div>
+                        <div class="image_inner_container">
+                            <img src="{{ message_sel.profile_id.image.url }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>إسم المستخدم </td>
+                                    <td>{{ message_sel.profile_id.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>إسم الجهه التابع لها هذا المستخدم </td>
+                                    <td>{{ message_sel.profile_id.organization_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>الايميل الخاص بالمستخدم </td>
+                                    <td>{{ message_sel.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>رقم الهاتف الخاص بالمستخدم </td>
+                                    <td>{{ message_sel.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>نص الرساله المرسلها المستخدم الى المركز الرئيسي </td>
+                                    <td>{{ message_sel.message }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+        
+        
+                    </div>
+                </div>
+                <button onclick="window.open('{% url 'show-message' %}','_self')" class="btn btn-lg btn-danger">عودة</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="left" style="margin-left:465px">
+
+
+
+
+
+
+    {% if error %}
+    <p style="color:red">{{error}}</p>
+    <br />
+    {% endif%}
+</div>
+{% endblock %}

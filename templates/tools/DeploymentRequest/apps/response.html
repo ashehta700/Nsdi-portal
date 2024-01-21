@@ -1,0 +1,128 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+
+<style>
+    #buttons {
+        margin-top: 1%;
+    }
+</style>
+
+
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1>الرد على طلب النشر للتطبيقات رقم {{merge_sel.id}}</h1>
+                    <!-- <button onclick="window.open('request-create.html','_self')" class="btn btn-success pull-right"><i class="fa fa-plus"></i> انشاء طلب جديد</button> -->
+                    <!-- <button onclick="window.open('admin.html','_self');" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-undo"></i> عودة</button> -->
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+
+                        <tr>
+                            <th>الجهة الراسلة</th>
+                            <td>{{merge_sel.user_sender}}</td>
+                        </tr>
+                        <tr>
+                            <th>رابط التطبيق المرسل</th>
+                            <td>{{merge_sel.app_link}}</td>
+                        </tr>
+                        <tr>
+                            <th>تاريخ الارسال</th>
+                            <td>{{merge_sel.date|date:'Y/m/d -- h:i A '}}</td>
+                        </tr>
+                        <tr>
+                            <th>التوصيف العام للتطبيق  المراد نشره</th>
+                            <td>{{merge_sel.app_description}}</td>
+                        </tr>
+                        <tr id="actions">
+
+                            <th colspan="2">
+                                <button id="accept-btn" class="btn btn-success " style="margin-right: 5px;"><i
+                                        class="fa fa-thumbs-up"></i> قبول</button>
+                                <button id="refuse-btn" class="btn btn-danger " style="margin-right: 5px;"><i
+                                        class="fa fa-times"></i> رفض</button>
+                              
+
+                                        <a href="{% url 'deploymentRequestApp' %}"  class="btn btn-default " style="margin-right: 5px;"><i
+                                            class="fa fa-backward"></i> عودة</a>
+                            </th>
+                            <th colspan="2">
+                            </th>
+
+                        </tr>
+
+                        {% if merge_form.errors %}
+                        <div class="alert alert-danger">
+                            {{ merge_form.errors }}
+                        </div>
+                        {% endif %}
+
+                    </tbody>
+                </table>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_sender" value="{{merge_sel.user_sender.id}}">
+                    <input type="hidden" name="app_link" value="{{merge_sel.app_link}}">
+                    <input type="hidden" name="app_description" value="{{merge_sel.app_description}}">
+                    <div id="refuse">
+                        <label>سبب الرفض</label>
+                        <textarea name="refuse_message" class="form-control" id="id_refuse_message" cols="30" rows="10"
+                            placeholder="برجاءكتابة سبب الرفض"></textarea>
+                    </div>
+
+                    <div id="accept">
+                        <label>رسالة الرد</label>
+                        <textarea name="response_message" class="form-control" id="id_response_message" cols="30"
+                            rows="10" placeholder="برجاءكتابة رسالة القبول"></textarea>
+                    </div>
+
+                    <div id="buttons">
+                        <button class="btn btn-success " type="submit">تاكيد</button>
+                        <a href="{% url 'mergeRequest' %}" class="btn btn-danger " style="margin-right: 5px;"><i
+                                class="fa fa-undo"></i> عودة</a>
+
+
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+
+
+    document.getElementById('buttons').style.display = 'none'
+    var accept_btn = document.getElementById('accept-btn');
+    var refuse_btn = document.getElementById('refuse-btn');
+    var accept_div = document.getElementById('accept');
+    accept_div.style.display = 'none';
+    var refuse_div = document.getElementById('refuse');
+    refuse_div.style.display = 'none';
+    accept_btn.addEventListener('click', function () {
+        accept_div.style.display = 'block';
+        document.getElementById('buttons').style.display = 'block';
+        document.getElementById('actions').style.display = 'none';
+    })
+    refuse_btn.addEventListener('click', function () {
+        refuse_div.style.display = 'block';
+        document.getElementById('buttons').style.display = 'block';
+        document.getElementById('actions').style.display = 'none';
+    })
+</script>
+
+
+
+
+
+
+
+{% endblock %}

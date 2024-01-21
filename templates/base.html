@@ -1,0 +1,803 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" direction="rtl">
+
+<head>
+    <!-- 
+    	Ahmed Shehta
+    	https://ahmed-shehta.netlify.app/
+    	-->
+    <meta charset="utf-8">
+    <title>SDI -Home Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="icon" href="{% static 'media/all-trans-dark.png' %}" type="image/png">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"> -->
+    <!-- <link href="{% static 'css/all.css' %}" rel="stylesheet" type="text/css" > -->
+    <!-- <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" > -->
+    <!-- <script src="{% static 'js/all.min.js' %}"></script> -->
+    <!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> -->
+    <!-- google font -->
+    <link href="{% static 'css/css.css' %}" rel='stylesheet'
+        type='text/css'>
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="{% static 'css/css2.css' %}" rel="stylesheet">
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- maps style-->
+    <!-- <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/css/ol.css" type="text/css"> -->
+
+
+
+
+
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <script src="{% static 'js/popper.min.js' %}"></script>
+
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+
+    <script src="{% static 'js/ol.js' %}"></script> 
+    <!-- <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.11.0/css/ol.css" type="text/css">
+         -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/build/ol.js"></script> -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- script for slider -->
+
+    <script src="{% static 'js/slider.js' %}"></script>
+</head>
+
+<body>
+
+    <!-- role for user normal user with code in Role == 5 -->
+    {% if request.user.Profiles.role_id.code == 5 %}
+    <nav id="nav" class="navbar navbar-default navbar-fixed-top templatemo-nav " role="navigation">
+        <div class="row">
+            <div class="navbar-header col-6">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse col-6 ">
+
+                <ul class="nav navbar-nav navbar-right text-uppercase nav-pills ulnav">
+                    <a href="{% url 'base'%}"><img src="{% static 'media/white-logo.png' %}" width="80" height="80" alt=""></a>
+=
+
+
+
+                    <li class="linav"><a id="test" data-toggle='tab' onclick="alert('ليس لديك صلاحية ')" style="cursor: pointer;">الدعم
+                            الفنى</a></li>
+                    <li class="linav"><a  id="aya" data-toggle='tab'  onclick="alert('ليس لديك صلاحية ')" >الأدوات<i class="fa fa-sort-down"
+                                style="padding-right: 5px;"></i></a></li>
+                    <li class="linav"><a id="test2" onclick=window.open('{% url "apps" %}','_self') style="cursor: pointer;">التطبيقات</a></li>
+
+                    <li class="linav"><a id="aya2" data-toggle='tab' onClick="$('#geo-portal').toggle();" style="cursor: pointer;">المنصة الجغرافية<i
+                                class="fa fa-sort-down" style="padding-right: 5px;"></i></a></li>
+                    <li class="linav"><a id="aya3" data-toggle='tab' onclick="alert('ليس لديك صلاحية ')" style="cursor: pointer;">دعم
+                            إتخاذ القرار <i class="fa fa-sort-down" style="padding-right: 5px;"></i></a></li>
+                    <li class="linav"><a id="aya4" href="{% url 'base' %}#goals" style="cursor: pointer;">أخر الأخبار</a></li>
+
+                </ul>
+
+                <div class="tab-content">
+                    <!-- //////// المنصة الجغرافية /////// -->
+                    <div id='geo-portal' class='tab-pane fade in'>
+                        <div class="container">
+                            <div class="row geo-por arr" style="position: absolute;">
+                                <a
+                                    onclick="window.open('https://www.planet.com/explorer/#/zoom/6.69/interval/1%20day/ov/stiles:1-:0/center/33.184,26.432')">صــــــور
+                                    فضـــــائـــــية <i class="fa fa-arrow-left"></i></a><br>
+
+
+
+                                    <a onclick="window.open('http://192.168.17.49/apollo-portal/apollopro.aspx')">خرائط البنية المعلوماتية المكانية
+                                        <i class="fa fa-angles-left iconSize"></i></a><br>
+<!-- 
+                                    <a onclick="window.open('ht<button class="btn btn-primary d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Toggle offcanvas</button>
+
+<div class="alert alert-info d-none d-lg-block">Resize your browser to show the responsive offcanvas toggle.</div>
+
+<div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasResponsiveLabel">Responsive offcanvas</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p class="mb-0">This is content within an <code>.offcanvas-lg</code>.</p>
+  </div>
+</div>tp://192.168.17.55/public_login_gehat/portal/index1.html?tenant=asmaa')">المتصفح
+                                        الجغرافي <i class="fa fa-angles-left iconSize"></i></a><br> -->
+
+                                        <a onclick="window.open('{% url 'inquiry' %}')">استعلام عن SERAG-ID
+                                             <i class="fa fa-angles-left iconSize"></i></a><br>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- //////// تسجيل الخروج /////// -->
+
+                    <div id='logout' class='tab-pane fade in'>
+                        <div class="container">
+                            <div class="row logout arr" style="position: absolute;">
+                                <a onclick="window.open('{% url 'update-user' request.user.Profiles.id  %}' , '_self')">الصفحة الشخصية <i class="fa fa-arrow-left"></i></a><br>
+                                <!-- <a onclick="window.open('{% url 'admin_panel_index' %}' , '_self')"> لوحة التحكم<i class="fa fa-arrow-left"></i></a><br> -->
+                                <a href="" target="_blank"><button style="border: none;background-color: #fff;"
+                                        onclick="window.open('{% url 'logout' %}' , '_self')"> تسجيل الخروج</button><i
+                                        class="fa fa-arrow-left"></i></a><br>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container-fluid">
+                    <!-- <form class="example search" style="left: 540px;" onsubmit="return false;">
+                        <input type="text" placeholder="بحث ....." name="search" id="search"
+                            style="font-size: 16px;color: var(--red);">
+                        <button type="" style="background-color: transparent;border: none;"><i class="fa fa-search "
+                               ></i></button>
+                    </form> -->
+                    <button id="aya5" class="btn btn-light login" onClick="$('#logout').toggle();"><i class="fa fa-user "></i>
+                        {{ request.user.Profiles.name }}</button>
+
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    
+<!-- user almustawi alaeili المستوي الاعلي -->
+
+{% elif request.user.Profiles.user_role.code == 1 %}
+
+<nav id="nav" class="navbar navbar-default navbar-fixed-top templatemo-nav " role="navigation">
+    <div class="row">
+        <div class="navbar-header col-6">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+                <span class="icon icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse col-6 ">
+
+            <ul class="nav navbar-nav navbar-right text-uppercase nav-pills ulnav">
+                <a href="{% url 'base'%}"><img src="{% static 'media/white-logo.png' %}" width="80" height="80" alt=""></a>
+
+
+                
+                <!-- <li class="linav"><a id="test" data-toggle='tab' onclick="window.open('{% url 'technical'%}','_self')" style="cursor: pointer;">طبقات</a></li> -->
+
+
+                <li class="linav"><a id="test2" onclick=window.open('{% url "apps" %}','_self') style="cursor: pointer;">التطبيقات</a></li>
+
+                <!-- <li class="mr-4"><a href="#contact">الأدوات</a></li>
+                                <li class="mr-4"><a href="#contact">التطبيقات</a></li> -->
+                <li class="linav"><a id="aya2" data-toggle='tab' onClick="$('#geo-portal').toggle();" style="cursor: pointer;" >المنصة الجغرافية<i
+                            class="fa fa-sort-down" style="padding-right: 5px;"></i></a></li>
+
+                <li class="linav"><a id="aya3" data-toggle='tab' onClick="$('#da3m').toggle('slow');" style="cursor: pointer;">دعم
+                        إتخاذ القرار <i class="fa fa-sort-down" style="padding-right: 5px;"></i></a></li>
+                        
+                <li class="linav"><a id="aya4" href="{% url 'base' %}#goals" style="cursor: pointer;">أخر الأخبار</a></li>
+
+            </ul>
+
+            <div class="tab-content">
+                <!-- //////// دعم اتخاذ القرار /////// -->
+                <div id='da3m' class='tab-pane fade in '>
+                    <div class="container">
+                        <div class="row arr da3m">
+
+                            {% if request.user.Profiles.role_id.code == 3 %}
+
+
+                            <a onclick="window.open('{% url 'wezarat'%}','_self')">
+                                الــــــــوزارات 
+                            
+                                <i class="fa-solid fa-angles-left"></i>
+                         
+                            </a><br>
+
+                            <a onclick="window.open('{% url 'mohafazat'%}','_self')">
+                                المحافظات <i class="fa fa-angles-left"></i></a><br>
+
+                            <a onclick="window.open('{% url 'he2at'%}','_self')" > الهـــيئـــــات 
+                                <i class="fa fa-angles-left"></i></a><br>
+
+                            <a onclick="window.open('{% url 'cat_tap'%}','_self')" > متخذ القرار 
+                                <i class="fa fa-angles-left"></i></a><br>
+                            {%endif%}
+
+                            {% if request.user.Profiles.role_id.code == 1 %}
+                            <a onclick="window.open('{% url 'mohafazat'%}','_self')">
+                                المحافظات <i class="fa fa-angles-left"></i></a><br>
+                            {%endif%}
+                            {% if request.user.Profiles.role_id.code == 6 %}
+                            <a onclick="window.open('{% url 'mohafazat'%}','_self')">
+                                المحافظات <i class="fa fa-angles-left"></i></a><br>
+                            {%endif%}
+                            {% if request.user.Profiles.role_id.code == 2%}
+                            <a onclick="window.open('{% url 'wezarat'%}','_self')"><img
+                                    src="{% static 'media/maglesel-wzraa.png' %}" alt="" width="30" height="30">
+                                الــــــــوزارات <i class="fa fa-angles-left"></i></a><br>
+                            {%endif%}
+                            {% if request.user.Profiles.role_id.code == 4%}
+                            <a onclick="window.open('{% url 'he2at'%}','_self')"><img
+                                    src="{% static 'media/maglesel-wzraa.png' %}" alt="" width="30" height="30">
+                                    الهـــيئـــــات <i class="fa fa-angles-left"></i></a><br>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+                <!-- //////// المنصة الجغرافية /////// -->
+                <div id='geo-portal' class='tab-pane fade in'>
+                    <div class="container">
+                        <div class="row geo-por arr" style="position: absolute;">
+                            <a
+                                onclick="window.open('https://www.planet.com/explorer/#/zoom/6.69/interval/1%20day/ov/stiles:1-:0/center/33.184,26.432')">صــــــور
+                                فضـــــائـــــية  <i class="fa fa-angles-left iconSize"></i></a><br>
+
+                                <a onclick="window.open('http://192.168.17.49/apollo-portal/apollopro.aspx')">خرائط البنية المعلوماتية المكانية
+                                    <i class="fa fa-angles-left iconSize"></i></a><br>
+
+                                    <a onclick="window.open('{% url 'inquiry' %}')">استعلام عن SERAG-ID
+                                        <i class="fa fa-angles-left iconSize"></i></a><br>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                
+               
+                <!-- //////// تسجيل الخروج /////// -->
+
+                <div id='logout' class='tab-pane fade in'>
+                    <div class="container">
+                        <div class="row logout arr" style="position: absolute;">
+                           
+                            <a onclick="window.open('{% url 'update-user' request.user.Profiles.id  %}' , '_self')">الصفحة الشخصية <i class="fa fa-arrow-left"></i></a><br>
+                            <!-- <a onclick="window.open('{% url 'admin_panel_index' %}' , '_self')"> لوحة التحكم<i class="fa fa-arrow-left"></i></a><br> -->
+                            <a href="" target="_blank"><button style="border: none;background-color: #fff;"
+                                    onclick="window.open('{% url 'logout' %}' , '_self')"> تسجيل الخروج</button><i
+                                    class="fa fa-angles-left iconSize"></i></a><br>
+                                 
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="container-fluid">
+                <!-- <form class="example search" style="left:333px" onsubmit="return false;">
+                    <input type="text" placeholder="بحث ....." name="search" id="search"
+                        style="font-size: 16px;color: var(--red);">
+                    <button type="" style="background-color: transparent;border: none;"><i class="fa fa-search "
+                           ></i></button>
+                </form> -->
+                <button id="aya5" class="btn btn-light login" onClick="$('#logout').toggle();"><i class="fa fa-user "></i>
+                    {{ request.user.Profiles.name }}</button>
+
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<!-- end user almustawi alaeili -->
+
+    {% elif request.user.is_authenticated %}
+
+    <nav id="nav" class="navbar navbar-default navbar-fixed-top templatemo-nav " role="navigation">
+        <div class="row">
+            <div class="navbar-header col-6">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse col-6 ">
+
+                <ul class="nav navbar-nav navbar-right text-uppercase nav-pills ulnav">
+                    <a href="{% url 'base'%}"><img src="{% static 'media/white-logo.png' %}" width="80" height="80" alt=""></a>
+                    <!-- <li class="linav"><a id="test" data-toggle='tab' onclick="window.open('{% url 'technical'%}','_self')" style="cursor: pointer;">طبقات</a></li> -->
+                    <li class="linav"><a id="test" data-toggle='tab' onclick="window.open('{% url 'technical'%}','_self')" style="cursor: pointer;">الدعم
+                            الفنى</a></li>
+                    <li class="linav"><a  id="aya" data-toggle='tab' onClick="$('#tools').toggle();" href='#' style="cursor: pointer;">الأدوات<i class="fa fa-sort-down"
+                                style="padding-right: 5px;"></i></a></li>
+                                {% if request.user.Profiles.role_id.code == 3 %}
+                    <li class="linav"><a id="test2" onclick=window.open('{% url "cat_apps" %}','_self') style="cursor: pointer;">التطبيقات</a></li>
+                    {%endif%}
+                                {% if request.user.Profiles.role_id.code != 3 %}
+                    <li class="linav"><a id="test2" onclick=window.open('{% url "apps" %}','_self') style="cursor: pointer;">التطبيقات</a></li>
+                    {%endif%}
+                    <!-- <li class="mr-4"><a href="#contact">الأدوات</a></li>
+                                    <li class="mr-4"><a href="#contact">التطبيقات</a></li> -->
+                    <li class="linav"><a id="aya2" data-toggle='tab' onClick="$('#geo-portal').toggle();" style="cursor: pointer;">المنصة الجغرافية<i
+                                class="fa fa-sort-down" style="padding-right: 5px;"></i></a></li>
+
+                    <li class="linav"><a id="aya3" data-toggle='tab' onClick="$('#da3m').toggle();" style="cursor: pointer;" >دعم
+                            إتخاذ القرار <i class="fa fa-sort-down" style="padding-right: 5px;"></i></a></li>
+                            
+                    <li class="linav"><a id="aya4" href="{% url 'base' %}#goals" style="cursor: pointer;">أخر الأخبار</a></li>
+
+                </ul>
+
+                <div class="tab-content">
+                    <!-- //////// دعم اتخاذ القرار /////// -->
+                    <div id='da3m' class='tab-pane fade in '>
+                        <div class="container">
+                            <div class="row arr da3m">
+
+                                {% if request.user.Profiles.role_id.code == 3 %}
+
+
+                                <a onclick="window.open('{% url 'wezarat'%}','_self')">
+                                    الــــــــوزارات 
+                                
+                                    <i class="fa-solid fa-angles-left"></i>
+                             
+                                </a><br>
+
+                                <a onclick="window.open('{% url 'mohafazat'%}','_self')">
+                                    المحافظات <i class="fa fa-angles-left"></i></a><br>
+
+                                <a onclick="window.open('{% url 'he2at'%}','_self')" > الهـــيئـــــات 
+                                    <i class="fa fa-angles-left"></i></a><br>
+
+                                <a onclick="window.open('{% url 'cat_tap'%}','_self')" > متخذ القرار 
+                                    <i class="fa fa-angles-left"></i></a><br>
+                                {%endif%}
+
+                                {% if request.user.Profiles.role_id.code == 1 %}
+                                <a onclick="window.open('{% url 'mohafazat'%}','_self')">
+                                    المحافظات <i class="fa fa-angles-left"></i></a><br>
+                                {%endif%}
+                                {% if request.user.Profiles.role_id.code == 6 %}
+                                <a onclick="window.open('{% url 'mohafazat'%}','_self')">
+                                    المحافظات <i class="fa fa-angles-left"></i></a><br>
+                                {%endif%}
+                                {% if request.user.Profiles.role_id.code == 2%}
+                                <a onclick="window.open('{% url 'wezarat'%}','_self')"><img
+                                        src="{% static 'media/maglesel-wzraa.png' %}" alt="" width="30" height="30">
+                                    الــــــــوزارات <i class="fa fa-angles-left"></i></a><br>
+                                {%endif%}
+                                {% if request.user.Profiles.role_id.code == 4%}
+                                <a onclick="window.open('{% url 'he2at'%}','_self')"><img
+                                        src="{% static 'media/maglesel-wzraa.png' %}" alt="" width="30" height="30">
+                                        الهـــيئـــــات <i class="fa fa-angles-left"></i></a><br>
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //////// المنصة الجغرافية /////// -->
+                    <div id='geo-portal' class='tab-pane fade in'>
+                        <div class="container">
+                            <div class="row geo-por arr" style="position: absolute;">
+                                <a
+                                    onclick="window.open('https://www.planet.com/explorer/#/zoom/6.69/interval/1%20day/ov/stiles:1-:0/center/33.184,26.432')">صــــــور
+                                    فضـــــائـــــية  <i class="fa fa-angles-left iconSize"></i></a><br>
+
+                                    <a onclick="window.open('http://192.168.17.49/apollo-portal/apollopro.aspx')">خرائط البنية المعلوماتية المكانية
+                                        <i class="fa fa-angles-left iconSize"></i></a><br>
+
+
+                                        
+                                        <a onclick="window.open('{% url 'inquiry' %}')">استعلام عن SERAG-ID
+                                            <i class="fa fa-angles-left iconSize"></i></a><br>
+                                            
+                            </div>
+                        </div>
+                    </div>
+
+  
+
+
+
+
+                    
+                    <!-- //////// الادوات /////// -->
+                    <!-- {% if request.user.Profiles.user_role.code == 2 or request.user.Profiles.role_id.code == 3    %} -->
+
+                    <div id='tools' class='tab-pane fade in'>
+                        <div class="container">
+                            <div class="row tools arr" style="position: absolute;">
+                                     <a onclick='window.open("{{request.user.Profiles.tenant_link}}")'>تطبيق مؤشرات الاداء<i class="fa fa-angles-left iconSize"></i></a><br>
+
+                                        <a  id="mytool2" onclick="window.open('{% url 'deploymentRequest' %}','_self')" >طلبات النشر<i
+                                            class="fa fa-angles-left iconSize"></i></a><br>
+
+                                     <a  id="mytool3" onclick="window.open('{% url 'inquiryRequest' %}','_self')">طلب
+                                        استعلام <i class="fa fa-angles-left iconSize"></i></a><br>
+                                      
+                                        <a onclick="window.open('{% url 'extract_data' %}','_self')">طلب
+                                            استخراج البيانات<i class="fa fa-angles-left iconSize"></i></a><br>
+                                         
+                                            
+                                            <a  id="mytool" onclick="window.open('#')">
+                                                دمج البيانات <i class="fa fa-angles-left iconSize"></i></a><br>
+
+
+
+
+                                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id='stool' class='stool'>
+                        <div class="container">
+                            <div class="row geo-por arr toolss" style="position: absolute;">
+                                <a
+                                onclick='window.open("http://192.168.17.77:1995/?id={{request.user.Profiles.id}}")'>تطبيق دمج ومعالجة البيانات
+                                  <i class="fa fa-angles-left iconSize"></i></a><br>
+                                
+
+                                <a
+                                    onclick="window.open('{% url 'merge_app' %}')">تطبيق دمج العناصر
+                                      <i class="fa fa-angles-left iconSize"></i></a><br>
+
+                                        <a onclick="window.open('{% url 'mergeRequest' %}','_self')">طلب دمج الخرائط
+                                             <i class="fa fa-angles-left iconSize"></i></a><br>
+                            </div>
+                        </div>
+                    </div> 
+ 
+                    {%endif%} 
+                    <!-- //////// تسجيل الخروج /////// -->
+
+                    <div id='logout' class='tab-pane fade in'>
+                        <div class="container">
+                            <div class="row logout arr" style="position: absolute;">
+                                {% if request.user.Profiles.role_id.code == 3 %}
+                                <a onclick="window.open('{% url 'update-user' request.user.Profiles.id  %}' , '_self')">الصفحة الشخصية <i class="fa fa-angles-left iconSize"></i></a><br>
+                                <a onclick="window.open('{% url 'admin_panel_index' %}' , '_self')"> لوحة التحكم<i class="fa fa-angles-left iconSize"></i></a><br>
+                                <a href="" target="_blank"><button style="border: none;background-color: #fff;"
+                                        onclick="window.open('{% url 'logout' %}' , '_self')"> تسجيل الخروج</button><i
+                                        class="fa fa-angles-left iconSize"></i></a><br>
+                                {%endif%}
+                                {% if request.user.Profiles.role_id.code == 2  or request.user.Profiles.role_id.code == 1 or request.user.Profiles.role_id.code == 6 or request.user.Profiles.role_id.code == 4%}
+                                <a onclick="window.open('{% url 'update-user' request.user.Profiles.id  %}' , '_self')">الصفحة الشخصية <i class="fa fa-arrow-left"></i></a><br>
+                                <!-- <a onclick="window.open('{% url 'admin_panel_index' %}' , '_self')"> لوحة التحكم<i class="fa fa-arrow-left"></i></a><br> -->
+                                <a href="" target="_blank"><button style="border: none;background-color: #fff;"
+                                        onclick="window.open('{% url 'logout' %}' , '_self')"> تسجيل الخروج</button><i
+                                        class="fa fa-angles-left iconSize"></i></a><br>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container-fluid">
+                    <form class="example search" style="left: 540px;" onsubmit="return false;">
+                        <input type="text" placeholder="بحث ....." name="search" id="search"
+                            style="font-size: 16px;color: var(--red);">
+                        <button type="" style="background-color: transparent;border: none;"><i class="fa fa-search "
+                               ></i></button>
+                    </form>
+                    <button id="aya5" class="btn btn-light login" onClick="$('#logout').toggle();"><i class="fa fa-user "></i>
+                        {{ request.user.Profiles.name }}</button>
+
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% else %}
+    <!-- start navigation -->
+    <nav  id="nav" class="navbar navbar-default navbar-fixed-top templatemo-nav " role="navigation">
+        <div class="row">
+            <div class="navbar-header col-6">
+                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse col-6 ">
+
+                <ul class="nav navbar-nav navbar-right text-uppercase nav-pills">
+                    <a href="{% url 'base'%}"><img src="{% static 'media/white-logo.png' %}" width="80" height="80" alt=""></a>
+
+
+
+                    <li><a data-toggle='tab' onClick="alert('برجاء تسجيل الدخول')" style="cursor: pointer;">الدعم
+                            الفنى</a></li>
+                    <li><a data-toggle='tab' onClick="alert('برجاء تسجيل الدخول')" href='#'>الأدوات<i
+                                class="fa fa-sort-down" style="padding-right: 5px;"></i></a></li>
+
+
+                    <!-- <li class="mr-4"><a href="#contact">الأدوات</a></li>
+                        <li class="mr-4"><a href="#contact">التطبيقات</a></li> -->
+                    <li><a data-toggle='tab' href='#pricing'>الخريطة الرئيسية</a></li>
+                    <li><a data-toggle='tab' href="{% url 'base' %}#download">أهم الأخبار والأحداث</a></li>
+                    <li><a href="{% url 'base' %}" style="cursor: pointer;">الصفحة الرئيسية</a>
+                    </li>
+
+
+                </ul>
+
+                <div class="tab-content">
+                    <!-- //////// دعم اتخاذ القرار /////// -->
+
+                    <!-- //////// المنصة الجغرافية /////// -->
+                    <div id='geo-portal' class='tab-pane fade in'>
+                        <div class="container">
+                            <div class="row geo-por arr" style="position: absolute;">
+                                <a
+                                    onclick="window.open('https://www.planet.com/explorer/#/zoom/6.69/interval/1%20day/ov/stiles:1-:0/center/33.184,26.432')">صــــــور
+                                    فضـــــائـــــية <i class="fa fa-arrow-left"></i></a><br>
+
+                                    <a onclick="window.open('http://192.168.17.49/apollo-portal/apollopro.aspx')">خرائط البنية المعلوماتية المكانية
+                                        <i class="fa fa-angles-left iconSize"></i></a><br>
+
+                                        <!-- <a onclick="window.open('http://192.168.17.55/public_login_gehat/portal/index1.html?tenant=asmaa')">المتصفح
+                                            الجغرافي <i class="fa fa-angles-left iconSize"></i></a><br> -->
+                                            
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //////// الادوات /////// -->
+                    <div id='tools' class='tab-pane fade in'>
+                        <div class="frame">
+                            <a href="" onClick="$('#tools').toggle();"><i class="fa fa-close"> </i></a>
+                            <p>نأسف<br>يجب تسجيل الدخول</p>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div id="test3" class="container-fluid">
+                    <!-- <form class="example search" style="left: 574px;"  onsubmit="return false;">
+                        <input type="text" placeholder="بحث ....." name="search" id="search"
+                            style="font-size: 16px;color: var(--red);">
+                        <button type="" style="background-color: transparent;border: none;"><i class="fa fa-search "
+                                style="color: #fff"></i></button>
+                    </form> -->
+                    <a class="btn btn-light login" onClick="window.open('/login/','_self')"><i
+                            class="fa fa-user "></i>
+                        تسجيل الدخول</a>
+
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- end navigation -->
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+    <!-- end body tag -->
+    <!-- start footer -->
+    <!-- start divider -->
+
+
+  
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-xs-8 col-md-6">
+            <div class="row">
+
+            <div class="col-xs-8 col-md-6 mapFooter">
+                <iframe class="frameContacts"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.334574982165!2d31.29118376379086!3d30.078196537907726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583f2d6810c031%3A0x109e923c594e2342!2z2KXYr9in2LHYqSDYp9mE2YXYs9in2K3YqSDYp9mE2LnYs9mD2LHZitip!5e1!3m2!1sar!2seg!4v1607929178030!5m2!1sar!2seg"
+                width="600" height="450" frameborder="0" style="border:0;border: 0;margin-left: 5px;"
+                allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+            <div class="col-xs-7 col-md-6 mapFooter lignFooter2">
+                <h3 class="h3Footer">تواصل معنا  </h3>
+                    <address class = "addresss" style="text-align: right;">
+                        <p class="addre"><i class="fa fa-solid fa-location-dot "></i> شارع الخليفة المأمون المؤدي إلى ميدان العباسية </p>
+                        <p><i class="fa fa-phone"></i> 01279687466  -  01272257366</p>
+                        <p><i class="fa fa-envelope"></i> sdi@nsdi.com</p>
+                    </address>
+                </div>
+        </div>
+        </div>
+
+        <div class="col-xs-8 col-md-2 mapFooter lignFooter">
+            <h3 class="h3Footer">اهم الروابط  </h3>
+            <ul>
+
+                <li class="contacts">
+                    <i class="fa-solid fa-layer-group"></i><a href="#home"> الصفحة الشخصية   </a>
+                  </li>
+                  <li class="contacts">
+                    <i class="fa fa-user "></i> <a href="#home">  طبقاتي    </a>
+                  </li>
+                <li class="contacts">
+                    <i class="fa-solid fa-earth-africa"></i> <a href="#home">المتصفح الجغرافي   </a>
+                  </li>
+                <li class="contacts">
+                    <i class="fa-solid fa-file-circle-check"></i> <a href="#home">دليل المستخدم  </a>
+                </li>
+             
+                <li class="contacts">
+                    <i class="fa-solid fa-users"></i> <a href="#home"> مجتمع NSDI  </a>
+                  </li>
+                  <li class="contacts">
+                    <i class="fa-solid fa-question-circle"></i> <a href="#home"> اهم الاسئلة   </a>
+                  </li>
+               
+              </ul>
+          </div>
+        <div class="col-xs-6 col-md-4 mapFooter ">
+            <h3 class="h3Footer"> الخدمات المتاحة علي المنصة</h3>
+            <address class = "serviceFooter" style="text-align: right;">
+                <p class="addre "><i class="fa-solid fa-laptop"></i>تصميم وتطوير افضل البرامج والتطبيقات فى مجال نظم المعلومات الجغرافيه المعتمده على الخريطة
+                    الرئيسيه  </p>
+                <p><i class="fa-solid fa-earth-africa"></i>  متصفح جغرافي تستطيع الجهة من خلاله تصفح خريطة الاساس الموحدة بما فيها من بيانات بكل سهولة</p>
+                <p><i class="fa-solid fa-list-check"></i> مؤشرات اداء خاصة بكل جهة تساعد متخذي القرار في اتخاذ القرار</p>
+            </address>
+          </div>
+
+      </div>
+  
+    </div>
+
+</footer>
+
+
+<!-- aya footer -->
+
+
+<footer>
+    <div class="container foter">
+        <div class="row ">
+          
+            <p class="pbase">جميع الحقوق محفوظه © إدارة المساحة العسكرية 2022  </p>
+        </div>
+    </div>
+</footer>
+    <!-- end footer -->
+
+
+<!-- <script>
+    // hover script for nav
+
+        // الادوات
+        $("#aya").hover(function() {
+            $("#tools").css("display", "block");
+
+        });
+
+        $("#nav").mouseleave(function() {
+            $("#tools").css("display", "none");
+        });
+
+        $("#test").mousemove(function() {
+            $("#tools").css("display", "none");
+        });
+        $("#test2").mousemove(function() {
+            $("#tools").css("display", "none");
+        });
+
+                // الادواتs
+                $("#mytool").hover(function() {
+            $("#stool").css("display", "block");
+        });
+        $("#nav").mouseleave(function() {
+            $("#stool").css("display", "none");
+            });
+
+            $("#mytool2").mouseleave(function() {
+            $("#stool").css("display", "none");
+            });
+
+            $("#mytool3").mousemove(function() {
+            $("#stool").css("display", "none");
+            });
+
+            
+
+     
+        
+
+        // المنصة الجغرافية
+        $("#aya2").hover(function() {
+            $("#geo-portal").css("display", "block");
+
+        });
+        $("#nav").mouseleave(function() {
+            $("#geo-portal").css("display", "none");
+        });
+
+        $("#test2").mousemove(function() {
+            $("#geo-portal").css("display", "none");
+        });
+        $("#aya3").mousemove(function() {
+            $("#geo-portal").css("display", "none");
+        });
+
+
+
+
+        // دعم اتخاذ القرار
+        $("#aya3").hover(function() {
+            $("#da3m").css("display", "block");
+
+        });
+        $("#nav").mouseleave(function() {
+            $("#da3m").css("display", "none" );
+        });
+
+        $("#aya2").mousemove(function() {
+            $("#da3m").css("display", "none");
+        });
+        $("#aya4").mousemove(function() {
+            $("#da3m").css("display", "none");
+        });
+
+
+       
+        // تسجيل الدخول
+
+
+        $("#aya5").hover(function() {
+            $("#logout").css("display", "block");
+        });
+        $("#nav").mouseleave(function() {
+            $("#logout").css("display", "none");
+        });
+        
+        $("#test3").mouseleave(function() {
+            $("#logout").css("display", "none");
+        });
+        // $("body").mouseleave(function() {
+        //     $("#logout").css("display", "none");
+        // });
+   
+   
+</script> -->
+<script>
+      // الادواتs
+      $("#mytool").hover(function() {
+            $("#stool").css("display", "block");
+        });
+        $("#nav").mouseleave(function() {
+            $("#stool").css("display", "none");
+            });
+
+            $("#mytool2").mouseleave(function() {
+            $("#stool").css("display", "none");
+            });
+
+            $("#mytool3").mousemove(function() {
+            $("#stool").css("display", "none");
+            });
+
+</script>
+</body>
+
+</html>

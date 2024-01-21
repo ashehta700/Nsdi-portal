@@ -1,0 +1,326 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+
+<style>
+img
+{
+    border: #781414 solid 2px;
+}
+.green_icon {
+    background-color: #4cd137;
+    position: relative;
+    right: 16px;
+    top: 216px;
+    height: 50px;
+    width: 50px;
+    border: 5px solid white;
+    border-radius: 50%;
+}
+
+ul .contacts
+{
+    padding-bottom: 33px ;
+}
+
+.contacts a {
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    text-decoration: none;
+}
+h2
+{
+   color:#781414;
+   font-weight: 700;
+}
+.event {
+    font-size: 27px;
+    text-align: center;
+    padding: 30px 0px;
+    position: relative;
+}
+.event::after{
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 6px;
+    background-color: #781414;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 7px;
+}
+li.contacts {
+  text-align: right;
+  list-style: none;
+ 
+  padding-bottom: 40px;
+  color: #771217;
+}
+
+li.contacts:hover{
+
+  color: #c08928;
+}
+
+.addFormm {
+    background-color:#2E4052;
+    color: white;
+    border:#2E4052 2px solid;
+    padding: 6px 22px;
+    /* margin-top: 10px; */
+}
+.addFormm:hover {
+    background-color: white;
+    color: #2E4052;
+    border: #2E4052 2px solid;
+}
+.deletFormm {
+    background-color:#781414;
+    color:  white;
+    border:#781414 2px solid;
+    margin-right: 5px;
+  
+}
+.deletFormm:hover {
+    background-color:  white;
+    color: #781414;
+    border: #781414 2px solid;
+}
+label.labels {
+    font-size: 17px;
+    color: #771217;
+    font-weight: 600;
+}
+.spanName
+{
+    font-size: 30px;
+    color: #781414;
+}
+.spanSupName
+{
+    font-size: 22px;
+
+}
+.rounded {
+    border-radius: 1.25rem!important;
+}
+.container.rounded.bg-white.containerProfile.shadow-lg.allContents {
+    position: relative;
+    top: 100px !important;
+    margin-bottom: 182px !important;
+}
+.row.aya {
+    flex-direction: row-reverse;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+img.rounded-circle {
+    width: 80%;
+    border-radius: 50%;
+}
+.borde {
+    border-right: 2px solid #80808014;
+    border-left: 2px solid #80808014;
+    margin-bottom: 17px;
+}
+.profTitels {
+    margin-bottom: 17px;
+}
+.mt-5.text-start {
+    text-align: end;
+    margin-bottom: 20px;
+}
+.col-md-12 {
+    width: 100%;
+    margin-top: 20px;
+}
+.textt {
+    font-size: 21px;
+    text-align: right;
+}
+.text-center.link {
+    text-align: center;
+    color: #771217;
+    font-size: 19px;
+    margin-top: 94px;
+}
+li.contacts {
+    text-align: right;
+    list-style: none;
+    padding: 25px 0px 16px;
+    color: #771217;
+}
+.text-center.link {
+    text-align: center;
+    color: #771217;
+    font-size: 19px;
+    /* margin-top: 120px; */
+}
+.spanName {
+    font-size: 26px;
+    color: #781414;
+    display: block;
+}
+.containerProfile {
+    background-image: linear-gradient(-45deg,#f1f1f1 94%,#781414 94%);
+}
+</style>
+
+
+
+    <div class="container rounded bg-white containerProfile shadow-lg allContents"  >
+        <!--  error with form  -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">
+                ×
+            </button>
+            <strong>{{message}}<strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!--  -->
+        <div class="row aya">
+            <div class="col-md-3 ">
+                <div class="d-flex flex-column align-items-center text-center pt-3 py-5 justify-content-center he">
+                    <div class="green_icon"></div>
+                    <img class="rounded-circle mt-5 w-50"  src="{{ profile_form.instance.image.url }}">
+                    <span class="font-weight-bold spanName">{{ profile_form.instance.name}}</span>
+                    <span class="text-black-50 spanSupName ">{{ profile_form.instance.user_job}}</span><span> </span></div>
+            </div>
+
+            <div class="col-md-7 border-end border-start borde ">
+
+                <div class="p-3 py-5 profTitels">
+                    
+                    <h2 class="text-center event">معلومات الصفحة الشخصية</h2>
+                    
+                    <form method='POST' enctype="multipart/form-data">
+
+                        {% csrf_token %}   
+                        
+                        {% if request.user.Profiles.role_id.code == 3 %}
+                    <div class="row mt-3">
+                        <div class="col-md-12 pt-3"><label class="labels">إسم الجهه الظاهر على المنصة :</label>
+                            {% render_field profile_form.name class="form-control" %}
+                        </div>
+                        {% else %}
+                        <div class="col-md-12 pt-3"><label class="labels">إسم الجهه الظاهر على المنصة :</label>
+                            {% render_field profile_form.name class="form-control" readonly="True" %}
+                        </div>
+                        {% endif %}
+
+                        <div class="col-md-12 pt-3"><label class="labels">رقم الهاتف الشخصى :</label>
+                            {% render_field profile_form.phone class="form-control" %}
+                        </div>
+                        
+                        <div class="col-md-12 pt-3"><label class="labels">  عنوان الجهه التابع لها :</label>
+                            {% render_field profile_form.organization_address class="form-control" placeholder="" %}
+                        </div>
+                        {% if request.user.Profiles.role_id.code == 3 %}
+                        <div class="col-md-12 pt-3"><label class="labels">إسم الجهه التابع لها المستخدم :</label>
+                            {% render_field profile_form.organization_name class="form-control" placeholder="" %}
+                        </div>
+                        {% else %}
+                            <input type="hidden" name="organization_name" placeholder="{{profile_form.instance.organization_name}}" value="{{profile_form.instance.organization_name.id}}" >
+                        {% endif %}
+                        <div class="col-md-12 pt-3"><label class="labels">وظيفة المستخدم :</label>
+                            {% render_field profile_form.user_job class="form-control" placeholder="" %}
+                        </div>
+                        <div class="col-md-12 pt-3"><label class="labels">  عنوان الجهه التابع لها :</label>
+                            {% render_field profile_form.organization_address class="form-control" placeholder="" %}
+                        </div>
+                        {% if request.user.Profiles.role_id.code == 3 %}
+                        <div class="col-md-12 pt-3"><label class="labels">القاعدة التابع لها المستخدم :</label>
+                            {% render_field profile_form.role_id class="form-control" placeholder="" %}
+                        </div>
+                        <div class="col-md-12 pt-3"><label class="labels"> رابط ال Tenant الخاص بالجهه :</label>
+                            {% render_field profile_form.tenant_link class="form-control"  %}
+                        </div>
+
+                        <div class="col-md-12 pt-3"><label class="labels">  تطبيق العناصر الخاص بالجهه  :</label>
+                            {% render_field profile_form.app_link class="form-control"  %}
+                        </div>
+                       
+                        <div class="col-md-12 pt-3"><label class="labels"> نوع المستخدم  :</label>
+                            {% render_field profile_form.user_role class="form-control" placeholder="" %}
+                        </div>
+                        {% else %}
+                        <div class="col-md-12 pt-3"><label class="labels"> رابط ال Tenant الخاص بالجهه :</label>
+                            {% render_field profile_form.tenant_link class="form-control" readonly="True" %}
+                        </div>
+                        <input type="hidden" name="role_id" value="{{profile_form.instance.role_id.id}}">
+                        <div class="col-md-12 pt-3"><label class="labels">  تطبيق العناصر الخاص بالجهه  :</label>
+                            {% render_field profile_form.app_link class="form-control" readonly="True"  %}
+                        </div>
+                        {% endif %}
+                        <div class="col-md-12 pt-3"><label class="labels"> تغيير الصورة الشخصية</label>
+                            {% render_field profile_form.image class="form-control" readonly="True"  %}
+                        </div>
+
+                     
+
+
+                    </div>
+
+                    <div class="mt-5 text-start">
+                        <button class="btn addFormm fs-5" type="submit"> حفظ</button>
+                        <a class="btn deletFormm fs-5" href="{% url 'base' %}"> رجوع</a>
+                    </div>
+                    </form>
+
+                    
+                </div>
+                <div class="col-md-2 links">
+                    <!-- <div class="p-3 py-5  text-center link"> -->
+                    
+                <ul>
+    
+                    <li class="contacts">
+                        <i class="fa fa-map-marked-alt"></i> <a href="{{request.user.Profiles.app_link}}" target="_blank">تطبيق دمج العناصر     </a>
+                      </li>
+                    <li class="contacts">
+                        <i class="fa fa-laptop"></i> <a href="{% url 'apps' %}">التطبيقات الخاصة بالجهة    </a>
+                    </li>
+                    <li class="contacts">
+                        <i class="fa fa-share-square"></i> <a href="{% url 'mergeRequest' %}"> طلبات الدمج   </a>
+                      </li>
+                    <li class="contacts">
+                        <i class="fa fa-share-square"></i> <a href="{% url 'extract_data' %}">  طلبات استخراج بيانات الدمج </a>
+                      </li>
+     
+                      <li class="contacts">
+                        <i class="fa fa-share-square"></i> <a href="{% url 'deploymentRequest' %}"> طلبات النشر   </a>
+                      </li>
+                      <li class="contacts">
+                        <i class="fa fa-share-square"></i> <a href="{% url 'inquiryRequest' %}">   طلبات الاستعلام  </a>
+                      </li>
+          
+                      <li class="contacts">
+                        <i class="fa fa-headphones"></i> <a href="{% url 'technical' %}">    الدعم الفني  </a>
+                      </li>
+                      <li class="contacts">
+                        <i class="fa fa-file-download"></i> <a href="{% url 'manual' %}">دليل المستخدم  </a>
+                      </li>
+                      <li class="contacts">
+                        <i class="fa fa-comments"></i>  <a href="{% url 'faq-center' %}">   الاسئلة الشائعة   </a>
+                      </li>
+                      <li class="contacts">
+                        <i class="fa fa-users"></i> <a href="{% url 'community' %}">   ابرز اسئلة الاعضاء   </a>
+                      </li>
+                  </ul>
+                  
+                </div>
+            </div>
+            </div>
+        
+    </div>
+    
+    <!-- </div>
+    </div> -->
+    {% endblock %}

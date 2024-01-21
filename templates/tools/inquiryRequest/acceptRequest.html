@@ -1,0 +1,109 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+
+<section id="request" dir="rtl">
+    <div class="container divlayer">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+
+                    <h2 class="col-md-12 h1layer">طلبات الاستعلام (قبول الطلبات)</h2>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="bordered2">
+                            <th class="thlayer"scope="col">رقم الطلب</th>
+                            <th class="thlayer"scope="col">إسم الطلب</th>
+                            <th class="thlayer"scope="col">الجهة الراسلة</th>
+                            <th class="thlayer"scope="col">تاريخ الطلب</th>
+                            <th class="thlayer"scope="col">الجهة المستلمة</th>
+                            <th class="thlayer"scope="col"><i class="fa fa-cogs setting"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- showing all MergeRequests for admin user -->
+                        {% for each in requests %}
+                        {% if not each.is_approved %}
+                        <td>{{ each.id}}</td>
+                        <td>{{ each.request_message}}</td>
+                        <td>{{ each.user_sender}}</td>
+                        <td>{{ each.request_date|date:'Y/m/d -- h:i A '}}</td>
+                        <td>{{ each.user_reciver}}</td>
+
+
+                            <td class="row">
+
+                                <a href="{% url 'inquiryRequestAccept' each.id %}" title="قبول الطلب"
+                                    class="btn addFormm col"><i class="fa fa-check-circle"></i>قبول</a>
+                                    <a title="رفض الطلب" href="{% url 'inquiryRequestRefuse' each.id %}"
+                                    class="btn deletFormm " style="margin-right:4px ;"><i class="fa fa-times"></i>رفض</a>                   
+                               
+                          
+                            </td>
+
+                        </tr>
+                        
+                        
+                        {% endif %}
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="alert alert-danger" role="alert">
+                                    صندوق الطلبات  فارغ
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                       
+
+
+
+
+
+                    </tbody>
+                </table>
+                      <!--Pagination-->
+                      <div class="container p-4 text-center">
+                        <div class="pagination justify-content-center" style="direction: rtl;">
+                            {% if requests.has_previous %}
+                            <li><a href="?page={{ requests.previous_page_number }}">  السابق &raquo;</a></li>
+                            {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                            {% for i in requests.paginator.page_range %}
+                            {% if requests.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if requests.has_next %}
+                            <li><a href="?page={{ requests.next_page_number }}">&laquo;  التالى</a></li>
+                            {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                            {% endif %}
+                       
+                        </div>
+                    </div>
+        <!-- end pagination -->
+                <div class="col-md-6 text-left">
+                   
+                    <button onclick="window.open('{% url 'inquiryRequestCreate' %}','_self')"
+                        class="btn addFormm pull-center "><i class="fa fa-plus"></i> انشاء طلب جديد</button>
+                        <button onclick="window.open('{% url 'inquiryRequest' %}','_self');"
+                        class="btn deletFormm pull-center" style="margin-right: 5px;"><i class="fa fa-undo"></i>
+                        عودة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}

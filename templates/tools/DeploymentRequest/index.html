@@ -1,0 +1,95 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<style>
+    #request {
+        height: 100%;
+    }
+
+    .panel-body {
+        height: auto;
+    }
+
+    .card {
+        border: 2px solid #900303;
+    border-radius: 3%;
+    padding: 1%;
+    box-shadow: 0px 0px 3px black;
+    }
+
+    .card-title {
+        background-color: #900303;
+        color: #fff;
+        padding: 1%;
+    }
+    .card-text{
+    padding: 1%;
+    }
+</style>
+<section id="request" dir="rtl">
+    <div class="container  containerDash">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1 class="h1puplish">طلبات النشر </h1>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="container divpuplish">
+
+
+
+                        <div class="item clean divapps  ">
+                            <div class="apph4">
+                                <a class="technA"  href="{% url 'deploymentRequestApp2' %}"> 
+                            <h4 class="text-center h4 h4apps">طلبات نشر التطبيقات</h4>
+                        </div>
+                            <img src="{% static 'media/apppublish.png'%}"  class="img2" alt="image">
+                            
+                            <p class="card-text pPublish">يستخدم هذا الطلب لعمل نشر للتطبيقات  المنفذه من
+                                الجهه لاتاحتها على المنصة </p>
+                        </a>
+                        </div>
+
+                        <div class="item clean divapps  ">
+                            <div class="apph4">
+                                <a class="technA" href="{% url 'deploymentRequestApp' %}"> 
+                            <h4 class="text-center h4 h4apps"> طلبات نشر مؤشرات الأداء </h4>
+                        </div>
+                            <img src="{% static 'media/publish-app.jpg'%}"  class="img2" alt="image">
+                            
+                            <p class="card-text pPublish">يستخدم هذا الطلب لعمل طلب نشر لمؤشرات الاداء المستخرجه من قواعد
+                                البيانات لاتاحتها على المنصة</p>
+                            </a>
+                        </div>
+
+
+
+                        <div class="item clean divapps  ">
+                            <div class="apph4">
+                                <a class="technA" href="{% url 'deploymentRequestLayer' %}"> 
+                            <h4 class="text-center h4 h4apps">طلبات نشر الطبقات </h4>
+                        </div>
+                        <img src="{% static 'media/publish-app.jpg'%}"  class="img2" alt="image">
+                            
+                            
+                            <p class="card-text pPublish">يستخدم هذا الطلب لعمل طلب نشر للطبقات المستخرجه من قواعد
+                                البيانات لاتاحتها على المنصة</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <button onclick="window.open('{% url 'base' %}','_self');" class="btn deletFormm btnp  pull-left "
+                style="margin: 2% 3% ;"><i class="fa fa-undo"></i> عودة</button>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

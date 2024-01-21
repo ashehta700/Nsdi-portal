@@ -1,0 +1,43 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<style>
+    .panel {
+        margin-top: 15%;
+
+
+    }
+</style>
+<div class="container">
+    <div class="row panel panel-default text-center">
+        <div class="panel-heading">
+            <h1 class="" style="">إنشاء سؤال جديد خاص (Faq-Center)</h1>
+            <hr>
+            <form method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {% render_field upload_form.category_name class="form-control"  %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء اختيار نوع السؤال</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {% render_field upload_form.question class="form-control" placeholder="برجاء كتابة السؤال" %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء كتابة السؤال</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {% render_field upload_form.answer class="form-control" placeholder="برجاء كتابة الاجابة" %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء كتابة الاجابة</label>
+                </div>            
+                <button type="submit" class="btn btn-lg btn-success">حفظ</button>
+                <button onclick="window.open('{% url 'index' %}','_self')" class="btn btn-lg btn-danger">عودة</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

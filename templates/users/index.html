@@ -1,0 +1,109 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+<style>
+    #request .panel {
+    margin-top: 4%;
+}
+</style>
+<div class="container text-center tech">
+    <div class="col-md-12 search-button ">
+        <div class="pull-left">
+            <form method="GET" name="myform" action="{% url 'ListUsers' %}">
+                <input class="search-txt" type="text" name="search" placeholder="بحث .......">
+
+                <button class="search-btn"type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="{% url 'ListUsers' %}" style="position: absolute;
+                color: #900303;
+                margin-right: 7px;
+                margin-top: 3px;text-decoration: none;"><i class="fa fa-times"></i>إلغاء</a>
+            </form>
+        </div>
+    </div>
+</div>
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <button onclick="window.open('{% url 'register' %}','_self')"
+                            class="btn btn-success pull-left "><i class="fa fa-plus"></i> انشاء مستخدم جديد</button>
+                        <button onclick="window.open('{% url 'admin_panel_index' %}','_self');" class="btn btn-primary pull-left"
+                            style="margin-left: 5px;"><i class="fa fa-undo"></i>
+                            عودة</button>
+                    </div>
+                    <h2 class="col-md-6" style="margin:0px;">جميع المستخدميين الموجودين على المنصة</h2>
+                </div>
+                
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">رقم المستخدم</th>
+                            <th scope="col">إسم المستخدم</th>
+                            <th scope="col">صورة المستخدم</th>
+                            <th scope="col">إسم المستخدم الظاهر على المنصة</th>
+                            <th scope="col">الجهه التابع لها المستخدم</th>
+                            <th scope="col">القاعدة التابع لها المستخدم</th>
+                            <th scope="col"><i class="fa fa-cogs setting"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for each in page_obj %}
+                        <tr>
+                            <td>{{ each.id }}</td>
+                            <td>{{ each.user }}</td>
+                            <td><img src="{{ each.image.url }}" alt="لايوجد له صورة" width="70" height="70"
+                                    style="border: 1px solid ; border-radius: 50%;"></td>
+                            <td>{{ each.name }}</td>
+                            <td>{{ each.organization_name }}</td>
+                            <td>{{ each.role_id }}</td>
+                            <td class="row">
+                                <a href="{% url 'updateUser' each.id%}" class="btn btn-warning" id='{{each.id}}'><i
+                                        class="fa fa-edit"></i></a>
+
+                                <a href="{% url 'deleteUser' each.id%}" class="btn btn-danger" id='{{each.id}}'><i
+                                        class="fa fa-trash"></i></a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+               <!--Pagination-->
+               <div class="container p-4 text-center">
+                <div class="pagination justify-content-center" style="direction: rtl;">
+                    {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}">  السابق &raquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">&laquo;  التالى</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+               
+                </div>
+            </div>
+<!-- end pagination -->
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

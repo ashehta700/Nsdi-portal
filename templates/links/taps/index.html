@@ -1,0 +1,131 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+<style>
+    #request .panel {
+    margin-top: 4%;
+}
+</style>
+<div class="container text-center tech">
+    <div class="col-md-12 search-button ">
+        <div class="pull-left">
+            <form method="GET" name="myform" action="{% url 'listTaps' %}">
+                <input class="search-txt" type="text" name="search" placeholder="بحث .......">
+
+                <button class="search-btn"type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="{% url 'listTaps' %}" style="position: absolute;
+                color: #900303;
+                margin-right: 7px;
+                margin-top: 3px;text-decoration: none;"><i class="fa fa-times"></i>إلغاء</a>
+            </form>
+        </div>
+    </div>
+</div>
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <button onclick="window.open('{% url 'addTap' %}','_self')"
+                            class="btn btn-success pull-left "><i class="fa fa-plus"></i> انشاء توبيبه جديد</button>
+                        <button onclick="window.open('{% url 'admin_panel_index' %}','_self');" class="btn btn-primary pull-left"
+                            style="margin-left: 5px;"><i class="fa fa-undo"></i>
+                            عودة</button>
+                    </div>
+                    <h2 class="col-md-6" style="margin:0px;">جميع التوبيبات المتاحه على المنصة</h2>
+                </div>
+                
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">رقم التوبيبه</th>
+                            <th scope="col">إسم التوبيبه</th>
+                            <th scope="col">الجهه التابع لها هذه التبويبه</th>
+                            <th scope="col">الرابط</th>
+                            <th scope="col"><i class="fa fa-cogs setting"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if page_obj1 != null %}
+                        {% for each in page_obj1 %}
+                        <tr>
+                            <td>{{ each.id }}</td>
+                            <td>{{ each.tap_name }}</td>
+                            <td>{{ each.gehat_id }}</td>
+                            <td>{{ each.tap_link }}</td>
+                            <td>{{ each.taps_categories_sub_id_id.name }}</td>
+                            <td class="row">
+                                <a href="{% url 'updateTap' each.id%}" class="btn btn-warning" id='{{each.id}}'><i
+                                        class="fa fa-edit"></i></a>
+
+                                <a href="{% url 'deleteTap' each.id%}" class="btn btn-danger" id='{{each.id}}'><i
+                                        class="fa fa-trash"></i></a>
+
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr  style="text-align: center; height: 10vh;">
+                            <td colspan="5"><i class="fa fa-exclamation-square" style="color: red"></i><h3>عفواً لايوجد نتائج</h3></td>
+                           
+                        </tr>
+                        {% endfor %}
+                            {% else %}
+                {% for each in page_obj %}
+                <tr>
+                    <td>{{ each.id }}</td>
+                    <td>{{ each.tap_name }}</td>
+                    <td>{{ each.gehat_id }}</td>
+                    <td>{{ each.tap_link }}</td>
+                    <td>{{ each.taps_categories_sub_id }}</td>
+                    <td class="row">
+                        <a href="{% url 'updateTap' each.id%}" class="btn btn-warning" id='{{each.id}}'><i
+                                class="fa fa-edit"></i></a>
+
+                        <a href="{% url 'deleteTap' each.id%}" class="btn btn-danger" id='{{each.id}}'><i
+                                class="fa fa-trash"></i></a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                    </tbody>
+                </table>
+            <!--Pagination-->
+            <div class="container p-4 text-center">
+                <div class="pagination justify-content-center" style="direction: rtl;">
+                    {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}">  السابق &raquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">&laquo;  التالى</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+               
+                </div>
+            </div>
+            <!--end of Pagination-->
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

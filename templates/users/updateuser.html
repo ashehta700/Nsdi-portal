@@ -1,0 +1,199 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+
+
+<style>
+    .panel {
+        margin-top: 15%;
+    }
+
+    .card-body {
+        height: 100%;
+    }
+    span.select2-dropdown.select2-dropdown--below{
+        direction: rtl !important;
+     
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<div class="container divUser">
+    <div class="row panel panel-default text-center">
+        <div class="panel-heading">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="close" data-dismiss="alert">
+                    ×
+                </button>
+                <strong>{{message}}<strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <h1></h1>
+
+            <hr>
+
+                <div class="dem">
+                    <div class="image_outer_container">
+                        <div class="green_icon"></div>
+                        <div class="image_inner_container">
+                            <img class="imgUser"src="{{ profile_form.instance.image.url}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="card-title h2User ">{{ profile_form.instance.name}}</h2>
+                    <h4 class="card-title h4User ">{{ profile_form.instance.user_job}}</h4>
+                </div>
+
+            <form method='POST' enctype="multipart/form-data">
+
+
+
+
+
+
+
+                
+                {% csrf_token %}
+                {% if request.user.Profiles.role_id.code == 3 %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.name class="form-control" %}
+                    </div>
+                    <label for="name" class="col-sm-4 col-form-label">إسم الجهه الظاهر على المنصة</label>
+                </div>
+                {% else %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.name class="form-control" readonly="True" %}
+                    </div>
+                    <label for="name" class="col-sm-4 col-form-label">إسم الجهه الظاهر على المنصة</label>
+                </div>
+                {% endif %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.phone class="form-control" %}
+                    </div>
+                    <label for="phone" class="col-sm-4 col-form-label"> رقم الهاتف الشخصى</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.organization_address class="form-control" placeholder="" %}
+                    </div>
+                    <label for="organization_address" class="col-sm-4 col-form-label">عنوان الجهه التابع لها</label>
+                </div>
+                {% if request.user.Profiles.role_id.code == 3 %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.organization_name class="form-control" placeholder="" %}
+                    </div>
+                    <label for="organization_name" class="col-sm-4 col-form-label">إسم الجهه التابع لها المستخدم</label>
+                </div>
+                {% else %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <input type="hidden" name="organization_name" placeholder="{{profile_form.instance.organization_name}}" value="{{profile_form.instance.organization_name.id}}"  >
+                    </div>
+                </div>
+                {% endif %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.user_job class="form-control" placeholder="" %}
+                    </div>
+                    <label for="user_job" class="col-sm-4 col-form-label">وظيفة المستخدم</label>
+                </div>
+                {% if request.user.Profiles.role_id.code == 3 %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.role_id class="form-control" placeholder="" %}
+
+                    </div>
+                    <label for="role_id" class="col-sm-4 col-form-label">القاعدة التابع لها المستخدم</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.user_role class="form-control" placeholder="" %}
+
+                    </div>
+                    <label for="role_id" class="col-sm-4 col-form-label">نوع المستخدم</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.tenant_link class="form-control" placeholder="" %}
+
+                    </div>
+                    <label for="role_id" class="col-sm-4 col-form-label">رابط ال Tenant الخاص بالجهه</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        {% render_field profile_form.app_link class="form-control" placeholder="" %}
+
+                    </div>
+                    <label for="role_id" class="col-sm-4 col-form-label">تطبيق العناصر الخاص بالجهه</label>
+                </div>
+                {% else %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+
+                        <input type="hidden" name="role_id" value="{{profile_form.instance.role_id.id}}">
+
+                    </div>
+                    
+                </div>
+                {% endif %}
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <input type="file" name="image" id="id_image">
+                    </div>
+                    <label for="image" class="col-sm-4 col-form-label">تغيير الصورة الشخصية</label>
+                </div>
+                <button type="submit" class="btn btn-lg btn-success btnUser">تعديل</button>
+                <a href="{% url 'ListUsers' %}" class="btn btn-lg btn-danger btnUser">رجوع</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% if form.errors %}
+{% for field in form %}
+    {% for error in field.errors %} 
+       <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+       </div>
+    {% endfor %}
+{% endfor %}
+{% endif %}
+
+
+
+
+<div class="left" style="margin-left:465px">
+
+
+
+
+
+
+    {% if error %}
+    <p style="color:red">{{error}}</p>
+    <br />
+    {% endif%}
+</div>
+<!-- script for search in select  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_organization_name').select2();
+        $('#id_role_id').select2();
+    })
+    console.log('sss')
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+    integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}

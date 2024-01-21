@@ -1,0 +1,215 @@
+{% extends "base.html"%}
+  {% load static %}
+  {% block content %}
+<head>
+  <!-- meta -->
+  <meta name="keywords" content=" Nsdi nsdi sdi Sdi portal Egypt gov البنية المعلوماتية المكتنية مصر ">
+  <meta name="description" content="The institutional structure for Egypt National Spatial Data. ">
+
+  <link rel="stylesheet" href="{% static 'css/stylemylayer.css'%}">
+</head>
+
+<body>
+ 
+  
+
+
+
+
+  <!-- start header content -->
+  <div class="header2">
+  
+  </div>
+
+  <!-- start section 2 (map view) -->
+  <section>
+    <div class="infoMap  infoMap2 ">
+      <iframe src="http://10.100.100.65:4433/leaflet-aya/" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="ifram">
+        <p class="detailsP">تفاصيل عامه عن الطبقة</p>
+        <a href="{% url 'manual' %}">مساعدة <i class="fa-solid fa-circle-info fa-beat" style="--fa-animation-duration: 2s;"></i></a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- start section 3 (map info) -->
+  <div class="info2">
+    <div class="info2Item1">
+      <p><i class="fa-solid fa-calendar-days  "
+          style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;">{{layer_sel.date|date:'Y/m/d'}}</i></p>
+
+      <p><i class="fa-solid  fa-lock  " style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;">متاحة  {{layer_sel.publish_type}}</i></p>
+
+      <p><i class="fa-solid fa-file  " style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;">( {{layer_sel.service_type}} ) نوع الطبقة </i></p>
+
+      <p><i class="fa-regular fa-id-card  " style="--fa-animation-duration: 2s; --fa-fade-opacity: 0.6;"> {{layer_sel.layer_type}}</i></p>
+
+    </div>
+
+    <div class="info2Item2">
+
+
+
+
+
+    </div>
+
+  </div>
+
+  <div class="info2">
+    <div class="info2Item3">
+      <p>تفاصيل عامة عن الطبقة</p>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="conteinerlayers m-auto text-center ">
+            
+      <h6>اسم الطبقة <i class="fa-solid fa-file-signature"></i></h6>
+      <p>{{layer_sel.layer_name}}</p>
+          </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="conteinerlayers m-auto text-center ">
+              
+        <h6>نوع الطبقة  <i class="fa-solid fa-fire-flame-simple"></i></h6>
+        <p>{{layer_sel.layer_type}}</p>
+            </div>
+            </div>
+
+          <div class="col-md-3">
+            <div class="conteinerlayers m-auto text-center ">
+              
+        <h6>نوع النشر <i class="fa-solid fa-earth-americas"></i></h6>
+        <p>{{layer_sel.service_type}}</p>
+            </div>
+            </div>
+
+
+            <div class="col-md-3">
+              <div class="conteinerlayers m-auto text-center ">
+                
+          <h6> حالة الاتاحة  <i class="fa-solid  fa-lock  "></i></h6>
+          <p>{{layer_sel.publish_type}}</p>
+              </div>
+              </div>
+
+              <div class="col-md-3 line2">
+                <div class="conteinerlayers m-auto text-center ">
+                  
+            <h6>نوع الملف <i class="fa-solid  fa-lock  "></i></h6>
+            <p>{{layer_sel.file_type}}</p>
+                </div>
+                </div>       
+
+
+                <div class="col-md-3 line2">
+                  <div class="conteinerlayers m-auto text-center ">
+                    
+              <h6> النظام المرجعى للإحداثيات <i class="fa-solid  fa-lock  "></i></h6>
+              <p>{{layer_sel.entry_proj}}</p>
+                  </div>
+                  </div> 
+
+                  <div class="col-md-3 line2">
+                    <div class="conteinerlayers m-auto text-center ">
+                      
+                <h6>  اسم الجهه القائمة بالرفع الميدانى  <i class="fa-solid  fa-lock  "></i></h6>
+                <p>{{layer_sel.medany_name}}</p>
+                    </div>
+                    </div> 
+
+                    <div class="col-md-3 line2">
+                      <div class="conteinerlayers m-auto text-center ">
+                        
+                  <h6> اسم المسؤؤل عن نشر الطبقة <i class="fa-solid  fa-lock  "></i></h6>
+                  <p>{{layer_sel.db_entry_name }}</p>
+                      </div>
+                      </div> 
+
+                      <div class="col-md-3 line2">
+                        <div class="conteinerlayers m-auto text-center ">
+                          
+                    <h6>الرقم القومى <i class="fa-solid  fa-lock  "></i></h6>
+                    <p>{{layer_sel.db_entry_id}}</p>
+                        </div>
+                        </div> 
+
+                        <div class="col-md-3 line2">
+                          <div class="conteinerlayers m-auto text-center ">
+                            
+                      <h6> مصدر البيانات الوصفية <i class="fa-solid  fa-lock  "></i></h6>
+                      <p>{{layer_sel.wasf_source}}</p>
+                          </div>
+                          </div>
+                          
+                          <div class="col-md-3 line2">
+                            <div class="conteinerlayers m-auto text-center ">
+                              
+                        <h6>تاريخ التعامل مع البيانات الوصفية  <i class="fa-solid  fa-lock  "></i></h6>
+                        <p>{{layer_sel.date|date:'Y/m/d'}}</p>
+                            </div>
+                            </div> 
+
+                            <div class="col-md-3 line2">
+                              <div class="conteinerlayers m-auto text-center ">
+                                
+                          <h6>تاريخ الرفع الميداني  <i class="fa-solid  fa-lock  "></i></h6>
+                          <p>{{layer_sel.medany_date|date:'Y/m/d'}}</p>
+                              </div>
+                              </div>
+
+                            <div class="col-md-3 line2">
+                              <div class="conteinerlayers m-auto text-center layerWidth">
+                                
+                          <h6>رابط الطبقة  <i class="fa-solid  fa-lock  "></i></h6>
+                          <p>{{layer_sel.layer_link}}</p>
+                              </div>
+                              </div> 
+
+
+                            <div class="col-md-3  line2">
+                              <div class="conteinerlayers m-auto text-center layerWidth">
+                                
+                          <h6>توصيف عام للطبقة  <i class="fa-solid  fa-lock  "></i></h6>
+                          <p style="max-width: 350px ; ">{{layer_sel.layer_description}}</p>
+                              </div>
+                              </div>           
+
+          </div>
+          
+          
+    </div>
+
+    <div class="info2Item4">
+
+    
+      <div class="header2Content">
+      <h2>{{layer_sel.layer_name}}</h2>
+      <i class="fa-solid fa-layer-group fa-fade p-5"></i>
+    </div>
+      <p><span>تم النشر بواسطة </span> : {{layer_sel.user_sender}}</p>
+      <p><span>مصدر البيانات </span>  : {{layer_sel.wasf_source}}</p>
+      <button class=" btn btn addFormm ">تحميل الطبقة</button>
+
+    </div>
+  </div>
+
+
+
+{% endblock %}
+<div class="header2">
+  <div class="header2Item">
+    <div class="header2Content">
+      
+      
+      <h2>{{layer_sel.layer_name}}</h2>
+      <i class="fa-solid fa-layer-group fa-fade p-5"></i>
+    </div>
+    <p>{{layer_sel.date|date:'Y/m/d -- h:i A '}}</p>
+
+
+  </div>
+</div>

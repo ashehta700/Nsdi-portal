@@ -1,0 +1,84 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<style>
+    .panel {
+        margin-top: 15%;
+    }
+    span.select2-dropdown.select2-dropdown--below {
+        direction: rtl !important;
+        /* height: 100% !important;  */
+    }
+</style>
+
+
+
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> -->
+
+<div class="container">
+    <div class="row panel panel-default text-center">
+        <div class="panel-heading">
+            <h1>إضافة تطبيق جديد</h1>
+            <hr>
+            <form method='POST' enctype="multipart/form-data" >
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {% render_field form.name class="form-control" %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء إدخال اسم التطبيق</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {% render_field form.description class="form-control" %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاءإضافة توصيف لهذا التطبيق</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        {% render_field form.link class="form-control" %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء إدخال الرابط لهذا التطبيق</label>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-10">
+                        {% render_field form.organization_name class="form-control"  %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء إدخال الجهه التابع لها التطبيق</label>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-10">
+                        {% render_field form.Apps_category_Sub class="form-control"  %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء إدخال تصنيف التطبيق</label>
+                </div>
+                <div class=" row">
+                    <div class="col-sm-10">
+                        {% render_field form.image class="form-control" %}
+                    </div>
+                    <label for="staticEmail" class="col-sm-2 col-form-label">برجاء إدخال الصورة الخاصة بالتطبيق
+                        لها</label>
+                </div>
+                <button type="submit" class="btn btn-lg btn-success">انشاء</button>
+                <button onclick="window.open('{% url 'apps-index' %}','_self')" class="btn btn-lg btn-danger">إلغاء</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- script for search in select  -->
+
+<!-- script for search in select  -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script>
+    $(document).ready(function () {
+        $('#id_organization_name').select2();
+    })
+</script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+    integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+{% endblock %}

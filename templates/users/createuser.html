@@ -1,0 +1,147 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+
+
+<style>
+    .panel {
+        margin-top: 15%;
+    }
+
+    span.select2-dropdown.select2-dropdown--below {
+        direction: rtl !important;
+        /* height: 100% !important;  */
+    }
+</style>
+<!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> -->
+<div class="container">
+    
+    <div class="row panel panel-default text-center">
+        <h1 class="event">تسجيل مستخدم جديد</h1>
+        <div class="panel-heading">
+           
+            
+            
+            {% if form.errors %}
+            {% for field in form %}
+
+            {% for error in field.errors %}
+            {{field.label}}: {{ error|escape }}
+            {% endfor %}
+
+            {% endfor %}
+            {% endif %}
+            <form method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-md-7 ">
+                        {% render_field form.username class="form-control" %}
+                    </div>
+                    <label for="username" class="col-md-3  col-form-label text-right">إسم المستخدم</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field form.password1 class="form-control" placeholder="كلمة المرور يجب ان تحتوى على ارقام وحروف ورموز" %}
+                    </div>
+                    <label for="password1" class="col-md-3  col-form-label text-right">كلمة المرور</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field form.password2 class="form-control" %}
+                    </div>
+                    <label for="password2" class="col-md-3  col-form-label text-right">تأكيد كلمة المرور</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.name class="form-control" %}
+                    </div>
+                    <label for="name" class="col-md-3  col-form-label text-right">إسم الجهه الظاهر على المنصة</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.phone class="form-control" %}
+                    </div>
+                    <label for="phone" class="col-md-3  col-form-label text-right">رقم الهاتف</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.organization_address class="form-control" placeholder="" %}
+                    </div>
+                    <label for="organization_address" class="col-md-3  col-form-label text-right">عنوان الجهه التابع لها</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.organization_name class="form-control" placeholder="" %}
+                    </div>
+                    <label for="organization_name" class="col-md-3  col-form-label text-right">إسم الجهه التابع لها المستخدم</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.user_job class="form-control" placeholder="" %}
+                    </div>
+                    <label for="user_job" class="col-md-3  col-form-label text-right">وظيفة المستخدم</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.role_id class="form-control" placeholder="" %}
+                    </div>
+                    <label for="role_id" class="col-md-3  col-form-label text-right">القاعدة التابع لها المستخدم</label>
+                </div>
+                <!-- role of user  -->
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.user_role class="form-control" placeholder="" %}
+                    </div>
+                    <label for="role_id" class="col-md-3  col-form-label text-right">نوع المستخدم</label>
+                </div>
+                <!-- link for teneant -->
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.tenant_link class="form-control" placeholder="رابط الخاص بال Tenant" %}
+                    </div>
+                    <label for="role_id" class="col-md-3  col-form-label text-right">رابط ال Tenant الخاص بالجهه</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.app_link class="form-control" placeholder="" %}
+                    </div>
+                    <label for="role_id" class="col-md-3  col-form-label text-right">تطبيق العناصر الخاص بالجهه</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-7">
+                        {% render_field profile_form.image class="form-control" placeholder="" %}
+                    </div>
+                    <label for="image" class="col-md-3  col-form-label text-right">تحميل صورة للمستخدم</label>
+                </div>
+                <button type="submit" class="btn btn-lg btn-success">إنشاء</button>
+                <button onclick="window.open('{% url 'index' %}','_self')" class="btn btn-lg btn-danger">عودة</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="left" style="margin-left:465px">
+    {% if error %}
+    <p style="color:red">{{error}}</p>
+    <br />
+    {% endif%}
+</div>
+<!-- script for search in select  -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script>
+    $(document).ready(function () {
+        // $('#id_organization_name').select2();
+        $('#id_role_id').select2();
+    })
+    console.log('sss')
+</script>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+    integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+{% endblock %}

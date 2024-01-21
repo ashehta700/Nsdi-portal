@@ -1,0 +1,158 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<style>
+        small{
+        font-size:11px !important;
+    }
+    #request {
+        height: 200vh;
+    }
+</style>
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1>تفاصيل طلب الإستعلام رقم {{ merge_sel.id }}</h1>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+
+                    <tbody class="thDetails">
+
+                        <tr >
+                            <th class="thDetails">الجهة الراسلة</th>
+                            <td>{{ merge_sel.user_sender }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">الجهة المستلمة</th>
+                            <td>{{ merge_sel.user_reciver }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">تاريخ إرسال الطلب</th>
+                            <td>{{ merge_sel.request_date|date:'Y/m/d -- h:i A ' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails" >رسالة الإستعلام</th>
+                            <td>{{ merge_sel.request_message }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">رابط ال services المرسل</th>
+                            <td>{{ merge_sel.url_sender }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">الملف المرسل</th>
+                            {% if not merge_sel.files %}
+                            <td>عفوا لا يوجد ملف</td>
+                            {% else %}
+                            <td><a href="../../../media/{{merge_sel.files}}" download> تحميل الملف المرسل </a></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th class="thDetails">التنسيب الادارى للمنطقة المرسلة</th>
+                            <td>{{ merge_sel.country }} >> {{ merge_sel.state }} >> {{ merge_sel.city }} </td>
+                        </tr>
+                        <tr id="actions">
+
+                            <th colspan="2">
+                                <button id="accept-btn" class="btn addFormm " style="margin-right: 5px;"><i
+                                        class="fa fa-thumbs-up"></i> قبول</button>
+                                <button id="refuse-btn" class="btn itenFormm " style="margin-right: 5px;"><i
+                                        class="fa fa-times"></i> رفض</button>
+
+
+                                <a href="{% url 'mergeRequest' %}" class="btn deletFormm "
+                                    style="margin-right: 5px;"><i class="fa fa-backward"></i> عودة</a>
+                            </th>
+                        
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div id="refuse">
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                <textarea name="refuse_message" class="form-control" id="id_refuse_message" cols="30"
+                                    rows="10" placeholder="برجاءكتابة سبب الرفض"></textarea>
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">برجاء ارسال رساله للرد على الطلب</small>
+                            </div>
+                            <label for="exampleInputEmail1" class="col-md-4">سبب الرفض</label>
+                        </div>
+                    </div>
+
+                    <div id="accept">
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                <textarea name="response_message" class="form-control" id="id_response_message"
+                                    cols="30" rows="10" placeholder="برجاءكتابة رسالة القبول"></textarea>
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">برجاء ارسال رساله للرد على الطلب</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4">رسالة الرد</label>
+                        </div>
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                <input type="text" name="response_url" id="id_response_url" class="form-control">
+                                <small id="" class="form-text text-danger pull-left" style="font-size: 9px;">برجاء ارسال
+                                    رابط ال services الحاص بالبيانات للجهه الطالبة</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4">رابط ال services</label>
+                        </div>
+                        <div class="form-group create">
+                            <div class="col-md-8">
+                                <input type="file" name="response_file" id="id_response_file" class="form-control">
+                                <small  class="form-text text-danger pull-left" style="font-size: 9px;">برجاء ارفاق الملف بالبيانات المطلوبة من الجهه المرسلة</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-4">تحميل الملف </label>
+                        </div>
+                    </div>
+                    <div class="form-group create">
+                        <div class="col-md-12">
+                            <div id="buttons">
+                                <button class="btn addFormm " type="submit">تاكيد</button>
+                                <a href="{% url 'inquiryRequest' %}" class="btn deletFormm " style="margin-right: 5px;"><i
+                                        class="fa fa-undo"></i> عودة</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<script>
+
+
+    document.getElementById('buttons').style.display = 'none'
+    var accept_btn = document.getElementById('accept-btn');
+    var refuse_btn = document.getElementById('refuse-btn');
+    var accept_div = document.getElementById('accept');
+    accept_div.style.display = 'none';
+    var refuse_div = document.getElementById('refuse');
+    refuse_div.style.display = 'none';
+    accept_btn.addEventListener('click', function () {
+        accept_div.style.display = 'block';
+        document.getElementById('buttons').style.display = 'block';
+        document.getElementById('actions').style.display = 'none';
+    })
+    refuse_btn.addEventListener('click', function () {
+        refuse_div.style.display = 'block';
+        document.getElementById('buttons').style.display = 'block';
+        document.getElementById('actions').style.display = 'none';
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+
+
+<div class="container text-center tech">
+    <div class="col-md-6 pull-right">
+        <p class="text-right pNsdi"><a class= "btn btn-success aTech" href="{% url 'technical' %}">العودة  إلي صفحة الدعم الفنى <i class="fa fa-angles-left"></i></a> </p>
+
+    </div>
+
+
+</div>
+<div class="container tech-content contentManual ">
+
+    <h1 class="eventI">  مرحبا بك في صفحة دليل المستخدم </h1>
+    <div class="row all">
+        <div class="container ">
+            <h3 class="h3Manual"> <i class="fa fa-circle"></i> دليل المستخدم لبدء دورة العمل</h3>
+            <iframe src="{% static 'pdf/manual2023.pdf'%}" frameborder="0"  style="height:400px ;"></iframe>
+            <div class="container text-center sheha">
+                <button class="btn addFormm" onclick="window.open('{% static 'pdf/manual2023.pdf'%}')">مشاهدة <i
+                        class="fa fa-eye" style="margin-right: 12px;"></i></button>
+                <button class="btn addFormm" onclick="printJS('{% static 'pdf/manual2023.pdf'%}');">طباعة <i
+                        class="fa fa-print" style="margin-right: 12px;"></i></button>
+
+                <button id="download1" class="btn addFormm"><a href="{% static 'pdf/manual2023.pdf' %}"  download="manual2023.pdf">تحميل</a>
+                    <i class="fa fa-download" style="margin-right: 12px;"></i></button>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<script src="https://printjs-4de6.kxcdn.com/print.min.css"></script>
+
+{% endblock content %}

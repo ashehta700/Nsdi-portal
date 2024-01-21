@@ -1,0 +1,73 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1>تفاصيل طلب الإستعلام رقم {{ merge_sel.id }}</h1>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+
+                    <tbody class="thDetails">
+
+                        <tr >
+                            <th class="thDetails">الجهة الراسلة</th>
+                            <td>{{ merge_sel.user_sender }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">الجهة المستلمة</th>
+                            <td>{{ merge_sel.user_reciver }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">تاريخ إرسال الطلب</th>
+                            <td>{{ merge_sel.request_date|date:'Y/m/d -- h:i A ' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">رسالة الإستعلام</th>
+                            <td>{{ merge_sel.request_message }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">رابط ال services المرسل</th>
+                            <td>{{ merge_sel.url_sender }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">الملف المرسل</th>
+                            {% if not merge_sel.files %}
+                            <td>عفوا لا يوجد ملف</td>
+                            {% else %}
+                            <td><a href="../../../media/{{merge_sel.files}}" download> تحميل الملف المرسل </a></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <th class="thDetails">التنسيب الادارى للمنطقة المرسلة</th>
+                            <td>{{ merge_sel.country }} >> {{ merge_sel.state }} >> {{ merge_sel.city }} </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                <div class="row">
+                    <form method="POST">
+                        {% csrf_token%}
+                        <button type="submit" class="btn addFormm " style="margin-right: 5px;"><i
+                                class="fa fa-check-circle"></i> تـــــأكيد قبــــول الطلــب</button>
+                        <a href="{% url 'inquiryRequest' %}" class="btn deletFormm "
+                            style="margin-right: 5px;"><i class="fa fa-undo"></i>
+                            عودة</a>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}

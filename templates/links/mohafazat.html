@@ -1,0 +1,177 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/govs.css'%}">
+<style>
+
+.aya.row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+</style>
+
+<section id="home">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12 wow fadeIn head headd" data-wow-delay="0.3s">
+                    <h1 class="text-upper h1wezarat">
+                        <hr class="spectra hrwezarat">محافظات جمهورية مصر العربية
+                    </h1>
+                    <p class="tm-white">
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container select selectDash">
+    {% if request.user.Profiles.role_id.code == 3 %}
+    <div class="row">
+
+        <div class="col-md-11 srearhinp">
+            <form action="" method="GET">
+                <select class="form-control " name="search">
+                    <option>-- برجاء إختيار المحافظة --</option>
+                    {% for each in mohafazat %}
+                    <option value="{{each.id}}">{{each.name}}</option>
+                    {% endfor %}
+
+
+                </select>
+
+        </div>
+        <button class="btn addFormm col-md-1 btnWezara" type="submit">تفعيل</button>
+        </form>
+    </div>
+    <!-- <span class="badge badge-secondary mute spanWezarat">برجاء اختيار المحافظة المراد اظهار بياناتها</span> -->
+    <!-- show the name of wezara that he selected  -->
+ 
+    {% for each in questions %}
+    {% if forloop.first %}
+    <div class="text-center" style="height: 13vh ; margin-top: 30px;">
+        <h2 class="text-center title ">{{each.gehat_id}}</h2>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
+    <!-- show all tabs relations with wezara that he selectd -->
+    <div class="aya row d-flex">
+        {%for each in questions %}
+
+
+ 
+        <div class="item clean divapps">
+           
+            <h4 class="text-center h4  ">{{each.tap_name}}</h4>
+            <img src="../../static/media/aya7.png" class="img1" alt="image">
+            <h6 style="color: #b78530;font-size: 13px;" class="text-center">تابع لــ : {{each.gehat_id.name}}</h6>
+            <p class="text-parag papps ">{{each.tap_description}}</p>
+        
+            <div class="overlay" onclick="window.open('{{each.tap_link}}')">
+                <span></span>
+                <span>الدخول الى التطبيق</span>
+                <span></span>
+            </div>
+        </div> 
+
+
+
+
+        <!-- show an error when he didn't find any thing in search -->
+        {% empty %}
+        <div class="row" style="text-align: center; height: 10vh;">
+            <h3><i class="fa fa-exclamation-square" style="color: red"></i></h3>
+
+            <h3 class="h3mohafz">عفواً لايوجد نتائج</h3>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- show the name of wezara without admin user -->
+    {% if request.user.Profiles.role_id.code == 1 %}
+    
+    <h3>دعم اتخاذ القرار الخاصة ب <span style="color: green;margin-right: 8px;">{{request.user.Profiles.name}}</span>
+    </h3>
+    {% endif %}
+      <!-- show the name of wezara without admin user -->
+      {% if request.user.Profiles.role_id.code == 6 %}
+    
+      <h3>دعم اتخاذ القرار الخاصة ب <span style="color: green;margin-right: 8px;">{{request.user.Profiles.name}}</span>
+      </h3>
+      {% endif %}
+
+</div>
+
+
+<div class="container wow fadeInUp" data-wow-delay="0.5s">
+    <div class="row">
+        {% if request.user.Profiles.role_id.code == 1 %}
+        <h3 class="alh3">إجمالى المؤشرات : <span style="color:#771217  ">{{c}}</span> </h3>
+        {% for each in gov %}
+
+        <div class="item clean divapps">
+           
+            <h4 class="text-center h4  ">{{each.tap_name}}</h4>
+      
+            <img src="../../static/media/aya7.png" class="img1" alt="image">
+            <h6 style="color: #b78530;font-size: 13px;" class="text-center">تابع لــ : {{each.gehat_id.name}}</h6>
+            <p class="text-parag papps ">{{each.tap_description}}</p>
+         
+            <div class="overlay" onclick="window.open('{{each.tap_link}}')">
+                <span></span>
+                <span>الدخول الى التطبيق</span>
+                <span></span>
+            </div>
+        </div>
+        
+        {% endfor %}
+        {% endif %}
+
+
+        {% if request.user.Profiles.role_id.code == 6 %}
+        <h3 class="alh3">إجمالى المؤشرات : <span style="color:#771217  ">{{c}}</span> </h3>
+        {% for each in gov %}
+
+        <div class="item clean divapps">
+           
+            <h4 class="text-center h4  ">{{each.tap_name}}</h4>
+      
+            <img src="../../static/media/aya7.png" class="img1" alt="image">
+            <h6 style="color: #b78530;font-size: 13px;" class="text-center">تابع لــ : {{each.gehat_id.name}}</h6>
+            <p class="text-parag papps ">{{each.tap_description}}</p>
+         
+            <div class="overlay" onclick="window.open('{{each.tap_link}}')">
+                <span></span>
+                <span>الدخول الى التطبيق</span>
+                <span></span>
+            </div>
+        </div>
+        
+        {% endfor %}
+        {% endif %}
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

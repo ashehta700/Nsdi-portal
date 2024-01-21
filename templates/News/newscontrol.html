@@ -1,0 +1,93 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <button onclick="window.open('{% url 'createNews' %}','_self')"
+                            class="btn btn-success pull-left "><i class="fa fa-plus"></i> انشاء خبر جديد</button>
+                        <button onclick="window.open('{% url 'admin_panel_index' %}','_self');"
+                            class="btn btn-primary pull-left" style="margin-left: 5px;"><i class="fa fa-undo"></i>
+                            عودة</button>
+                    </div>
+                    <h2 class="col-md-6" style="margin:0px;">جميع الأخبار المتاحة على المنصة</h2>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">رقم الخبر</th>
+                            <th scope="col">عنوان الخبر</th>
+                            <th scope="col">تاريخ الأنشاء</th>
+                            <th scope="col"><i class="fa fa-cogs setting"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for each in page_obj %}
+                        <tr>
+                            <td>{{ each.id }}</td>
+                            <td>{{ each.title }}</td>
+                            <td>{{ each.get_date }}</td>
+                            <td class="row">
+                                <a href="newscontrol/update/{{each.id}}" class="btn btn-warning" id='{{each.id}}'><i
+                                        class="fa fa-edit"></i></a>
+
+                                <a href="newscontrol/delete/{{each.id}}" class="btn btn-danger" id='{{each.id}}'><i
+                                        class="fa fa-trash"></i></a>
+
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">
+                                <div class="alert alert-danger" role="alert">
+                                   لا يوجد أخبار
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!--Pagination-->
+                <div class="container p-4 text-center">
+                    <div class="pagination justify-content-center" style="direction: rtl;">
+                        {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}">  السابق &raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                        {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}">&laquo;  التالى</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                   
+                    </div>
+                </div>
+    <!-- end pagination -->
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+{% endblock %}

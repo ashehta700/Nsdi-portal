@@ -1,0 +1,144 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1>تفاصيل طلب الإستعلام رقم {{ merge_sel.id }}</h1>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+
+                    <tbody class="thDetails">
+
+                        <tr>
+                            <th class="thDetails">الجهة الراسلة</th>
+                            <td>{{ merge_sel.user_sender }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">الجهة المستلمة</th>
+                            <td>{{ merge_sel.user_reciver }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails" >تاريخ إرسال الطلب</th>
+                            <td>{{ merge_sel.request_date|date:'Y/m/d -- h:i A ' }}</td>
+                        </tr>
+                        <tr>
+                            <th class="thDetails">رسالة الإستعلام</th>
+                            <td>{{ merge_sel.request_message }}</td>
+                        </tr>
+                        {% if  merge_sel.url_sender != '' %}
+                        <tr>
+                            <th class="thDetails">رابط ال services المرسل</th>
+                            <td>{{ merge_sel.url_sender }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <th class="thDetails">الملف المرسل</th>
+                            {% if not merge_sel.files %}
+                            <td>عفوا لا يوجد ملف</td>
+                            {% else %}
+                            <td><a href="../../../media/{{merge_sel.files}}" download> تحميل الملف المرسل </a></td>
+                            {% endif %}
+                        </tr>
+                        {% if  merge_sel.country is not  None %}
+                        <tr>
+                            <th class="thDetails">التنسيب الادارى للمنطقة المرسلة</th>
+                            <td>{{ merge_sel.country }} >> {{ merge_sel.state }} >> {{ merge_sel.city }} </td>
+                        </tr>
+                        {% endif %}
+                        <!-- request status  -->
+                        {% if not merge_sel.is_approved  %}
+                        <tr>
+                            <th colspan="2">
+                                <h5 style="color:#B88527 ;"> الطلب فى حالة الانتظار ولم يتم الرد عليه من
+                                    المركز الوطني<i class="fa fa-exclamation-triangle"></i></h5>
+                            </th>
+                        </tr>
+                        {% endif %}
+                        {% if  merge_sel.is_approved == 1  %}
+                        <tr>
+                            <th colspan="2">
+                                <h5 style="color: #3c763d;">تم قبول الطلب من المركز الوطنى وبانتظار الرد من الجهه المستلمة<i class="fa fa-check-circle"></i></h5>
+                            </th>
+                        </tr>
+                        {% endif %}
+                        {% if  merge_sel.is_approved == 2  %}
+                        <tr>
+                            <th colspan="2">
+                                <h5> تم رفض الطلب  من المركز الوطنى</h5>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>تاريخ الرفض</th>
+                            <td>{{merge_sel.refuse_admin_date|date:'Y/m/d -- h:i A '}}</td>
+                        </tr>
+                        <tr>
+                            <th>سبب الرفض</th>
+                            <td>{{merge_sel.refuse_admin_message}}</td>
+                        </tr>
+                        {% endif %}
+                        {% if  merge_sel.is_approved == 3  %}
+                        <tr>
+                            <th colspan="2">
+                                <h5 style="color: #3c763d;">  تم قبول الطلب  من المركز الرئيسي وقبوله من الجهه المستلمة<i class="fa fa-check-circle"></i></h5>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="color: #3c763d;">تاريخ رد الجهه على الطلب</th>
+                            <td>{{merge_sel.response_date|date:'Y/m/d -- h:i A '}}</td>
+                        </tr>
+                        <tr>
+                            <th style="color: #3c763d;">رساله الرد</th>
+                            <td>{{merge_sel.response_message}}</td>
+                        </tr>
+                        <tr>
+                            <th style="color: #3c763d;">رابط ال services المرسل</th>
+                            <td>{{merge_sel.response_url}}</td>
+                        </tr>
+                        <tr>
+                            <th style="color: #3c763d;">الملف المرسل مع الرد</th>
+                            {% if not merge_sel.response_file %}
+                            <td>عفوا لا يوجد ملف</td>
+                            {% else %}
+                            <td><a href="../../../media/{{merge_sel.response_file}}" download> تحميل الملف المرسل </a></td>
+                            {% endif %}
+                        </tr>
+                        {% endif %}
+                        {% if  merge_sel.is_approved == 4  %}
+                        <tr>
+                            <th colspan="2">
+                                <h5 > <span style="color: #3c763d;"> تم قبول الطلب  من المركز الرئيسي  <i class="fa fa-check-circle"></i> </span>ورفضة من الجهه المستلمة <i class="fa fa-times-circle"></i> </h5>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th >تاريخ رفض الجهه على الطلب</th>
+                            <td>{{merge_sel.refuse_date|date:'Y/m/d -- h:i A '}}</td>
+                        </tr>
+                        <tr>
+                            <th >سبب الرفض على الطلب </th>
+                            <td>{{merge_sel.refuse_message}}</td>
+                        </tr>
+                        {% endif %}
+
+
+
+                    </tbody>
+                </table>
+                <!-- <button onclick="window.open('inquiryRequest.html','_self');" class="btn btn-success pull-center" style="margin-right: 5px;"><i class="fa fa-check-circle"></i> قبول</button> -->
+                <button onclick="window.open('{% url 'inquiryRequest' %}','_self');" class="btn deletFormm pull-left"
+                    style="margin-right: 5px;"><i class="fa fa-undo"></i> عودة</button>
+
+
+                    
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

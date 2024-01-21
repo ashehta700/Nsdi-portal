@@ -1,0 +1,209 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<style>
+    small{
+        font-size:11px !important;
+    }
+    #request {
+        height: 120vh;
+    }
+    span.select2-dropdown.select2-dropdown--below{
+        direction: rtl !important;
+        /* height: 100% !important;  */
+    }
+    span#select2-id_country-container{
+        font-size: 13px !important;
+        text-align: right !important;
+    }
+    span#select2-id_state-container{
+        font-size: 13px !important;
+        text-align: right !important;
+    }
+    span#select2-id_city-container{
+        font-size: 13px !important;
+        text-align: right !important;
+    }
+    span#select2-id_user_reciver-container{
+        font-size: 13px !important;
+        text-align: right !important;
+        
+    }
+    .select2-results__option--highlighted {
+        background-color: #ddd;
+    }
+    .select2-selection__rendered{
+        display: none;
+    }
+</style>
+<section id="request" dir="rtl">
+    <div class="container divCreate">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    {% if request.get_full_path == '/tools/depolyment/apps/create?1' %}
+                    <h1 class="h1Create">إنشاء طلب نشر خاص بالتطبيقات جديد <i class="fa fa-plus"></i></h1>
+                    {% else %}
+                    <h1 class="h1Create">إنشاء طلب نشر خاص بمؤشرات الاداء جديد <i class="fa fa-plus"></i></h1>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <form class="container" dir="rtl" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group create">
+                            <div class="col-md-9">
+                                <input type="text" class="form-control col-md-4" id="showing"
+                                    aria-describedby="id_user_sender" value="{{request.user.Profiles}}" disabled
+                                    name="showing">
+                                <input type="hidden" name="user_sender" id="id_user_sender"
+                                    value="{{request.user.Profiles.id}}">
+                                <small id="user_sender" class="form-text text-danger pull-left"
+                                    style="font-size: 10px;">لايمكن تغيير إسم الجهه
+                                    الطالبه</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-3 labelCreate geha">الجهه الطالبة لطلب النشر</label>
+                        </div>
+                        <div class="form-group create">
+                            <div class="col-md-9">
+                                {% render_field form.date class="form-control" disabled="true" %}
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 10px;">لايمكن تغيير تاريخ
+                                    الارسال</small>
+                            </div>
+                            <label for="exampleInputEmail1 " class="col-md-3 labelCreate date">تاريخ الارسال</label>
+                        </div>
+                        <div class="form-group create ">
+                            <div class="col-md-9">
+                                {% render_field form.app_link class="form-control" %}
+                              
+                            </div>
+                    {% if request.get_full_path == '/tools/depolyment/apps/create?1' %}
+                            <label for="exampleInputEmail1 " class="col-md-3 labelCreate"> رابط التطبيق المراد نشره
+                                </label>
+                                {% else %}
+                                <label for="exampleInputEmail1 " class="col-md-3 labelCreate"> رابط مؤشر الاداء المراد نشره
+                                </label>
+                                {%  endif %}
+                        </div>
+                               <!-- التنسيب الاداري -->
+                               <div class="form-group create">
+                                    <div class="col-md-9 ">
+                                        {% render_field form.country class="form-control" %}
+                                        <small id="emailHelp" class="form-text text-danger pull-left "
+                                            style="font-size: 10px;">المحافظة</small>
+                                    </div>
+                                    <label for="exampleInputEmail1 " class="col-md-3 labelCreate">برجاء اختيار المحافظة
+                                    </label>
+                                </div>
+                                <div class="form-group create">
+                                    <div class="col-md-9">
+                                        {% render_field form.state class="form-control" %}
+                                        <small id="emailHelp" class="form-text text-danger pull-left"
+                                            style="font-size: 9px;">المركز</small>
+                                    </div>
+                                    <label for="exampleInputEmail1 " class="col-md-3 labelCreate">برجاء اختيار المركز</label>
+                                </div>
+                                <div class="form-group create">
+                                    <div class="col-md-9">
+                                        {% render_field form.city class="form-control" %}
+                                        <small id="emailHelp" class="form-text text-danger pull-left"
+                                            style="font-size: 10px;">الشياخه</small>
+                                    </div>
+                                    <label for="exampleInputEmail1 " class="col-md-3 labelCreate">برجاء اختيار الشياخة
+                                    </label>
+                                </div>
+
+                        <div class="form-group create">
+                            <div class="col-md-9">
+                                {% render_field form.app_description class="form-control" placeholder="برجاء إضافة وصف لهذا الرابط المراد نشره"%}
+                                <small id="emailHelp" class="form-text text-danger pull-left"
+                                    style="font-size: 9px;">برجاء إضافة وصف لهذا الرابط</small>
+                            </div>
+                            {% if request.get_full_path == '/tools/depolyment/apps/create?1' %}
+                            <label for="exampleInputEmail1 " class="col-md-3 labelCreate Creat2 ">وصف للتطبيق المراد نشره</label>
+                            {% else %}
+                            <label for="exampleInputEmail1 " class="col-md-3 labelCreate Creat2">وصف رابط مؤشر الاداء المراد نشره</label>
+                            {% endif %}
+                        </div>
+                                         
+
+
+                        <div class="col-md-12 " style="margin-top: 2%">
+                            <button  class="btn deletFormm pull-left  "style="margin-right: 4px"
+                            onclick="window.open('{% url 'deploymentRequestApp' %}','_self')">إلغاء <i
+                                class="fa fa-undo "></i></button>
+                            <button type="submit" class="btn addFormm pull-left" style="margin-right: 9px;">
+                                إنشاء <i class="fa fa-plus"></i></button>
+                           
+                        </div>
+
+                    </form>
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+    // State
+    $("#id_country").change(function () {
+        var url = $("#profileForm").attr("data-states-url");
+        var countryId = $(this).val();
+
+        $.ajax({
+            url: '{% url 'ajax_load_states' %}',
+            data: {
+                'country': countryId
+            },
+            success: function (data) {
+                $("#id_state").html(
+                    data);
+                    console.log(data)
+            }
+        });
+
+    });
+
+    // City
+    $("#id_state").change(function () {
+        var url = $("#profileForm").attr("data-states-url");
+        var stateId = $(this).val();
+
+        $.ajax({
+            url: '{% url 'ajax_load_cities' %}',
+            data: {
+                'state': stateId
+            },
+            success: function (data) {
+                $("#id_city").html(
+                    data);
+                    
+            }
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#id_user_reciver').select2();
+        $('#id_country').select2();
+        $('#id_state').select2();
+        $('#id_city').select2();
+    })
+    console.log('sss')
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html"%}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<div class="container text-center tech">
+    <div class="col-md-6 pull-right">
+        <p class="text-right pNsdi"><a class= "btn btn-success aTech" href="{% url 'technical' %}">العودة  إلي صفحة الدعم الفنى <i class="fa fa-angles-left"></i></a> </p>
+
+    </div>
+    <div class="col-md-6 search-button ">
+        <div class="pull-left">
+            <input class="search-txt" type="text" name="" placeholder="بحث .......">
+
+            <a class="search-btn" href="#">
+                <i class="fa fa-search"></i>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<div class="container tech-content">
+
+    <h1 class="eventI">   إضافة سؤال </h1>
+
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-sm-12 divRequest">
+                {% render_field upload_form.name class="form-control" %}
+                <button class="btn btn-lg  deletFormm" style="float: left; margin-right: 9px;"
+                onclick="window.open('{% url 'community' %}','_self')">عودة</button>
+            <button type="submit" class="btn btn-lg addFormm " style="float: left;">حفظ<i class="fa fa-floppy-o"
+                    style="margin-right:5px"></i></button>
+            </div>
+            <label for="staticEmail" class="col-sm-3 col-form-label labelRequest">* برجاء اضافة الاستفسار المراد ادخاله.</label>
+        </div>
+        <hr>
+        <p class="pAddrequest">*برجاء العلم ان عند اضافة سؤال جديد الى مجتمع NSDI فانه يتم مراجعته من قبل المتسخدم
+            الرئيسي وقد يتعرض الى الحذف.</p>
+    </form>
+    <div class="row all">
+        <div class="container">
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+{% endblock content %}

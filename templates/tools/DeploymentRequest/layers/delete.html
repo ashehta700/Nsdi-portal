@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1>هل تريد حذف هذا الطلب{{merge_sel.id}}</h1>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <form  method="POST">
+
+                    {% csrf_token %}
+                    <a class="btn deletFormm" href="{% url 'deploymentRequestLayer' %}">عودة</a>
+                    <button type="submit" class="btn addFormm">تاكيد</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

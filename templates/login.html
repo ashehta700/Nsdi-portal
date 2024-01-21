@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<!-- 
+    	Ahmed Shehta Template for Sdi
+    	http://ahmed-shehta.netlify.app
+    	-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول</title>
+    <link rel="icon" href="{% static 'media/logo.jpg'%}" type="image/png">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/animate.min.css'%} ">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <!-- google font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet'
+        type='text/css'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@800&display=swap" rel="stylesheet">
+    <!-- slider style  -->
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <!-- maps -->
+    <link rel="stylesheet" href="http://openlayers.org/en/v3.18.2/css/ol.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<style>
+ footer{
+  right: 24%;
+    position: absolute;
+    bottom: 5%;
+ }
+</style>
+<body>
+ 
+    <section>  
+      {% if error %}
+      <p class="errors">{{error|safe}}</p>
+      <br />
+      {% endif%}      
+        <form action="/login/" method="POST" class="login-form">
+          {% csrf_token %}
+            <h1>تسجيل الدخول</h1>
+            <div class="form-input-material">
+              <input type="text" name="username" id="username" placeholder=" " autocomplete="off" required class="form-control-material" />
+              <label for="username">إسم المستخدم</label>
+            </div>
+            <div class="form-input-material">
+              <input type="password" name="password" id="password" placeholder=" " autocomplete="off" required class="form-control-material" />
+              <label for="password">كلمة المرور</label>
+            </div>
+            <button type="submit" class="btn btn-ghost" >دخـــــــول</button>
+          </form>
+        
+    </section>
+    <footer>
+
+              <p>جميع الحقوق محفوظه © إدارة المساحة العسكرية 2022  </p>
+
+  </footer>
+</body>
+
+</html>

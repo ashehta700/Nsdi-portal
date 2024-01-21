@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<br>
+
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1>هل تريد حذف هذا التطبيق ( {{user_sel.name}})</h1>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <form  method="POST">
+
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">تاكيد</button>
+                    <a class="btn btn-warning" href="{% url 'apps-index' %}">عودة</a>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

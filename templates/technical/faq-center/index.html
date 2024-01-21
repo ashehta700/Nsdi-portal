@@ -1,0 +1,120 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+<section id="request" dir="rtl">
+    <div class="container ">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <button onclick="window.open('{% url 'upload-problem' %}','_self')"
+                        class="btn btn-success pull-left "><i class="fa fa-plus"></i> انشاء سؤال جديد</button>
+                    <button onclick="window.open('{% url 'admin_panel_index' %}','_self');" class="btn btn-primary pull-left"
+                        style="margin-left: 5px;"><i class="fa fa-undo"></i> عودة</button>
+                    </div>
+                    <h2 class="col-md-6" style="margin:0px;">جميع الأسئلة المتاحة على المنصة</h2>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">رقم السؤال</th>
+                            <th scope="col">نوع السؤال</th>
+                            <th scope="col">السؤال</th>
+                            <th scope="col">الأجابة</th>
+                            <th scope="col">تاريخ الأنشاء</th>
+                            <th scope="col"><i class="fa fa-cogs setting"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for each in page_obj %}
+                        <tr>
+                            <td>{{ each.id }}</td>
+                            <td>{{ each.category_name }}</td>
+                            <td>{{ each.question }}</td>
+                            <td>{{ each.answer }}</td>
+                            <td>{{ each.date|date:'Y/m/d -- h:i A ' }}</td>
+                            <td class="row">
+                                <a href="update/{{each.id}}" class="btn btn-warning" id='{{each.id}}'><i
+                                        class="fa fa-edit"></i></a>
+
+                                <a href="delete/{{each.id}}" class="btn btn-danger" id='{{each.id}}'><i
+                                        class="fa fa-trash"></i></a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                    <!--Pagination-->
+                    <div class="container p-4 text-center">
+                        <div class="pagination justify-content-center" style="direction: rtl;">
+                            {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}">  السابق &raquo;</a></li>
+                            {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                            {% for i in page_obj.paginator.page_range %}
+                            {% if page_obj.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}">&laquo;  التالى</a></li>
+                            {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                            {% endif %}
+                       
+                        </div>
+                    </div>
+                    <!--end of Pagination-->
+              
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- start divider -->
+{% endblock content %}
+
+<!-- <nav class="navbar navbar-light" style="background-color:#FF0033;">
+    <a href="#" class="navbar-brand"
+        style="background-color:#FFCC33;color:#000000;border-width:10px;border-color:#FFCC33;border-style:solid;border-spacing:30px;border-radius: 5px;">Library
+        App</a>
+    <a class="navbar-link btn-lg" href="{% url 'index' %}" style="background-color:#FFCC33;color:#000000;">DataFlair</a>
+    <a href="{% url 'admin:index' %}" class='navbar-link btn-lg'
+        style="background-color:#FFCC33;color:#000000;">Admin</a>
+    <a href="{% url 'upload-problem' %}" class="navbar-link btn-lg"
+        style="background-color:#FFCC33;color:#000000;">Upload Books</a>
+</nav>
+<br>
+
+<div class="card-columns">
+    {% for each in shehta %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="ss">
+        <div class="card-body">
+            <h5 class="card-title">{{ each.question }}</h5>
+            <p class="card-text">{{ each.answer }}</p>
+            <p class="card-text">{{ each.category_name }}</p>
+            <p class="card-text">{{ each.date }}</p>
+            <div class="card-footer bg-transparent border-dark">
+                <p class="card-title">sss</p>
+                <center>
+                    <a href="update/{{each.id}}" class="btn btn-warning" id='{{each.id}}'>edit</a>
+                    <a href="delete/{{each.id}}" class="btn btn-danger" id='{{each.id}}'>delete</a>
+                </center>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div> -->
+
+</body>
+
+</html>

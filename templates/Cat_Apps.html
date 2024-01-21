@@ -1,0 +1,81 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<section id="home2" class="homeapps">
+    <div class="overlay">
+        <div class="container">
+            
+            <div class="row">
+
+                <div class="col-md-12 wow fadeIn head  headm" data-wow-delay="0.3s">
+                    <h1 class="text-upper h1wezarat">
+                        <hr class="spectra1 hrapps"> منصة مصر المكانية
+                    </h1>
+                    
+                    <p class="tm-white">
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class=" text-left mx-2 p-5 appsAlla">
+    <a href="{% url 'apps' %}" class="btn addFormm mt-4"> الذهاب إلى جميع التطبيقات <i class="fa-solid fa-angles-left iMarginIcon"></i> </a>
+</div>
+<div class="container  ">
+
+</div>
+<div class="container-fluid shehta">
+    
+    {% if request.user.Profiles.role_id.code == 3 %}
+    {% for each in cat_apps %}
+
+    {% if each.organization_name.id != 154 %}
+
+    <div class="item clean divapps divapps1_apps pointer">
+        
+        <div class="apph4">
+        <h4 class="text-center h4 h4apps">{{each.catoName}}</h4>
+    </div>
+    <div class="appitems">
+        <img src="{{each.image.url}}" class="img1 img_Cat_App" alt="image">
+        <!-- <p class="text-parag papps">{{each.description}}</p> -->
+    </div>
+        <div onclick=window.open('{% url "categoryAPPSub" each.id%}','_self')  class="overlay" >
+            <span></span>
+            <span>الدخول الى التطبيق</span>
+            <span></span>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    {% for each in cat_apps %}
+
+    
+    <div class="item clean divapps divapps1_apps pointer">
+        <h4 class="text-center h4 h4apps">{{each.catoName}}</h4>
+        <img src="{{each.image.url}}" class="img1  img_Cat_App"  alt="image">
+        <!-- <p class="text-parag papps">{{each.description}}</p> -->
+
+        <div class="overlay" onclick="window.open('{{each.link}}')">
+            <span></span>
+            <span>الدخول الى التطبيق</span>
+            <span></span>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+{% endblock content %}

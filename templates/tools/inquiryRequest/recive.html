@@ -1,0 +1,175 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+
+
+<section id="request" dir="rtl">
+    <div class="container divlayer">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+
+                    <h2 class="col-md-12 h1layer">طلبات الاستعلام (الصندوق الوارد)</h2>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead class="bordered2">
+                        <tr>
+                            <th class="thlayer"scope="col">رقم الطلب</th>
+                            <th class="thlayer"scope="col">إسم الطلب</th>
+                            <th class="thlayer"scope="col">الجهة الراسلة</th>
+                            <th class="thlayer"scope="col">تاريخ الطلب</th>
+                            <th class="thlayer"scope="col">الجهة المستلمة</th>
+                            <th class="thlayer"scope="col"><i class="fa fa-cogs setting"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- showing all MergeRequests for admin user -->
+                        {% if request.user.Profiles.role_id.code == 3 %}
+                        {% for each in requests %}
+                        <td>{{ each.id}}</td>
+                        <td>{{ each.request_message}}</td>
+                        <td>{{ each.user_sender}}</td>
+                        <td>{{ each.request_date|date:'Y/m/d -- h:i A '}}</td>
+                        <td>{{ each.user_reciver}}</td>
+
+
+                        <td class="row">
+
+                            {% if not each.response_message and not each.refuse_message %}
+                            <a href="{% url 'inquiryRequestResponse' each.id %}" title="رد على الطلب"
+                                class="btn addFormm col"><i class="fa fa-reply-all"></i></a>
+
+                            {% endif %}
+                            {% if request.user.Profiles.role_id.code == 3 %}
+                            <a title="حذف الطلب" href="{% url 'inquiryRequestDelete' each.id %}"
+                                class="btn deletFormm col" style="margin-right:4px ;"><i class="fa fa-trash"></i></a>
+                            {% endif %}
+                            <a title="تفاصيل الطلب" href="{% url 'inquiryRequestDetails' each.id %}"
+                                class="btn itenFormm col" style="margin-right:4px ;"><i class="fa fa-info"></i></a>
+
+                        </td>
+
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">
+                            <div class="alert alert-danger" role="alert">
+                                صندوق الواردات فارغ
+                            </div>
+                        </td>
+                    </tr>
+                        {% endfor %}
+                        {% endif %}
+
+
+
+                        <!-- show MergeRequests for any user how sent only -->
+                        {% if request.user.Profiles.role_id.code == 2 or request.user.Profiles.role_id.code == 1 %}
+
+                        {% for each in page_obj2 %}
+                        {% if each.is_approved == 1%}
+                        <tr>
+                            <td>{{ each.id}}</td>
+                            <td>{{ each.request_message}}</td>
+                            <td>{{ each.user_sender}}</td>
+                            <td>{{ each.request_date|date:'Y/m/d -- h:i A '}}</td>
+                            <td>{{ each.user_reciver}}</td>
+
+                            <td class="">
+                                {% if not each.response_message and not each.refuse_message %}
+                                <a href="{% url 'inquiryRequestResponse' each.id %}" title="رد على الطلب"
+                                    class="btn btn-success col"><i class="fa fa-reply-all"></i></a>
+                                {% endif %}
+                                <a href="{% url 'inquiryRequestDetails' each.id %}" class="btn btn-info"><i
+                                        class="fa fa-info"></i></button>
+                            </td>
+                        </tr>
+                 
+
+                        {% endif %}
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="alert alert-danger" role="alert">
+                                    صندوق الواردات فارغ
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+
+                    </tbody>
+                </table>
+                            <!--Pagination-->
+                            <div class="container p-4 text-center">
+                                <div class="pagination justify-content-center" style="direction: rtl;">
+                                    {% if request.user.Profiles.role_id.code == 3 %}
+                                    {% if requests.has_previous %}
+                                    <li><a href="?page={{ requests.previous_page_number }}">  السابق &raquo;</a></li>
+                                    {% else %}
+                                    <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                    {% for i in requests.paginator.page_range %}
+                                    {% if requests.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                    {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% if requests.has_next %}
+                                    <li><a href="?page={{ requests.next_page_number }}">&laquo;  التالى</a></li>
+                                    {% else %}
+                                    <li class="disabled"><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% else %}
+                                    {% if page_obj2.has_next %}
+                                    <li><a href="?page={{ page_obj2.previous_page_number }}">  السابق &raquo;</a></li>
+                                    {% else %}
+                                    <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                    {% for i in page_obj2.paginator.page_range %}
+                                    {% if page_obj2.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                    {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj2.has_next %}
+                                    <li><a href="?page={{ page_obj2.next_page_number }}">&laquo;  التالى</a></li>
+                                    {% else %}
+                                    <li class="disabled"><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% endif %}
+                               
+                                </div>
+                            </div>
+    
+                <!--end of Pagination-->
+                <div class="col-md-6 text-left">
+                    <!-- <button onclick="window.open('{% url 'inquiryRequest' %}','_self');"
+                        class="btn btn-primary pull-center" style="margin-right: 5px;"><i class="fa fa-undo"></i>
+                        عودة</button>
+                    <button onclick="window.open('{% url 'inquiryRequestCreate' %}','_self')"
+                        class="btn btn-success pull-center "><i class="fa fa-plus"></i> انشاء طلب جديد</button> -->
+
+
+
+                        <button onclick="window.open('{% url 'inquiryRequest' %}','_self');" class="btn pull-left deletFormm "
+                        style="margin-left: 5px;"><i class="fa fa-undo"></i> عودة</button>
+                    <button onclick="window.open('{% url 'inquiryRequestCreate' %}','_self')"
+                        class="btn pull-left addFormm"  style="margin-left: 5px;"><i class="fa fa-plus"></i> انشاء طلب جديد</button>
+                    
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}

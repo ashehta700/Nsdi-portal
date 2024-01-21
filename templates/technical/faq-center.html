@@ -1,0 +1,309 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<style>
+    .tech-content {
+    height: 223vh;
+}
+</style>
+<div class="container text-center tech contentt">
+    <div class="col-md-6 pull-right">
+        <p class="text-right pNsdi"><a class="btn btn-success aTech" href="{% url 'technical' %}">العودة إلي صفحة الدعم
+                الفنى <i class="fa fa-angles-left"></i></a> </p>
+
+    </div>
+    <div class="col-md-6 search-button ">
+        <div class="pull-left">
+            <form method="GET" name="myform" action="{% url 'faq-center' %}">
+                <input class="search-txt" type="text" name="search" placeholder="بحث .......">
+
+                <button class="search-btn" href="" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a class="searchFaq" href="{% url 'faq-center' %}"><i class="fa fa-times searchFaqIcon"></i>إلغاء</a>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="container tech-content">
+    <h1 class="eventI">الاسئلة الشائعة (FAQS Center)</h1>
+    <div class="row all">
+        <div class="row">
+            <div class="col-md-4 wow fadeInUp text-center faMargin p-4 " data-wow-delay="0.3s">
+                <div class="cardFaq shadow-lg rounded-circle ">
+                    <a class="aTacFac" href="#conn">
+                        <div class="iconTacFaq "><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    </a>
+                    <h4 class="text-center ">استفسارات الربط (Connection)</h4>
+                </div>
+            </div>
+            <div class="col-md-4 wow fadeInUp text-center faMargin p-4  " data-wow-delay="0.3s">
+                <div class="cardFaq shadow-lg rounded-circle ">
+                    <a class="aTacFac" href="#jrm">
+                        <div class="iconTacFaq "><i class="fa-solid fa-network-wired"></i></div>
+                    </a>
+                    <h4 class="text-center">استفسارات عمليات الدمج والأستعلام </h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 wow fadeInUp text-center faMargin p-4 " data-wow-delay="0.3s">
+                <div class="cardFaq shadow-lg rounded-circle ">
+                    <a class="aTacFac" href="#portal">
+                        <div class="iconTacFaq "><i class="fa-solid fa-layer-group"></i></div>
+                    </a>
+                    <h4 class="text-center">استفسارات المنصة المكانية (Portal)</h4>
+
+                </div>
+            </div>
+
+            <div class="col-md-4 wow fadeInUp text-center faMargin p-4 " data-wow-delay="0.3s">
+                <div class="cardFaq shadow-lg rounded-circle ">
+                    <a class="aTacFac" href="#geomedia">
+                        <div class="iconTacFaq "><i class="fa-solid fa-display"></i></div>
+                    </a>
+                    <h4 class="text-center ">استفسارات البرامج (Geomedia)</h4>
+                </div>
+            </div>
+            <div class="col-md-4 wow fadeInUp text-center faMargin p-4  " data-wow-delay="0.3s">
+                <div class="cardFaq shadow-lg rounded-circle ">
+                    <a class="aTacFac" href="#dashboard">
+                        <div class="iconTacFaq "><i class="fa-solid fa-chart-line"></i></div>
+                    </a>
+                    <h4 class="text-center">استفسارات مؤشرات الأداء (Dashboard)</h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 wow fadeInUp text-center faMargin p-4 " data-wow-delay="0.3s">
+                <div class="cardFaq shadow-lg rounded-circle ">
+                    <a class="aTacFac" href="#erdas">
+                        <div class="iconTacFaq "><i class="fa-solid fa-spinner"></i></div>
+                    </a>
+                    <h4 class="text-center">استفسارات البرامج (Data Manager)</h4>
+
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="container aa">
+            <section class="faq-section">
+                <h3 class="h3Faq">1- استفسارات الربط</h3>
+                <div id="conn" class="container ">
+                    <div class="">
+                        <div class="col-md-12">
+                            <div class="faq" id="accordion">
+                                <!-- {% if shehta %} -->
+                                {% for each in shehta %}
+                                {% if each.category_name.id == 1 %}
+                                <div class="card   ">
+                                    <div class="card-header" id="faqHeading-1">
+                                        <div class="mb-0">
+                                            <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                                data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                                <span class="badge"></span>{{ each.question }}
+                                                ؟
+                                            </h5>
+
+                                        </div>
+                                    </div>
+                                    <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <p>{{ each.answer }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                <!-- {% endif %} -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h3Faq">2- استفسارات عمليات الدمج والأستعلام عن السراج</h3>
+                <div id="jrm" class="container">
+                    <div class="">
+                        <div class="col-md-12">
+                            <div class="faq" id="accordion">
+
+                                {% for each in shehta %}
+                                {% if each.category_name.id == 2 %}
+                                <div class="card">
+                                    <div class="card-header" id="faqHeading-1">
+                                        <div class="mb-0">
+                                            <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                                data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                                <span class="badge"></span>{{ each.question }}
+                                                ؟
+                                            </h5>
+
+                                        </div>
+                                    </div>
+                                    <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <p>{{ each.answer }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h3Faq">3- استفسارات المنصة المكانية (Portal)</h3>
+                <div id="portal" class="container">
+                    <div class="">
+                        <div class="col-md-12">
+                            <div class="faq" id="accordion">
+                                {% for each in shehta %}
+                                {% if each.category_name.id == 3 %}
+                                <div class="card">
+                                    <div class="card-header" id="faqHeading-1">
+                                        <div class="mb-0">
+                                            <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                                data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                                <span class="badge"></span>{{ each.question }}
+                                                ؟
+                                            </h5>
+
+                                        </div>
+                                    </div>
+                                    <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <p>{{ each.answer }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h3Faq">4- استفسارات البرامج (Geomedia)</h3>
+                <div id="geomedia" class="container">
+                    <div class="">
+                        <div class="col-md-12">
+                            <div class="faq" id="accordion">
+                                {% for each in shehta %}
+                                {% if each.category_name.id == 4 %}
+                                <div class="card">
+                                    <div class="card-header" id="faqHeading-1">
+                                        <div class="mb-0">
+                                            <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                                data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                                <span class="badge"></span>{{ each.question }}
+                                                ؟
+                                            </h5>
+
+                                        </div>
+                                    </div>
+                                    <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <p>{{ each.answer }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h3Faq">5- استفسارات مؤشرات الأداء (Dashboard)</h3>
+                <div id="dashboard" class="container">
+                    <div class="">
+                        <div class="col-md-12">
+                            <div class="faq" id="accordion">
+                                {% for each in shehta %}
+                                {% if each.category_name.id == 5 %}
+                                <div class="card">
+                                    <div class="card-header" id="faqHeading-1">
+                                        <div class="mb-0">
+                                            <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                                data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                                <span class="badge"></span>{{ each.question }}
+                                                ؟
+                                            </h5>
+
+                                        </div>
+                                    </div>
+                                    <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <p>{{ each.answer }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="h3Faq">6- استفسارات البرامج (Data Manager)</h3>
+                <div id="erdas" class="container">
+                    <div class="">
+                        <div class="col-md-12">
+                            <div class="faq" id="accordion">
+                                {% for each in shehta %}
+                                {% if each.category_name.id == 6 %}
+                                <div class="card">
+                                    <div class="card-header" id="faqHeading-1">
+                                        <div class="mb-0">
+                                            <h5 class="faq-title" data-toggle="collapse" data-target="#{{ each.id}}"
+                                                data-aria-expanded="true" data-aria-controls="{{ each.id}}">
+                                                <span class="badge"></span>{{ each.question }}
+                                                ؟
+                                            </h5>
+
+                                        </div>
+                                    </div>
+                                    <div id="{{ each.id}}" class="collapse" aria-labelledby="faqHeading-1"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+
+                                            <p>{{ each.answer }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+    </div>
+</div>
+{% endblock content %}

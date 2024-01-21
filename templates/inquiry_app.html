@@ -1,0 +1,517 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<style>
+    .map {
+        height: 100%;
+        width: 100%;
+        margin-top: 32px;
+    }
+
+    .d-none {
+        display: none;
+    }
+
+    .d-block {
+        display: block;
+    }
+
+    #tooltip {
+    height: 144px;
+    background: #781414;
+    color: #ffff;
+    font-size: 16px;
+    padding: 19px 30px 11px 12px;
+    border-bottom: 4px solid #ffffff;
+    direction: rtl;
+    z-index: 2;
+}
+#tooltip::after {
+    position: absolute;
+    content: '';
+    height: 31px;
+    width: 30px;
+    right: 86%;
+    top: 88%;
+    background: #781414;
+    transform: rotateZ(47deg);
+    border-right: 4px solid white;
+    z-index: 1;
+    border-bottom: 4px solid white;
+}
+#ol-tooltip-close {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 3px;
+    background: #ffffff00;
+    border: none;
+}
+
+    .aya {
+        position: absolute;
+        top: 97px;
+        right: 10px;
+        z-index: 33;
+        display: flex;
+        flex-direction: column;
+        direction: rtl;
+    }
+
+
+    form#form {
+        position: absolute;
+        top: 145px;
+        right: 10px;
+        z-index: 33;
+        background-color: rgb(255, 255, 255);
+
+    }
+
+    .allInputs {
+        width: 368px;
+    }
+
+    button.addFormm.ads {
+        padding: 3px 54px;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 100%;
+        margin: 12px 0px 15px 0px;
+    }
+
+    label {
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        color: #781414;
+        font-weight: bolder;
+        padding-bottom: 4px;
+    }
+
+    .container.allInputs {
+        padding: 10px 13px 13px 10px;
+    }
+
+    button.btn.btn-outline-success {
+        color: #771217;
+        font-size: 17px;
+        padding: 9px 33px;
+        border: 3px solid #ffffff;
+        border-radius: 22px;
+        background-color: white;
+    }
+
+    i.fa-solid.fa-magnifying-glass {
+        margin-left: 10px;
+    }
+
+    i#close {
+        color: #771217;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+
+    button#save-button,
+    button#draw-button {
+        background-color: #ffffff;
+        border: none;
+        font-size: 24px;
+        padding: 1px 1px;
+        margin-top: 10px;
+        width: 52px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    button#save-button {
+        font-size: 25px;
+    }
+
+    i.fa-solid.fa-save {
+        color: #bd8932;
+    }
+ 
+</style>
+
+<div class="mb-3 aya d-flex ">
+    <button class="btn btn-outline-success" id="ayas"> <i class="fa-solid fa-magnifying-glass fa-fade"></i>بحث منصة مصر
+        المكانية</button>
+    <button title="رسم المباني  " class="btn btn-outline-success butt2" id="draw-button"><i
+            class="fa-solid fa-draw-polygon "></i></button>
+    <button title=" تحميل البيانات" class="btn btn-outline-success butt2" id="save-button"><i
+            class="fa-solid fa-download  "></i></button>
+
+
+</div>
+
+
+
+<form id="form">
+    <div class="container allInputs ">
+        <div class="row">
+
+            <div class="col-md-12">
+                <i class="fa-solid fa-circle-xmark" id="close"></i>
+            </div>
+            <div class="col-md-12 ">
+                <label for="x">يمكنك البحث من خلال Y</label>
+
+                <input class="form-control" type="text" id="x" name="x" placeholder="--Y--">
+            </div>
+            <div class="col-md-12 ">
+                <label for="y">يمكنك البحث من خلال X</label>
+                <input class="form-control" type="text" id="y" name="y" placeholder="--X--">
+
+            </div>
+
+
+            <!-- <div class="col-md-12 " style="margin-top:12px">
+                <label for="seragid">يمكنك البحث من خلال SeragId</label>
+
+                <input class="form-control" type="text" id="seragid" name="seragid" placeholder="--SeragId--">
+            </div> -->
+            <br>
+            <div class="col-md-12 text-left">
+                <button type="submit" class="addFormm ads">بحث</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="map" class="map"></div>
+<div id="tooltip"></div>
+<div id="bookmark-container"></div>
+
+<i class="fa-solid fa-floppy-disks"></i>
+</div>
+
+<script src="{% static 'js/aya.js' %}"></script>
+
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+<!-- -----------maps---------------- -->
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.10.0/build/ol.js"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+
+
+
+
+<script>
+    document.getElementById('form').classList.add("d-none");
+    document.getElementById('ayas').addEventListener("click", function () {
+        document.getElementById('form').classList.remove("d-none");
+        document.getElementById('form').classList.add("d-block");
+        document.getElementById("save-button").style.position = "absolute";
+        document.getElementById('save-button').style.top = "279px";
+        document.getElementById("draw-button").style.position = "absolute";
+        document.getElementById('draw-button').style.top = "334px";
+
+    })
+    document.getElementById('close').addEventListener("click", function () {
+        document.getElementById('form').classList.remove("d-block");
+        document.getElementById('form').classList.add("d-none");
+        document.getElementById("save-button").style.position = "absolute";
+        document.getElementById('save-button').style.top = "50px";
+        document.getElementById("draw-button").style.position = "absolute";
+        document.getElementById('draw-button').style.top = "110px";
+
+    })
+
+
+
+
+    // var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    // });
+    // osm.addTo(map);
+
+
+    // script for map view  with using openlayer
+    var map = new ol.Map({
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.TileWMS({
+                    url: 'http://192.168.17.49:80/erdas-apollo/vector/country?service=WMS',
+                    params: {
+                        'LAYERS': 'country',
+                        'TILED': true
+                    },
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10  // set the maximum zoom level at which the layer will be visible
+            }),
+
+            new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://192.168.17.65:4433/2020/{z}/{x}/{y}.png',
+                    zIndex: 2,
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10
+
+            }),
+
+            new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://192.168.17.65:4433/L1/{z}/{x}/{y}.png'
+
+                }),
+                minZoom: 1, // set the minimum zoom level at which the layer will be visible
+                maxZoom: 10
+            }),
+
+
+
+
+        ],
+
+        target: 'map',
+        view: new ol.View({
+            center: ol.proj.fromLonLat([31.2357, 31, 481111]),
+            zoom: 9
+        })
+    });
+    // 
+
+
+
+    var layer = new ol.layer.Tile({
+        source: new ol.source.TileWMS({
+            url: 'http://192.168.17.49:80/erdas-apollo/vector/05_74K_BASEMAP?service=WMS',
+            params: {
+                'LAYERS': 'building,agri_area,roads_line,agri_point,utilities_point',
+                'TILED': true
+            },
+            // serverType: 'geoserver'
+        }),
+        minZoom: 15, // set the minimum zoom level at which the layer will be visible
+        maxZoom: 25  // set the maximum zoom level at which the layer will be visible
+    });
+
+
+    var googleStreets = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+            url: 'http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}',
+            // serverType: 'geoserver'
+        }),
+        minZoom: 10, // set the minimum zoom level at which the layer will be visible
+        maxZoom: 25  // set the maximum zoom level at which the layer will be visible
+    });
+
+
+
+
+
+
+    // draw ploygon
+    async function return_all(geom) {
+        // var res = await fetch(`http://192.168.17.73/API/csv/?geom=${geom}`)
+        var res = await fetch(`{% url 'downloadCsv' %}/?geom=${geom}`)
+        var data = await res.json()
+        return data
+
+    }
+
+    // function save data as csv 
+    function downloadCSV(data) {
+
+        const csvContent = "data:text/csv;charset=utf-8," + data.map(row => row.join(",")).join("\n");
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "mydata.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+
+    var draw_btn = document.getElementById('draw-button');
+    draw_btn.addEventListener('click', addInteraction)
+    var myStlye = new ol.style.Style({
+        fill: new ol.style.Fill({
+            color: 'rgba(255,100,50,0.5)'
+        }),
+        stroke: new ol.style.Stroke({ color: '#781414', width: 2 }),
+    });
+    var source = new ol.source.Vector();
+    var vector = new ol.layer.Vector({
+        source: source,
+        style: myStlye
+    });
+
+
+
+    var draw;
+    function addInteraction() {
+        draw = new ol.interaction.Draw({
+            source: source,
+            type: 'Polygon'
+        });
+        map.addInteraction(draw);
+    }
+
+    var saveButton = document.getElementById('save-button');
+    saveButton.addEventListener('click', async function () {
+        var format = new ol.format.GeoJSON();
+        var features = source.getFeatures();
+        var geometry = features[0].getGeometry();
+        console.log(geometry)
+        var json = format.writeGeometry(geometry);
+        var data = [['seragid', 'x', 'y']]
+        const rr = await return_all(json);
+        const all = [...data, ...rr];
+        downloadCSV(all)
+        map.removeInteraction(draw);
+
+    });
+
+
+    map.addLayer(googleStreets);
+    map.addLayer(layer);
+
+
+    // style for layer
+    const styleFunction = function (feature) {
+        const iconStyle = new ol.style.Style({
+            image: new ol.style.Icon({
+                anchor: [0.5, 46],
+                anchorXUnits: 'fraction',
+                anchorYUnits: 'pixels',
+                src: "{% static 'media/marker.png'%}"
+            }),
+            text: new ol.style.Text({
+                text: feature.get('name'),
+                offsetY: -20,
+                fill: new ol.style.Fill({
+                    color: 'red'
+                })
+            })
+        });
+
+        return [iconStyle];
+    };
+
+    // Zoom to x and Y filter 
+    // -*----------------------------
+    // function that zoom to coordinate 
+    function zoomToCoordinates(lat, lon) {
+        const coordinate = ol.proj.fromLonLat([lon, lat], 'EPSG:3857');
+        console.log(coordinate)
+        var view = map.getView();
+        view.animate({
+            center: coordinate,
+            zoom: 20,
+            duration: 2000
+        });
+
+        const extent = [-20037508.34, -20037508.34, 20037508.34, 20037508.34];
+
+        // add bookmark
+        // Add bookmark link with the current view parameters
+        var marker = new ol.Feature({
+            geometry: new ol.geom.Point(coordinate)
+        });
+        var markerLayer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+                features: [marker]
+            }),
+            // projection: 'EPSG:4326',
+            style: styleFunction
+        });
+        console.log(markerLayer)
+        map.addLayer(markerLayer);
+
+
+
+        if (!ol.extent.containsCoordinate(extent, coordinate)) {
+            alert('Coordinates are outside the bounds of the map.');
+            return;
+        }
+    }
+    const form = document.getElementById('form');
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const lat = Number(form.elements['x'].value);
+        const lon = Number(form.elements['y'].value);
+        zoomToCoordinates(lat, lon);
+
+    });
+
+
+
+
+
+
+
+
+
+
+    // ----------------------------------------------//
+    //  new to add tool tip of get searg id 
+    // create an overlay to display the tooltip
+    var tooltip = new ol.Overlay({
+        element: document.getElementById('tooltip'),
+        offset: [10, 0],
+        positioning: 'bottom-left'
+    });
+
+
+    // add the overlay to the map
+    map.addOverlay(tooltip);
+
+    // create an event listener to handle mouse move events
+    async function a(x, y) {
+        var searg = await fetch(`{% url 'zoomTo' %}/?x=${x}&y=${y}`)
+        var mySerag = await searg.json()
+        return mySerag
+
+    }
+    map.on('click', async function (event) {
+        var coords = ol.proj.toLonLat(event.coordinate);
+        var x = coords[0];
+        var y = coords[1];
+        tooltip.getElement().style.display = 'block';
+        try {
+            var mySerag = await a(x, y)
+            tooltip.setPosition(event.coordinate);
+            tooltip.getElement().innerHTML = '<p >SeragID : ' + mySerag['seragid'] + '<br> المحافظة :  ' + mySerag['gov'] + ' <br> المركز : ' + mySerag['sec'] + ' <br> الشياخة : ' + mySerag['ssec'] + ' </p> <button id="ol-tooltip-close">X</button>';
+            var closeButton = document.getElementById('ol-tooltip-close');
+            closeButton.addEventListener('click', () => {
+                // Hide or remove the tooltip element
+                tooltip.getElement().style.display = 'none'  // Or tooltip.remove() to completely remove the element from the DOM
+            });
+        }
+        catch (error) {
+            tooltip.setPosition(event.coordinate);
+            tooltip.getElement().innerHTML = '<p>لا يوجد بيانات لهذه الاحداثيات  </p> <button id="ol-tooltip-close">X</button>';
+            var closeButton = document.getElementById('ol-tooltip-close');
+            closeButton.addEventListener('click', () => {
+                // Hide or remove the tooltip element
+                tooltip.getElement().style.display = 'none'  // Or tooltip.remove() to completely remove the element from the DOM
+            });
+        }
+    });
+
+
+
+
+
+
+    // return data from polygon 
+
+
+
+
+    map.addLayer(vector);
+
+
+    
+
+ 
+</script>
+
+{% endblock%}

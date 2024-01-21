@@ -1,0 +1,88 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<section id="newss">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12 wow fadeIn head" data-wow-delay="0.3s">
+                    <h1 class="text-upper">
+                        <hr class="spectra1">أهم الأخبار بالمركز الوطنى للبنية المعلوماتية المكانية
+                    </h1>
+                    <p class="tm-white">
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container" style="margin-top: 3%;">
+    
+    <div class="row">
+        <div class="col-md-3">
+            <h5 class="newshead">الأكثر قرائة</h5>
+            {% for each in news|slice:":8" %}
+            <div class="sldie">
+                <img src="{{each.photo.url}}" alt="">
+                <a href="index/details/{{each.id}}">{{each.title}}</a>
+                <p style="color: grey; font-size: 12px;"><i class="fa fa-clock"></i> {{each.get_date}} | <i class="fa fa-eye"></i> عدد الزيارات {{each.news_view}}</p>
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-8">
+            {% for each in page_obj %}
+            <div class="card cardBack" style="width:100%;height: 100%; ">
+                <h2 class="card-title" style="padding-bottom: 2%;">{{each.title}}</h2>
+                <div class="iimgN text-center">
+                <a class="newsImg" href="index/details/{{each.id}}"><img src="{{each.photo.url}}" class="card-img-top newsImgs" style="width: 70%;" alt="..."></a>
+            </div>
+                <div class="card-body" style="height: 100%;">
+                    <p style="color: green;"><i class="fa fa-clock"></i> {{each.get_date}}  |  <i class="fa fa-eye"></i> عدد الزيارات {{each.news_view}}</p>
+                    <p class="card-text">{{each.description|slice:":800"}} ......</p>
+                    <a href="index/details/{{each.id}}"> >> المزيد من التفاصيل</a>
+                </div>
+            </div>
+            <hr class="">
+            
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+              <!--Pagination-->
+              <div class="container p-4 text-center">
+                <div class="pagination justify-content-center" style="direction: rtl;">
+                    {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}">  السابق &raquo;</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    {% endif %}
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">&laquo;  التالى</a></li>
+                    {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                    {% endif %}
+               
+                </div>
+            </div>
+<!-- end pagination -->
+
+
+
+
+
+
+
+{% endblock content %}

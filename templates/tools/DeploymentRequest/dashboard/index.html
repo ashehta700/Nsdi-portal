@@ -1,0 +1,157 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<section id="request" dir="rtl">
+    <div class="container divlayer">
+        <div class="row panel panel-default text-center">
+            <div class="panel-heading">
+                <div class="row">
+                    <h1 class="h1layer">طلبات نشر مؤشرات الأداء</h1>
+
+                </div>
+               
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead class="bordered2">
+                        <tr>
+                            <th class="thlayer" scope="col">رقم الطلب</th>
+                            <th class="thlayer" scope="col">الجهة الراسلة</th>
+                            <th  class="thlayer" scope="col">تاريخ الارسال</th>
+                            <th class="thlayer" scope="col">الرابط</th>
+                            <th  class="thlayer" scope="col">الوصف  </th>
+                            <th class="thlayer" scope="col">الرد</th>
+                            <th  class="thlayer" scope="col"><i class="fa fa-cogs setting"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- showing all MergeRequests for admin user -->
+                        {% if request.user.Profiles.role_id.code == 3 %}
+                        {% for each in page_obj %}
+                        <tr>
+                            <td>{{each.id}}</td>
+                            <td>{{each.user_sender}}</td>
+                            <td>{{each.date|date:'Y/m/d -- h:i A '}}</td>
+                            <td>{{each.app_link}}</td>
+                            <td>{{each.app_description}}</td>
+                            <td>
+                                {% if each.response_message and not each.refuse_message %}
+                                <i class="fa fa-check-circle text-success size" title="تم قبول الطلب"></i>
+                                {% endif %}
+                                {% if not each.response_message and not each.refuse_message %}
+                                <i class="fa fa-exclamation-triangle size" style="color:#b88527;"
+                                    title="لم يتم الرد"></i>
+                                {% endif %}
+                                {% if not each.response_message and each.refuse_message %}
+                                <i class="fa fa-times-circle text-danger size" title="تم رفض الطلب"></i>
+                                {% endif %}
+                            </td>
+
+                            <td class="row aal">
+                                {% if request.user.Profiles.role_id.code == 3 %}
+                                {% if not each.response_message and not each.refuse_message %}
+                                <a href="{% url 'deploymentRequestApp-response' each.id %}" title="رد على الطلب"
+                                    class="btn addFormm col"><i class="fa fa-reply-all"></i></a>
+                                {% endif %}
+                                {% endif %}
+                                {% if request.user.Profiles.role_id.code == 3 %}
+                                <a  title="حذف الطلب"
+                                    href="{% url 'deploymentRequestApp-delete' each.id %}" class="btn deletFormm col"
+                                    style="margin-right:4px ;"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                                <a title="تفاصيل الطلب" href="{% url 'deploymentRequestApp-details' each.id %}"
+                                    class="btn itenFormm col" style="margin-right:4px ;"><i class="fa fa-info"></i></a>
+
+                            </td>
+
+                        </tr>
+                        <!-- confirm delte  -->
+
+                        {% empty %}
+                        <tr>
+                            <td colspan="7">
+                                <div class="alert alert-danger" role="alert">
+                                    صندوق الطلبات فارغ
+                                </div>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                        {% endif %}
+                        <!-- show MergeRequests for any user how sent only -->
+                        {% if request.user.Profiles.role_id.code == 2 or request.user.Profiles.role_id.code == 1 %}
+                        {% for each in request_user %}
+                        <tr>
+                            <td>{{each.id}}</td>
+                            <td>{{each.user_sender}}</td>
+                            <td>{{each.date|date:'Y/m/d -- h:i A '}}</td>
+                            <td>{{each.path}}</td>
+                            <td>{{each.note}}</td>
+                            <td>
+                                {% if each.response_message and not each.refuse_message %}
+                                <i class="fa fa-check-circle text-success size" title="تم قبول الطلب"></i>
+                                {% endif %}
+                                {% if not each.response_message and not each.refuse_message %}
+                                <i class="fa fa-exclamation-triangle size" style="color: rgb(163, 163, 5);"
+                                    title="لم يتم الرد"></i>
+                                {% endif %}
+                                {% if not each.response_message and each.refuse_message %}
+                                <i class="fa fa-times-circle text-danger size" title="تم رفض الطلب"></i>
+                                {% endif %}
+                            </td>
+
+                            <td class="row">
+                                <a title="تفاصيل الطلب" href="{% url 'deploymentRequestApp-details' each.id %}"
+                                    class="btn btn-info col" style="margin-right:4px ;"><i class="fa fa-info"></i></a>
+
+                            </td>
+
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7">
+                                <div class="alert alert-danger" role="alert">
+                                    صندوق الطلبات فارغ
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+                 <!--Pagination-->
+                 <div class="container p-4 text-center">
+                    <div class="pagination justify-content-center" style="direction: rtl;">
+                        {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}">  السابق &raquo;</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                        {% for i in page_obj.paginator.page_range %}
+                        {% if page_obj.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}">&laquo;  التالى</a></li>
+                        {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                   
+                    </div>
+                </div>
+                <!--end of Pagination-->
+                    <button onclick="window.open('{% url 'deploymentRequestApp-create' %}','_self')"
+                    class="btn addFormm pull-left"><i class="fa fa-plus"></i> انشاء طلب جديد</button>
+                <button onclick="window.open('{% url 'deploymentRequest' %}','_self');" class="btn deletFormm pull-left"
+                    style="margin-left: 5px;"><i class="fa fa-undo"></i> عودة</button>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
